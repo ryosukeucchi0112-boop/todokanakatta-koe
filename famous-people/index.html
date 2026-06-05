@@ -1,1 +1,758 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>星浜ローカル・クロニクル｜劇中広報記事｜黒崎恒一郎</title>
+  <meta
+    name="description"
+    content="創作作品内に登場する架空の地域広報記事です。黒崎恒一郎という劇中人物を紹介する演出用ページです。"
+  />
+
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffdf8;
+      --paper-strong: #fff8ee;
+      --text: #2d2924;
+      --sub: #6a6258;
+      --muted: #8a8176;
+      --line: #ded2bf;
+      --line-soft: #ebe0d0;
+      --red: #b83f3a;
+      --red-soft: #fff0ef;
+      --blue: #355f78;
+      --blue-soft: #edf5f8;
+      --gold: #c59a4d;
+      --gold-soft: #fff5dc;
+      --fiction-gray: #eeeeee;
+      --fiction-text: #5f6368;
+      --shadow: 0 18px 44px rgba(71, 53, 29, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        "YuGothic",
+        "Noto Sans JP",
+        sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(197, 154, 77, 0.12), transparent 32%),
+        linear-gradient(180deg, #f4efe5 0%, #fbf8f1 100%);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .fiction-fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      min-height: 34px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--fiction-gray);
+      color: var(--fiction-text);
+      border-bottom: 1px solid #d8d8d8;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .site-wrap {
+      padding-top: 34px;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: rgba(255, 253, 248, 0.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 16px rgba(71, 53, 29, 0.05);
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .brand small {
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      font-size: 1.16rem;
+      color: var(--red);
+      letter-spacing: 0.08em;
+      font-weight: 900;
+    }
+
+    .nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--sub);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .nav a {
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+
+    .page {
+      padding: 30px 0 58px;
+    }
+
+    .article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      padding: 30px 30px 24px;
+      background:
+        linear-gradient(135deg, rgba(184, 63, 58, 0.07), rgba(53, 95, 120, 0.07)),
+        var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(197, 154, 77, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(197, 154, 77, 0.06) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 72%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 5px 12px;
+      background: var(--red);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .tag.sub {
+      background: var(--blue);
+    }
+
+    .tag.soft {
+      background: #fff;
+      color: var(--sub);
+      border: 1px solid var(--line);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.28rem);
+      font-weight: 900;
+      color: #2f2922;
+      letter-spacing: 0.055em;
+      line-height: 1.35;
+    }
+
+    .stage-label {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin: 13px 0 0;
+      padding: 6px 11px;
+      border-radius: 8px;
+      background: var(--red-soft);
+      color: var(--red);
+      border: 1px solid #ecc4c1;
+      font-size: 0.86rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.48fr) minmax(270px, 0.9fr);
+      gap: 28px;
+      align-items: start;
+      margin-top: 20px;
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .name-box {
+      position: relative;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-left: 7px solid var(--gold);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .name-box::after {
+      content: "LOCAL FEATURE ARCHIVE";
+      position: absolute;
+      right: 18px;
+      bottom: 12px;
+      color: rgba(106, 98, 88, 0.18);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+    }
+
+    .name-box h2 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      letter-spacing: 0.08em;
+      color: var(--red);
+    }
+
+    .name-box p {
+      position: relative;
+      z-index: 1;
+      margin: 7px 0 0;
+      color: var(--sub);
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+    }
+
+    .lead {
+      margin: 0 0 15px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #51483f;
+      line-height: 1.9;
+    }
+
+    .hero-copy p,
+    .body p {
+      margin: 0 0 14px;
+      font-size: 1rem;
+    }
+
+    .highlight-box {
+      background: var(--red-soft);
+      border: 1px solid #efd0cd;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .highlight-box strong {
+      color: var(--red);
+    }
+
+    .side-col {
+      display: grid;
+      gap: 16px;
+    }
+
+    .photo-box {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #f4eee5;
+      box-shadow: 0 10px 24px rgba(71, 53, 29, 0.08);
+    }
+
+    .person-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: #e9e1d5;
+    }
+
+    .photo-meta {
+      background: #fff;
+      border-top: 1px solid var(--line-soft);
+      padding: 11px 12px 13px;
+    }
+
+    .photo-caption {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      color: var(--sub);
+      line-height: 1.65;
+    }
+
+    .asset-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 24px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      color: #686868;
+      border: 1px solid #dddddd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .photo-fiction-note {
+      margin: 10px 0 0;
+      padding-top: 10px;
+      border-top: 1px dashed #ddd1bf;
+      color: #686159;
+      font-size: 0.78rem;
+      line-height: 1.75;
+    }
+
+    .profile-card {
+      background: var(--blue-soft);
+      border: 1px solid #cfe0ea;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .profile-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.12rem;
+      color: var(--blue);
+      letter-spacing: 0.05em;
+    }
+
+    .profile-card ul {
+      margin: 0 0 11px;
+      padding-left: 1.15em;
+    }
+
+    .profile-card li {
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .profile-card p {
+      margin: 0;
+      color: #4f5960;
+      font-size: 0.94rem;
+      line-height: 1.85;
+    }
+
+    .section {
+      padding: 28px 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 15px;
+      background: var(--gold-soft);
+      border-left: 6px solid var(--gold);
+      border-radius: 999px;
+      font-size: 1.14rem;
+      font-weight: 900;
+      color: #5f4c2d;
+      letter-spacing: 0.04em;
+    }
+
+    .section-note-label {
+      display: inline-flex;
+      width: fit-content;
+      margin: 0 0 16px;
+      padding: 5px 10px;
+      border-radius: 7px;
+      color: var(--red);
+      background: var(--red-soft);
+      border: 1px solid #edc6c4;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .qa-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .qa-item {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .qa-q {
+      background: var(--blue-soft);
+      padding: 14px 16px;
+      font-weight: 900;
+      color: var(--blue);
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .qa-a {
+      padding: 14px 16px 16px;
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .closing-note {
+      background: linear-gradient(180deg, #fff8ec 0%, #f8efdf 100%);
+    }
+
+    .fiction-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 18px 20px;
+      color: #5c554d;
+      font-size: 0.92rem;
+      line-height: 1.9;
+    }
+
+    .fiction-card strong {
+      color: var(--red);
+    }
+
+    .footer {
+      padding: 20px 0 38px;
+      color: var(--sub);
+      font-size: 0.84rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .fiction-note {
+      max-width: 860px;
+      font-size: 0.84rem;
+      line-height: 1.85;
+      color: #665f57;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .side-col {
+        max-width: 520px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .fiction-fixed-header {
+        min-height: 38px;
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+
+      .site-wrap {
+        padding-top: 38px;
+      }
+
+      .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .nav {
+        gap: 12px;
+        font-size: 0.86rem;
+      }
+
+      .page {
+        padding: 18px 0 44px;
+      }
+
+      .hero,
+      .section {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .article {
+        border-radius: 18px;
+      }
+
+      .name-box {
+        padding: 18px;
+      }
+
+      .name-box::after {
+        display: none;
+      }
+
+      .name-box h2 {
+        letter-spacing: 0.04em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fiction-fixed-header">
+    このページは創作作品上の架空広報記事です。実在の人物・団体・地域広報・医療機関・教育機関とは関係ありません。
+  </div>
+
+  <div class="site-wrap">
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <small>HOSHIHAMA LOCAL CHRONICLE</small>
+          <strong>星浜ローカル・クロニクル</strong>
+        </div>
+
+        <nav class="nav" aria-label="ページ内ナビゲーション">
+          <a href="#feature">特集</a>
+          <a href="#interview">Q&A</a>
+          <a href="#notice">注記</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="container">
+        <article class="article" id="feature">
+          <section class="hero">
+            <div class="hero-inner">
+              <div class="hero-top">
+                <span class="tag">人物アーカイブ</span>
+                <span class="tag sub">地域特集</span>
+                <span class="tag soft">第1回</span>
+              </div>
+
+              <h1 class="hero-title">星浜エリア人物録　第1弾</h1>
+              <p class="stage-label">劇中広報記事</p>
+
+              <div class="hero-grid">
+                <div class="hero-copy">
+                  <div class="name-box">
+                    <h2>黒崎恒一郎</h2>
+                    <p>くろさき こういちろう</p>
+                  </div>
+
+                  <p class="lead">
+                    地域医療と教育、二つの分野で星浜エリアを支える人物として知られる黒崎恒一郎さん。
+                    今回はその活動や思いについて伺いました。
+                  </p>
+
+                  <p>
+                    星浜エリアで活動する人物を紹介する本特集。第1弾では、
+                    <strong>城南記念総合病院の院長</strong>として地域医療に携わりながら、
+                    <strong>私立星浜学園の理事長</strong>として教育の現場にも関わる黒崎恒一郎さんに注目します。
+                  </p>
+
+                  <p>
+                    病院では、安心して相談できる地域医療の拠点づくりに尽力し、
+                    学校では、落ち着いて学べる環境整備や地域とのつながりを大切にした運営を進めているとのこと。
+                    一見異なる二つの役割ですが、「地域の基盤を支える」という点で共通しているといいます。
+                  </p>
+
+                  <div class="highlight-box">
+                    <strong>ポイント：</strong>
+                    黒崎さんは、<strong>城南記念総合病院の院長</strong>と
+                    <strong>私立星浜学園の理事長</strong>という二つの立場から、
+                    星浜エリアの暮らしと未来を支える存在として知られています。
+                  </div>
+
+                  <p>
+                    真面目で落ち着いた語り口の中にも、地域への責任感と温かなまなざしが感じられる黒崎さん。
+                    医療と教育の両方に関わるその歩みは、星浜エリアならではの“顔”の一つと言えそうです。
+                  </p>
+                </div>
+
+                <aside class="side-col" aria-label="人物写真とプロフィール">
+                  <div class="photo-box">
+                    <img
+                      src="kurosaki.png"
+                      alt="黒崎恒一郎の劇中人物写真"
+                      class="person-photo"
+                    />
+
+                    <div class="photo-meta">
+                      <p class="photo-caption">
+                        地域医療と教育の両面で活動する黒崎恒一郎さん
+                      </p>
+
+                      <span class="asset-tag">AI-generated portrait</span>
+
+                      <p class="photo-fiction-note">
+                        本記事は創作作品に登場する架空取材記事です。
+                        人物写真・団体名・肩書・記事本文は演出目的で作成したもので、
+                        実在の人物・団体とは関係ありません。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="profile-card">
+                    <h3>プロフィール</h3>
+                    <ul>
+                      <li>城南記念総合病院　院長</li>
+                      <li>私立星浜学園　理事長</li>
+                    </ul>
+                    <p>
+                      星浜エリアを拠点に、医療と教育の両面から地域に貢献。
+                      落ち着いた人柄と幅広い視野で、多方面から信頼を集めている。
+                    </p>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </section>
+
+          <section class="section body" id="interview">
+            <h2 class="section-title">ちょこっとインタビュー</h2>
+            <p class="section-note-label">劇中広報記事</p>
+
+            <div class="qa-list">
+              <div class="qa-item">
+                <div class="qa-q">
+                  Q. 医療と教育、二つの分野に関わるようになったきっかけは？
+                </div>
+                <div class="qa-a">
+                  A. どちらも地域の安心を支える大切な役割だと感じてきたからです。
+                  病院は人の健康を守る場所、学校は未来を育てる場所です。
+                  異なるように見えて、どちらも地域にとって欠かせない存在だと思っています。
+                </div>
+              </div>
+
+              <div class="qa-item">
+                <div class="qa-q">
+                  Q. 日々の仕事で大切にしていることは何でしょうか？
+                </div>
+                <div class="qa-a">
+                  A. 目の前の一人ひとりに丁寧に向き合うことです。
+                  病院でも学校でも、小さな声に耳を傾けることが、信頼につながると考えています。
+                </div>
+              </div>
+
+              <div class="qa-item">
+                <div class="qa-q">
+                  Q. 星浜エリアのこれからに期待することを教えてください。
+                </div>
+                <div class="qa-a">
+                  A. 子どもたちが安心して学び、大人たちが安心して暮らせるまちであり続けてほしいですね。
+                  医療・教育・地域がそれぞれ支え合うことで、もっと魅力ある星浜エリアになっていくと思います。
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section closing-note" id="notice">
+            <h2 class="section-title">掲載注記</h2>
+
+            <div class="fiction-card">
+              <strong>本記事は創作作品内の演出ページです。</strong><br />
+              本記事は創作作品に登場する架空取材記事です。
+              人物写真・団体名・肩書・記事本文は演出目的で作成したもので、
+              実在の人物・団体・地域広報・医療機関・教育機関とは関係ありません。
+            </div>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span class="footer-brand">© 星浜ローカル・クロニクル</span>
+
+        <span class="fiction-note">
+          ※本記事は創作作品に登場する架空取材記事です。人物写真・団体名・肩書・記事本文は演出目的で作成したもので、実在の人物・団体とは関係ありません。
+        </span>
+
+        <span class="fiction-note">
+          ※人物・施設・風景等の画像はAI生成画像または加工画像を含みます。実在の人物・団体・施設・地域広報誌とは関係ありません。
+        </span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
