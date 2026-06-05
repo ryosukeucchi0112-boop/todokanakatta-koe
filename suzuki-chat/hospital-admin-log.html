@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>restricted_admin_log_0117.html</title>
+
+  <style>
+    :root {
+      --fiction-header-height: 34px;
+
+      --bg: #e9eaec;
+      --card: #fdfdfd;
+      --text: #171717;
+      --muted: #666;
+      --line: #d5d7db;
+      --dark-line: #b8bbc1;
+      --label: #2b2b2b;
+      --danger: #111;
+      --soft: #f4f4f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding-top: var(--fiction-header-height);
+      background:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        var(--bg);
+      color: var(--text);
+      font-family: "Courier New", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, monospace;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    /* =========================================================
+       統一フィクションヘッダー
+       ========================================================= */
+
+    .fiction-fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      min-height: var(--fiction-header-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 14px;
+      background: #eeeeee;
+      border-bottom: 1px solid #d2d2d2;
+      color: #555;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .page {
+      width: min(980px, calc(100% - 28px));
+      margin: 34px auto 22px;
+    }
+
+    .top-link {
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    .top-link a {
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #888;
+    }
+
+    .top-link a:hover {
+      background: #ddd;
+    }
+
+    .document {
+      background: var(--card);
+      border: 1px solid var(--dark-line);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      padding: 26px 30px 20px;
+      border-bottom: 2px solid #222;
+      background: #fafafa;
+    }
+
+    .hospital {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+    }
+
+    .subhead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      color: #333;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border: 1px solid #111;
+      color: #111;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      background: #fff;
+    }
+
+    .stamp.fill {
+      background: #111;
+      color: #fff;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 7px 14px;
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .meta-key {
+      color: #555;
+    }
+
+    .meta-value {
+      color: #111;
+      font-weight: 600;
+    }
+
+    .export-note {
+      margin-top: 16px;
+      color: #777;
+      font-size: 11px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 30px;
+      background: #f2f2f3;
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      color: #555;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tiny-label {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid #999;
+      background: #fff;
+      color: #333;
+      font-size: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.1em;
+    }
+
+    .log-list {
+      padding: 0 30px;
+    }
+
+    .log-entry {
+      display: grid;
+      grid-template-columns: 78px 190px 1fr;
+      gap: 14px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .time {
+      color: #555;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .sender {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .message {
+      color: #222;
+    }
+
+    .system-entry {
+      background: #f5f5f5;
+      margin: 0 -30px;
+      padding-left: 30px;
+      padding-right: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .redacted {
+      display: inline-block;
+      min-width: 82px;
+      height: 1em;
+      vertical-align: -0.12em;
+      background: #111;
+      border-radius: 1px;
+      margin: 0 2px;
+    }
+
+    .attachment {
+      padding: 22px 30px 26px;
+      background: #fafafa;
+      border-top: 2px solid #222;
+    }
+
+    .attachment-title {
+      color: #333;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      margin-bottom: 10px;
+    }
+
+    .file-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 14px;
+      background: #fff;
+      border: 1px solid var(--dark-line);
+      text-decoration: none;
+      color: #111;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .file-card:hover {
+      background: #f0f0f0;
+      border-color: #444;
+    }
+
+    .file-name {
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .file-meta {
+      color: #666;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .access-level {
+      margin-top: 9px;
+      color: #777;
+      font-size: 11px;
+    }
+
+    .notice-box {
+      margin: 22px 30px 0;
+      padding: 12px 14px;
+      border: 1px solid #d0d0d0;
+      background: #f7f7f7;
+      color: #555;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 11px;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+    }
+
+    .footer {
+      width: min(980px, calc(100% - 28px));
+      margin: 14px auto 26px;
+      color: #777;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --fiction-header-height: 42px;
+      }
+
+      .fiction-fixed-header {
+        min-height: var(--fiction-header-height);
+        padding: 7px 12px;
+        font-size: 10px;
+      }
+
+      .page {
+        width: min(100% - 18px, 980px);
+        margin-top: 18px;
+      }
+
+      .header,
+      .toolbar,
+      .log-list,
+      .attachment {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .notice-box {
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .meta-key {
+        margin-top: 8px;
+      }
+
+      .log-entry {
+        grid-template-columns: 1fr;
+        gap: 3px;
+        padding: 15px 0;
+        font-size: 13px;
+      }
+
+      .system-entry {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .file-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .file-meta {
+        white-space: normal;
+      }
+    }
+
+    @media print {
+      body {
+        padding-top: 0;
+        background: #fff;
+      }
+
+      .fiction-fixed-header,
+      .top-link {
+        display: none;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+      }
+
+      .document {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fiction-fixed-header">
+    このページは創作作品内の架空資料です。実在の病院・医師・患者・事件・内部文書とは関係ありません。
+  </div>
+
+  <main class="page">
+    <div class="top-link">
+      <a href="./hospital-admin-log.html">open</a>
+    </div>
+
+    <section class="document" aria-label="城南記念総合病院 内部管理ログ">
+      <header class="header">
+        <div class="hospital">JONAN MEMORIAL HOSPITAL</div>
+
+        <div class="subhead">
+          <span>ADMIN LOG / Restricted</span>
+          <span class="stamp fill">RESTRICTED</span>
+          <span class="stamp">CONFIDENTIAL</span>
+          <span class="stamp">READ ONLY</span>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-key">案件：</div>
+          <div class="meta-value">成瀬栞様 死亡事案</div>
+
+          <div class="meta-key">日時：</div>
+          <div class="meta-value">2026-01-17 20:18</div>
+
+          <div class="meta-key">閲覧：</div>
+          <div class="meta-value">院長室・管理部・法務</div>
+
+          <div class="meta-key">管理区分：</div>
+          <div class="meta-value">Internal Communication Archive / Case-0117</div>
+        </div>
+
+        <div class="export-note">Exported from internal communication archive</div>
+      </header>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="tiny-label">AUDIT LOG</span>
+          <span class="tiny-label">NO EXTERNAL COPY</span>
+        </div>
+        <div class="toolbar-right">
+          <span>Session ID: JMH-ADM-0117-1918</span>
+          <span>Checksum: <span class="redacted" aria-label="redacted"></span></span>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        この記録はARG作品内の演出用に作成された架空ログです。実在する医療機関の記録、患者情報、法務文書、内部通信ではありません。
+      </div>
+
+      <section class="log-list" aria-label="内部通信ログ">
+        <article class="log-entry">
+          <div class="time">[20:18]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            遺族側が投与内容の開示を求めています。<br />
+            誤投与と判断された場合、賠償金は数億円規模まで膨らむ可能性があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:19]</div>
+          <div class="sender">法務担当</div>
+          <div class="message">
+            「誤投与」「過失」は絶対に認めないでください。<br />
+            謝罪も不可です。<br />
+            一度認めれば、賠償交渉の前提になります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:20]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            正確な情報が外に出れば、報道は避けられません。<br />
+            外来・紹介・学校関連契約も止まります。<br />
+            最悪、病院の存続に関わります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:21]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            だから認めるなと言っています。<br />
+            本件は「処置後の予期せぬ急変」で統一してください。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:22]</div>
+          <div class="sender">外科部 / 藍沢晋作</div>
+          <div class="message">
+            投与記録を見られた場合、説明できない箇所があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:23]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            説明できる形に整えてください。<br />
+            事故扱いにした瞬間、病院は終わります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:24]</div>
+          <div class="sender">法務担当</div>
+          <div class="message">
+            内部文書に「ミス」「誤投与」「アナフィラキシー」は残さないでください。<br />
+            記録、メール、チャットも同様です。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:25]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            三浦新聞が動いています。<br />
+            正確な情報が出れば、過去の件まで掘られる可能性があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:26]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            正確な情報を出すな。<br />
+            病院が倒れれば、ここにいる全員が路頭に迷います。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:27]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            遺族対応は「予期せぬ容体変化」。<br />
+            新聞には「個別診療は非開示」。<br />
+            それ以外は出さない。
+          </div>
+        </article>
+
+        <article class="log-entry system-entry">
+          <div class="time">[20:30]</div>
+          <div class="sender">SYSTEM</div>
+          <div class="message">
+            このログは管理者により閲覧制限されました。
+          </div>
+        </article>
+      </section>
+
+      <section class="attachment" aria-label="添付ファイル">
+        <div class="attachment-title">ATTACHMENT</div>
+
+        <a class="file-card" href="#" aria-label="restricted case file">
+          <span class="file-name">case_0117_internal_summary.redacted</span>
+          <span class="file-meta">READ ONLY / ACCESS LIMITED</span>
+        </a>
+
+        <div class="access-level">
+          Access level: Director / Legal / Administrative Control
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    This page is part of a fictional ARG. All names, organizations, medical records, and events are fictional.<br />
+    人物・団体・施設・記録はすべて創作上の設定です。
+  </footer>
+</body>
+</html>      margin: 34px auto 22px;
+    }
+
+    .top-link {
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    .top-link a {
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #888;
+    }
+
+    .top-link a:hover {
+      background: #ddd;
+    }
+
+    .document {
+      background: var(--card);
+      border: 1px solid var(--dark-line);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      padding: 26px 30px 20px;
+      border-bottom: 2px solid #222;
+      background: #fafafa;
+    }
+
+    .hospital {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+    }
+
+    .subhead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      color: #333;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border: 1px solid #111;
+      color: #111;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      background: #fff;
+    }
+
+    .stamp.fill {
+      background: #111;
+      color: #fff;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 7px 14px;
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .meta-key {
+      color: #555;
+    }
+
+    .meta-value {
+      color: #111;
+      font-weight: 600;
+    }
+
+    .export-note {
+      margin-top: 16px;
+      color: #777;
+      font-size: 11px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 30px;
+      background: #f2f2f3;
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      color: #555;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tiny-label {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid #999;
+      background: #fff;
+      color: #333;
+      font-size: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.1em;
+    }
+
+    .log-list {
+      padding: 0 30px;
+    }
+
+    .log-entry {
+      display: grid;
+      grid-template-columns: 78px 190px 1fr;
+      gap: 14px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .time {
+      color: #555;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .sender {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .message {
+      color: #222;
+    }
+
+    .system-entry {
+      background: #f5f5f5;
+      margin: 0 -30px;
+      padding-left: 30px;
+      padding-right: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .redacted {
+      display: inline-block;
+      min-width: 82px;
+      height: 1em;
+      vertical-align: -0.12em;
+      background: #111;
+      border-radius: 1px;
+      margin: 0 2px;
+    }
+
+    .attachment {
+      padding: 22px 30px 26px;
+      background: #fafafa;
+      border-top: 2px solid #222;
+    }
+
+    .attachment-title {
+      color: #333;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      margin-bottom: 10px;
+    }
+
+    .file-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 14px;
+      background: #fff;
+      border: 1px solid var(--dark-line);
+      text-decoration: none;
+      color: #111;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .file-card:hover {
+      background: #f0f0f0;
+      border-color: #444;
+    }
+
+    .file-name {
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .file-meta {
+      color: #666;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .access-level {
+      margin-top: 9px;
+      color: #777;
+      font-size: 11px;
+    }
+
+    .footer {
+      width: min(980px, calc(100% - 28px));
+      margin: 14px auto 26px;
+      color: #777;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 18px, 980px);
+        margin-top: 18px;
+      }
+
+      .header,
+      .toolbar,
+      .log-list,
+      .attachment {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .meta-key {
+        margin-top: 8px;
+      }
+
+      .log-entry {
+        grid-template-columns: 1fr;
+        gap: 3px;
+        padding: 15px 0;
+        font-size: 13px;
+      }
+
+      .system-entry {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .file-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .file-meta {
+        white-space: normal;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+      }
+
+      .document {
+        box-shadow: none;
+      }
+
+      .top-link {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top-link">
+      <a href="./hospital-admin-log.html">open</a>
+    </div>
+
+    <section class="document" aria-label="城南記念総合病院 内部管理ログ">
+      <header class="header">
+        <div class="hospital">JONAN MEMORIAL HOSPITAL</div>
+
+        <div class="subhead">
+          <span>ADMIN LOG / Restricted</span>
+          <span class="stamp fill">RESTRICTED</span>
+          <span class="stamp">CONFIDENTIAL</span>
+          <span class="stamp">READ ONLY</span>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-key">案件：</div>
+          <div class="meta-value">成瀬栞様 死亡事案</div>
+
+          <div class="meta-key">日時：</div>
+          <div class="meta-value">2026-01-17 20:18</div>
+
+          <div class="meta-key">閲覧：</div>
+          <div class="meta-value">院長室・管理部・法務</div>
+
+          <div class="meta-key">管理区分：</div>
+          <div class="meta-value">Internal Communication Archive / Case-0117</div>
+        </div>
+
+        <div class="export-note">Exported from internal communication archive</div>
+      </header>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="tiny-label">AUDIT LOG</span>
+          <span class="tiny-label">NO EXTERNAL COPY</span>
+        </div>
+        <div class="toolbar-right">
+          <span>Session ID: JMH-ADM-0117-1918</span>
+          <span>Checksum: <span class="redacted" aria-label="redacted"></span></span>
+        </div>
+      </div>
+
+      <section class="log-list">
+        <article class="log-entry">
+          <div class="time">[20:18]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            遺族側が投与内容の開示を求めています。<br>
+            誤投与と判断された場合、賠償金は数億円規模まで膨らむ可能性があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:19]</div>
+          <div class="sender">法務担当</div>
+          <div class="message">
+            「誤投与」「過失」は絶対に認めないでください。<br>
+            謝罪も不可です。<br>
+            一度認めれば、賠償交渉の前提になります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:20]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            正確な情報が外に出れば、報道は避けられません。<br>
+            外来・紹介・学校関連契約も止まります。<br>
+            最悪、病院の存続に関わります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:21]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            だから認めるなと言っています。<br>
+            本件は「処置後の予期せぬ急変」で統一してください。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:22]</div>
+          <div class="sender">外科部 / 藍沢晋作</div>
+          <div class="message">
+            投与記録を見られた場合、説明できない箇所があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:23]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            説明できる形に整えてください。<br>
+            事故扱いにした瞬間、病院は終わります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:24]</div>
+          <div class="sender">法務担当</div>
+          <div class="message">
+            内部文書に「ミス」「誤投与」「アナフィラキシー」は残さないでください。<br>
+            記録、メール、チャットも同様です。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:25]</div>
+          <div class="sender">管理部</div>
+          <div class="message">
+            三浦新聞が動いています。<br>
+            正確な情報が出れば、過去の件まで掘られる可能性があります。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:26]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            正確な情報を出すな。<br>
+            病院が倒れれば、ここにいる全員が路頭に迷います。
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="time">[20:27]</div>
+          <div class="sender">院長室 / 黒崎恒一郎</div>
+          <div class="message">
+            遺族対応は「予期せぬ容体変化」。<br>
+            新聞には「個別診療は非開示」。<br>
+            それ以外は出さない。
+          </div>
+        </article>
+
+        <article class="log-entry system-entry">
+          <div class="time">[20:30]</div>
+          <div class="sender">SYSTEM</div>
+          <div class="message">
+            このログは管理者により閲覧制限されました。
+          </div>
+        </article>
+    
+  <footer class="footer">
+    This page is part of a fictional ARG. All names, organizations, and events are fictional.
+  </footer>
+</body>
+</html>
