@@ -6,7 +6,7 @@
   <title>私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」 | 三浦新聞</title>
   <meta
     name="description"
-    content="私立星浜学園高等部が16年ぶりに甲子園出場を決めた。主将の黒崎蓮司選手は「支えてくれた人たちに感謝」と話し、学校や地域から喜びの声が広がっている。"
+    content="創作作品内に登場する架空ニュースサイトの記事ページです。私立星浜学園高等部と黒崎蓮司に関する劇中記事で、実在の人物・団体・学校・出来事とは関係ありません。"
   />
 
   <style>
@@ -425,7 +425,7 @@
       <div class="site-name-wrap">
         <p class="site-kicker">LOCAL NEWS OF MIURA AREA</p>
         <h1 class="site-title">
-          <a href="https://ryosukeucchi0112-boop.github.io/miura.news/index.html">三浦新聞</a>
+          <a href="index.html">三浦新聞</a>
         </h1>
         <p class="site-sub">地域の出来事を落ち着いた視点で伝える地方ニュースサイト</p>
       </div>
@@ -433,13 +433,13 @@
 
     <nav class="global-nav" aria-label="グローバルナビゲーション">
       <div class="global-nav-inner">
-        <a href="https://ryosukeucchi0112-boop.github.io/miura.news/index.html">トップ</a>
-        <a href="#">地域</a>
-        <a href="#">社会</a>
-        <a href="#">事件</a>
-        <a href="#">学校</a>
-        <a href="#">医療</a>
-        <a href="#">暮らし</a>
+        <a href="index.html">トップ</a>
+        <a href="index.html#category-region">地域</a>
+        <a href="index.html#category-social">社会</a>
+        <a href="index.html#category-incident">事件</a>
+        <a href="index.html#category-school">学校</a>
+        <a href="index.html#category-medical">医療</a>
+        <a href="index.html#paper-info">暮らし</a>
       </div>
     </nav>
   </header>
@@ -482,7 +482,7 @@
         </p>
 
         <div class="back-link">
-          <a href="https://ryosukeucchi0112-boop.github.io/miura.news/index.html">← ニュース一覧へ戻る</a>
+          <a href="index.html">← ニュース一覧へ戻る</a>
         </div>
 
         <div class="fiction-note">
@@ -495,7 +495,7 @@
           <h3>関連記事</h3>
           <ul class="related-list">
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+              <a href="article-mio">
                 <span class="related-date">2026年4月10日 / 事件</span>
                 <span class="related-title">
                   <span class="related-tag">劇中記事</span>私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず
@@ -503,7 +503,7 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="index.html#category-medical">
                 <span class="related-date">2026年4月7日 / 医療</span>
                 <span class="related-title">
                   <span class="related-tag">劇中記事</span>城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について
@@ -511,15 +511,15 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="index.html#category-social">
                 <span class="related-date">2026年4月5日 / 社会</span>
                 <span class="related-title">
-                  <span class="related-tag">劇中記事</span>市教育委員会、相談体制の周知強化へ　新学期前に案内配布
+                  <span class="related-tag">劇中記事</span>星浜市教育課、相談体制の周知強化へ　新学期前に案内配布
                 </span>
               </a>
             </li>
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/">
+              <a href="article-naruse">
                 <span class="related-date">2026年1月18日 / 医療</span>
                 <span class="related-title">
                   <span class="related-tag">劇中記事</span>女子高校生死亡、点滴後に容体急変　病院対応に疑問

@@ -296,6 +296,12 @@
       border: 1px solid var(--line);
       padding: 18px 18px 16px;
       transition: 0.2s ease;
+      scroll-margin-top: 56px;
+    }
+
+    .lead-story,
+    .side-box {
+      scroll-margin-top: 56px;
     }
 
     .news-card:hover {
@@ -497,12 +503,12 @@
     <nav class="global-nav" aria-label="グローバルナビゲーション">
       <div class="global-nav-inner">
         <a href="index.html">トップ</a>
-        <a href="#">地域</a>
-        <a href="#">社会</a>
-        <a href="#">事件</a>
-        <a href="#">学校</a>
-        <a href="#">医療</a>
-        <a href="#">暮らし</a>
+        <a href="#category-region">地域</a>
+        <a href="#category-social">社会</a>
+        <a href="#category-incident">事件</a>
+        <a href="#category-school">学校</a>
+        <a href="#category-medical">医療</a>
+        <a href="#paper-info">暮らし</a>
       </div>
     </nav>
   </header>
@@ -515,7 +521,7 @@
 
     <div class="layout">
       <div class="main-column">
-        <article class="lead-story">
+        <article class="lead-story" id="category-school">
           <div class="lead-story-body">
             <span class="lead-badge">主要ニュース</span>
 
@@ -527,7 +533,7 @@
             </div>
 
             <h2 class="lead-title">
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/">
+              <a href="article-renji">
                 私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
               </a>
             </h2>
@@ -538,12 +544,12 @@
               学園内は歓声に包まれ、学校関係者からも喜びの声が相次いでいる。
             </p>
 
-            <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/" class="readmore">記事を読む</a>
+            <a href="article-renji" class="readmore">記事を読む</a>
           </div>
         </article>
 
         <section class="news-list" aria-label="記事一覧">
-          <article class="news-card">
+          <article class="news-card" id="category-incident">
             <div class="meta">
               <span>2026年4月10日</span>
               <span class="category">事件</span>
@@ -553,7 +559,7 @@
             </div>
 
             <h3>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+              <a href="article-mio">
                 私立星浜学園の女子生徒が校内で転落、病院に搬送　意識戻らず
               </a>
             </h3>
@@ -565,11 +571,11 @@
             </p>
 
             <div class="card-actions">
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html" class="readmore">記事を読む</a>
+              <a href="article-mio" class="readmore">記事を読む</a>
             </div>
           </article>
 
-          <article class="news-card">
+          <article class="news-card" id="category-region">
             <div class="meta">
               <span>2026年4月8日</span>
               <span class="category">地域</span>
@@ -577,7 +583,7 @@
             </div>
 
             <h3>
-              <a href="#">
+              <a href="#category-region">
                 星浜駅前再整備で歩道改修始まる　通学時間帯の安全確保へ
               </a>
             </h3>
@@ -588,7 +594,7 @@
             </p>
           </article>
 
-          <article class="news-card">
+          <article class="news-card" id="category-medical">
             <div class="meta">
               <span>2026年4月7日</span>
               <span class="category">医療</span>
@@ -596,7 +602,7 @@
             </div>
 
             <h3>
-              <a href="#">
+              <a href="#category-medical">
                 城南記念総合病院、連休期間中に一部区画を閉鎖　設備点検で
               </a>
             </h3>
@@ -607,7 +613,7 @@
             </p>
           </article>
 
-          <article class="news-card">
+          <article class="news-card" id="category-social">
             <div class="meta">
               <span>2026年4月5日</span>
               <span class="category">社会</span>
@@ -615,7 +621,7 @@
             </div>
 
             <h3>
-              <a href="#">
+              <a href="#category-social">
                 星浜市教育課、相談体制の周知強化へ　新学期前に案内配布
               </a>
             </h3>
@@ -635,7 +641,7 @@
             </div>
 
             <h3>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/">
+              <a href="article-naruse">
                 女子高校生死亡、点滴後に容体急変　病院対応に疑問
               </a>
             </h3>
@@ -647,7 +653,7 @@
             </p>
 
             <div class="card-actions">
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/" class="readmore">記事を読む</a>
+              <a href="article-naruse" class="readmore">記事を読む</a>
             </div>
           </article>
         </section>
@@ -658,42 +664,42 @@
           <h3>関連ニュース</h3>
           <ul class="related-list">
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+              <a href="article-mio">
                 <span class="related-date">2026年4月10日 / 事件</span>
                 <span class="related-title">私立星浜学園の女子生徒が校内で転落、病院に搬送　意識戻らず</span>
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="#category-region">
                 <span class="related-date">2026年4月8日 / 地域</span>
                 <span class="related-title">星浜駅前再整備で歩道改修始まる　通学時間帯の安全確保へ</span>
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="#category-medical">
                 <span class="related-date">2026年4月7日 / 医療</span>
                 <span class="related-title">城南記念総合病院、連休期間中に一部区画を閉鎖　設備点検で</span>
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="#category-social">
                 <span class="related-date">2026年4月5日 / 社会</span>
                 <span class="related-title">星浜市教育課、相談体制の周知強化へ　新学期前に案内配布</span>
               </a>
             </li>
 
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/">
+              <a href="article-renji">
                 <span class="related-date">2026年2月28日 / 学校</span>
                 <span class="related-title">私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」</span>
               </a>
             </li>
 
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/">
+              <a href="article-naruse">
                 <span class="related-date">2026年1月18日 / 医療</span>
                 <span class="related-title">女子高校生死亡、点滴後に容体急変　病院対応に疑問</span>
               </a>
@@ -701,7 +707,7 @@
           </ul>
         </section>
 
-        <section class="side-box">
+        <section class="side-box" id="paper-info">
           <h3>紙面案内</h3>
           <div class="pickup">
             <p>

@@ -7,7 +7,7 @@
   <title>女子高校生死亡、点滴後に容体急変　病院対応に疑問 | 三浦新聞</title>
   <meta
     name="description"
-    content="市内病院で処置を受けた女子高校生が急変し死亡した件で、遺族が病院側の説明に疑問を示している。詳しい因果関係は明らかになっていない。"
+    content="創作作品内に登場する架空ニュースサイトの記事ページです。成瀬栞と城南記念総合病院に関する劇中記事で、実在の人物・団体・病院・事件とは関係ありません。"
   />
 
   <style>
@@ -431,12 +431,12 @@
     <nav class="global-nav" aria-label="グローバルナビゲーション">
       <div class="global-nav-inner">
         <a href="index.html">トップ</a>
-        <a href="#">地域</a>
-        <a href="#">社会</a>
-        <a href="#">事件</a>
-        <a href="#">学校</a>
-        <a href="#">医療</a>
-        <a href="#">暮らし</a>
+        <a href="index.html#category-region">地域</a>
+        <a href="index.html#category-social">社会</a>
+        <a href="index.html#category-incident">事件</a>
+        <a href="index.html#category-school">学校</a>
+        <a href="index.html#category-medical">医療</a>
+        <a href="index.html#paper-info">暮らし</a>
       </div>
     </nav>
   </header>
@@ -475,7 +475,7 @@
         </p>
 
         <div class="back-link">
-          <a href="https://ryosukeucchi0112-boop.github.io/miura.news/index.html">← ニュース一覧へ戻る</a>
+          <a href="index.html">← ニュース一覧へ戻る</a>
         </div>
 
         <div class="fiction-note">
@@ -488,25 +488,25 @@
           <h3>関連記事</h3>
           <ul class="related-list">
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+              <a href="article-mio">
                 <span class="related-date">2026年4月10日 / 事件</span>
                 <span class="related-title">私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="index.html#category-medical">
                 <span class="related-date">2026年4月7日 / 医療</span>
                 <span class="related-title">城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="index.html#category-social">
                 <span class="related-date">2026年4月5日 / 社会</span>
-                <span class="related-title">市教育委員会、相談体制の周知強化へ　新学期前に案内配布</span>
+                <span class="related-title">星浜市教育課、相談体制の周知強化へ　新学期前に案内配布</span>
               </a>
             </li>
             <li>
-              <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/">
+              <a href="article-renji">
                 <span class="related-date">2026年2月28日 / 学校</span>
                 <span class="related-title">私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」</span>
               </a>
