@@ -1,1 +1,732 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>三浦新聞</title>
+  <meta
+    name="description"
+    content="三浦新聞は、創作作品内に登場する架空のニュースサイトです。掲載されている人物・団体・記事内容はすべて架空です。"
+  />
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --paper: #ffffff;
+      --ink: #1e1e1e;
+      --muted: #666666;
+      --line: #d9d4cb;
+      --accent: #6a1f1f;
+      --accent-dark: #2d3e57;
+      --hover: #f2efea;
+      --fiction-bg: #3a3a3a;
+      --fiction-ink: #e6e6e6;
+      --max: 1180px;
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding-top: 34px;
+      font-family:
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        "YuMincho",
+        "Noto Serif JP",
+        serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .fiction-notice {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      background: var(--fiction-bg);
+      color: var(--fiction-ink);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      text-align: center;
+      font-family:
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: #efede7;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .site-header {
+      background: var(--paper);
+      border-bottom: 2px solid #222;
+    }
+
+    .site-header-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px 20px 18px;
+    }
+
+    .site-name-wrap {
+      text-align: center;
+    }
+
+    .site-kicker {
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+    }
+
+    .site-sub {
+      margin: 10px 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .global-nav {
+      border-top: 1px solid var(--line);
+      background: #fcfbf8;
+    }
+
+    .global-nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .global-nav a {
+      display: inline-block;
+      padding: 13px 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .global-nav a:hover {
+      color: var(--accent);
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: 0.06em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) 320px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .main-column {
+      min-width: 0;
+    }
+
+    .lead-story {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+      margin-bottom: 28px;
+    }
+
+    .lead-story-body {
+      padding: 24px 24px 28px;
+    }
+
+    .lead-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .category {
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .edited {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .focus-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      color: #fff;
+      background: var(--accent-dark);
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      font-family:
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+    }
+
+    .lead-title {
+      margin: 0 0 14px;
+      font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    .lead-title a:hover,
+    .news-card h3 a:hover,
+    .related-list a:hover .related-title {
+      color: var(--accent);
+    }
+
+    .lead-summary {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      color: #2a2a2a;
+    }
+
+    .readmore {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 1px solid #333;
+      font-size: 0.92rem;
+      transition: 0.2s ease;
+      background: #fff;
+    }
+
+    .readmore:hover {
+      background: var(--hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .news-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .news-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 18px 18px 16px;
+      transition: 0.2s ease;
+    }
+
+    .news-card:hover {
+      background: #fcfbf8;
+      border-color: #bdb4a6;
+    }
+
+    .news-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      line-height: 1.6;
+    }
+
+    .news-card p {
+      margin: 0;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .card-actions {
+      margin-top: 14px;
+    }
+
+    .sidebar {
+      min-width: 0;
+    }
+
+    .side-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+
+    .side-box h3 {
+      margin: 0;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1rem;
+      background: #f4f1ea;
+      letter-spacing: 0.04em;
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .related-list li {
+      border-bottom: 1px solid #ece7dc;
+    }
+
+    .related-list li:last-child {
+      border-bottom: none;
+    }
+
+    .related-list a {
+      display: block;
+      padding: 14px 16px;
+      transition: 0.2s ease;
+    }
+
+    .related-list a:hover {
+      background: var(--hover);
+    }
+
+    .related-date {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .related-title {
+      display: block;
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .pickup {
+      padding: 14px 16px 18px;
+    }
+
+    .pickup p {
+      margin: 0;
+      font-size: 0.93rem;
+      color: #333;
+    }
+
+    .pickup strong {
+      color: var(--accent);
+    }
+
+    .site-footer {
+      margin-top: 44px;
+      border-top: 2px solid #222;
+      background: #f1eee8;
+    }
+
+    .site-footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.78rem;
+      color: #777;
+      line-height: 1.8;
+      max-width: 900px;
+      font-family:
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: -1;
+      }
+
+      .side-box {
+        margin-bottom: 14px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-top: 42px;
+      }
+
+      .fiction-notice {
+        height: 42px;
+        padding: 0 10px;
+        font-size: 0.68rem;
+        line-height: 1.5;
+      }
+
+      .site-header-inner {
+        padding: 20px 16px 16px;
+      }
+
+      .page {
+        padding: 22px 16px 40px;
+      }
+
+      .lead-story-body,
+      .news-card {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .lead-title {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fiction-notice">
+    FICTION ｜ このページは創作作品内の架空サイトです。実在の報道機関・団体とは関係ありません。
+  </div>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div>記録は消えない。誰かが見ている。</div>
+      <div>更新日：2026年4月18日</div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-name-wrap">
+        <p class="site-kicker">LOCAL NEWS OF MIURA AREA</p>
+        <h1 class="site-title">三浦新聞</h1>
+        <p class="site-sub">地域の出来事を静かに記録するニュースサイト</p>
+      </div>
+    </div>
+
+    <nav class="global-nav" aria-label="グローバルナビゲーション">
+      <div class="global-nav-inner">
+        <a href="index.html">トップ</a>
+        <a href="#">地域</a>
+        <a href="#">社会</a>
+        <a href="#">事件</a>
+        <a href="#">学校</a>
+        <a href="#">医療</a>
+        <a href="#">暮らし</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="section-head">
+      <h2>ニュース一覧</h2>
+      <p>事件・地域・学校に関する主な記事</p>
+    </div>
+
+    <div class="layout">
+      <div class="main-column">
+        <article class="lead-story">
+          <div class="lead-story-body">
+            <span class="lead-badge">主要ニュース</span>
+
+            <div class="meta">
+              <span>2026年2月28日</span>
+              <span class="category">学校</span>
+              <span>編集部</span>
+              <span class="focus-tag">注目</span>
+            </div>
+
+            <h2 class="lead-title">
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/">
+                私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
+              </a>
+            </h2>
+
+            <p class="lead-summary">
+              私立星浜学園高等部が春季県大会を制し、16年ぶりの甲子園出場を決めた。
+              試合後、主将の黒崎蓮司選手は「ここまで支えてくれた仲間や先生方、応援してくれた地域の皆さんに感謝したい」と話した。
+              学園内は歓声に包まれ、学校関係者からも喜びの声が相次いでいる。
+            </p>
+
+            <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/" class="readmore">記事を読む</a>
+          </div>
+        </article>
+
+        <section class="news-list" aria-label="記事一覧">
+          <article class="news-card">
+            <div class="meta">
+              <span>2026年4月10日</span>
+              <span class="category">事件</span>
+              <span>三浦さやか</span>
+              <span class="edited">※ 4月11日 18:40 一部更新</span>
+              <span class="focus-tag">注目</span>
+            </div>
+
+            <h3>
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+                私立星浜学園の女子生徒が校内で転落、病院に搬送　意識戻らず
+              </a>
+            </h3>
+
+            <p>
+              私立星浜学園高等部で、女子生徒が校内の階段付近で倒れているのが見つかり、
+              星浜市内の病院へ搬送された。関係者によると、搬送後も意識は戻っていないという。
+              学校側は当時の状況について確認を進めている。
+            </p>
+
+            <div class="card-actions">
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html" class="readmore">記事を読む</a>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <div class="meta">
+              <span>2026年4月8日</span>
+              <span class="category">地域</span>
+              <span>編集部</span>
+            </div>
+
+            <h3>
+              <a href="#">
+                星浜駅前再整備で歩道改修始まる　通学時間帯の安全確保へ
+              </a>
+            </h3>
+
+            <p>
+              星浜市中心部の駅前エリアで歩道改修工事が始まった。
+              市は通学時間帯の安全確保につなげたい考えで、周辺では一部通行規制も行われている。
+            </p>
+          </article>
+
+          <article class="news-card">
+            <div class="meta">
+              <span>2026年4月7日</span>
+              <span class="category">医療</span>
+              <span>編集部</span>
+            </div>
+
+            <h3>
+              <a href="#">
+                城南記念総合病院、連休期間中に一部区画を閉鎖　設備点検で
+              </a>
+            </h3>
+
+            <p>
+              城南記念総合病院は、館内設備点検に伴い、連休期間中に一部区画を閉鎖すると発表した。
+              来院者に対して、当日は院内案内表示に従うよう呼びかけている。
+            </p>
+          </article>
+
+          <article class="news-card">
+            <div class="meta">
+              <span>2026年4月5日</span>
+              <span class="category">社会</span>
+              <span>編集部</span>
+            </div>
+
+            <h3>
+              <a href="#">
+                星浜市教育課、相談体制の周知強化へ　新学期前に案内配布
+              </a>
+            </h3>
+
+            <p>
+              星浜市教育課は新学期を前に、生徒や保護者向けの相談窓口案内を各校へ配布した。
+              学校生活に関する不安や悩みへの早期対応を目指すとしている。
+            </p>
+          </article>
+
+          <article class="news-card">
+            <div class="meta">
+              <span>2026年1月18日</span>
+              <span class="category">医療</span>
+              <span>三浦さやか</span>
+              <span class="focus-tag">注目</span>
+            </div>
+
+            <h3>
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/">
+                女子高校生死亡、点滴後に容体急変　病院対応に疑問
+              </a>
+            </h3>
+
+            <p>
+              星浜市内の病院に搬送された女子高校生が処置後に急変し、その後死亡した件で、
+              遺族が病院側の説明に疑問を示している。経過説明のあり方などをめぐり、
+              地域でも関心が高まっている。
+            </p>
+
+            <div class="card-actions">
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/" class="readmore">記事を読む</a>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <section class="side-box">
+          <h3>関連ニュース</h3>
+          <ul class="related-list">
+            <li>
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html">
+                <span class="related-date">2026年4月10日 / 事件</span>
+                <span class="related-title">私立星浜学園の女子生徒が校内で転落、病院に搬送　意識戻らず</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <span class="related-date">2026年4月8日 / 地域</span>
+                <span class="related-title">星浜駅前再整備で歩道改修始まる　通学時間帯の安全確保へ</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <span class="related-date">2026年4月7日 / 医療</span>
+                <span class="related-title">城南記念総合病院、連休期間中に一部区画を閉鎖　設備点検で</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <span class="related-date">2026年4月5日 / 社会</span>
+                <span class="related-title">星浜市教育課、相談体制の周知強化へ　新学期前に案内配布</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-renji/">
+                <span class="related-date">2026年2月28日 / 学校</span>
+                <span class="related-title">私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="https://ryosukeucchi0112-boop.github.io/news-article-naruse/">
+                <span class="related-date">2026年1月18日 / 医療</span>
+                <span class="related-title">女子高校生死亡、点滴後に容体急変　病院対応に疑問</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="side-box">
+          <h3>紙面案内</h3>
+          <div class="pickup">
+            <p>
+              このニュースサイトおよび掲載記事は、創作作品の演出として制作された架空のものです。
+              この作品で取り上げられている記事に関して、全て架空のものであり、実在の報道機関・学校・医療機関・行政機関・事件とは関係ありません。
+            </p>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-disclaimer">
+        このニュースサイトおよび掲載記事は、創作作品の演出として制作された架空のものです。
+        新聞社・編集部・記者名・記事内容・更新時刻・取材対象はすべて架空であり、実在の報道機関・学校・医療機関・行政機関・事件とは関係ありません。
+        人物・施設・風景等の画像が使用される場合、AI生成画像または加工画像を含みます。
+      </div>
+
+      <div class="footer-bottom">
+        <div>三浦新聞</div>
+        <div>© 2026 Fictional ARG Production</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
