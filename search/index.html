@@ -593,19 +593,45 @@
       line-height: 1.85;
     }
 
-    .result-label {
+    .result-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      margin-top: 14px;
+    }
+
+    .result-label,
+    .result-open-hint {
       display: inline-flex;
       align-items: center;
-      margin-top: 14px;
+      min-height: 24px;
       padding: 4px 8px;
-      border: 1px solid rgba(65, 103, 131, 0.20);
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: #47667b;
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.07em;
+    }
+
+    .result-label {
+      border: 1px solid rgba(65, 103, 131, 0.20);
+      background: var(--accent-soft);
+      color: #47667b;
       text-transform: lowercase;
+    }
+
+    .result-open-hint {
+      border: 1px solid rgba(148, 163, 184, 0.26);
+      background: rgba(255, 255, 255, 0.58);
+      color: #6b7f90;
+    }
+
+    .result-open-hint::after {
+      content: "↗";
+      margin-left: 6px;
+      font-size: 11px;
+      line-height: 1;
     }
 
     .empty-title {
@@ -1133,11 +1159,14 @@
 
     function renderResults(results) {
       const html = results.map((item) => `
-        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_self">
+        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_blank" rel="noopener noreferrer">
           <h2 class="result-title">${escapeHtml(item.title)}</h2>
           <p class="result-url">${escapeHtml(item.url)}</p>
           <p class="result-snippet">${escapeHtml(item.snippet)}</p>
-          <span class="result-label">${escapeHtml(item.label)}</span>
+          <span class="result-footer">
+            <span class="result-label">${escapeHtml(item.label)}</span>
+            <span class="result-open-hint">調査結果を別タブで表示</span>
+          </span>
         </a>
       `).join("");
 
