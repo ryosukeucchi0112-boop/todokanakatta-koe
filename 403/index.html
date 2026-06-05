@@ -1,1 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>403 Forbidden</title>
 
+  <style>
+    :root {
+      --fiction-header-height: 32px;
+      --bg: #f4efe6;
+      --text: #211f1b;
+      --muted: #7b7369;
+      --line: rgba(33, 31, 27, 0.18);
+      --panel: rgba(255, 252, 246, 0.72);
+      --panel-border: rgba(33, 31, 27, 0.14);
+      --button: #24211d;
+      --button-hover: #3a352f;
+      --error: #8d2f25;
+      --success: #355f45;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.65), transparent 34%),
+        linear-gradient(180deg, #fbf7ef 0%, var(--bg) 52%, #e8dfd2 100%);
+      color: var(--text);
+      font-family:
+        "Times New Roman",
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        "YuMincho",
+        serif;
+      overflow-x: hidden;
+    }
+
+    /*
+      共通フィクションヘッダー
+      ※このヘッダー以外は固定しない
+    */
+    .fiction-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      height: var(--fiction-header-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      background: rgba(88, 88, 88, 0.94);
+      color: #f2f2f2;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: calc(var(--fiction-header-height) + 56px) 20px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .access-card {
+      width: min(100%, 560px);
+      margin: auto 0;
+      padding: 46px 34px 34px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      box-shadow:
+        0 24px 80px rgba(58, 47, 34, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(8px);
+      text-align: center;
+    }
+
+    .status-code {
+      margin: 0 0 18px;
+      font-size: clamp(54px, 11vw, 96px);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.055em;
+    }
+
+    .status-label {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 6vw, 54px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .divider {
+      width: 76px;
+      height: 1px;
+      margin: 24px auto;
+      background: var(--line);
+    }
+
+    .description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    .pass-form {
+      width: min(100%, 360px);
+      margin: 30px auto 0;
+    }
+
+    .input-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 14px;
+      border: 1px solid rgba(33, 31, 27, 0.26);
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      outline: none;
+    }
+
+    input[type="text"]::placeholder {
+      color: rgba(123, 115, 105, 0.62);
+    }
+
+    input[type="text"]:focus {
+      border-color: rgba(33, 31, 27, 0.56);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 0 3px rgba(33, 31, 27, 0.06);
+    }
+
+    button {
+      flex: 0 0 auto;
+      padding: 0 18px;
+      border: 1px solid var(--button);
+      border-radius: 0;
+      background: var(--button);
+      color: #fff;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition:
+        background 0.18s ease,
+        opacity 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    button:disabled {
+      cursor: default;
+      opacity: 0.58;
+    }
+
+    .hint {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+    }
+
+    .message {
+      min-height: 24px;
+      margin: 16px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      letter-spacing: 0.03em;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+    }
+
+    .message.error {
+      color: var(--error);
+    }
+
+    .message.success {
+      color: var(--success);
+    }
+
+    .fiction-footer {
+      width: min(100%, 720px);
+      margin-top: 42px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(33, 31, 27, 0.12);
+      color: rgba(75, 68, 60, 0.72);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        sans-serif;
+      font-size: 11px;
+      line-height: 1.8;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: calc(var(--fiction-header-height) + 44px) 16px 28px;
+      }
+
+      .access-card {
+        padding: 40px 22px 28px;
+      }
+
+      .input-wrap {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+        height: 44px;
+      }
+
+      .fiction-header {
+        font-size: 10px;
+        letter-spacing: 0.02em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fiction-header">
+    FICTIONAL INTERFACE — このページは創作作品内の架空UIです
+  </div>
+
+  <main class="page">
+    <section class="access-card" aria-labelledby="page-title">
+      <p class="status-code">403</p>
+      <h1 id="page-title" class="status-label">Forbidden.</h1>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="description">
+        Access to this archive is restricted.<br />
+        Enter passphrase to continue.
+      </p>
+
+      <form class="pass-form" id="passForm" autocomplete="off">
+        <div class="input-wrap">
+          <input
+            id="passwordInput"
+            type="text"
+            name="passphrase"
+            placeholder="passphrase"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="passphrase"
+          />
+          <button id="submitButton" type="submit">ENTER</button>
+        </div>
+
+        <p class="hint">※ ヒント：2人で行きたかった場所</p>
+        <p id="message" class="message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <footer class="fiction-footer">
+      このページはARG作品内の架空アクセス画面です。実在のサービス・組織・認証システムとは関係ありません。<br />
+      人物・施設・風景等の画像はAI生成画像または加工画像を含み、実在の人物・団体・施設とは関係ありません。
+    </footer>
+  </main>
+
+  <script>
+    const form = document.getElementById("passForm");
+    const input = document.getElementById("passwordInput");
+    const message = document.getElementById("message");
+    const submitButton = document.getElementById("submitButton");
+
+    const destinationUrl = "https://ryosukeucchi0112-boop.github.io/suzuki-chat-archive/";
+
+    const acceptedPassphrases = [
+      "三ノ瀬山",
+      "三の瀬山",
+      "さんのせやま",
+      "sannoseyama",
+      "sannnoseyama"
+    ];
+
+    function normalizeInput(text) {
+      return text
+        .trim()
+        .replace(/\s+/g, "")
+        .replace(/　+/g, "")
+        .toLowerCase();
+    }
+
+    function setMessage(text, type) {
+      message.textContent = text;
+      message.className = `message ${type || ""}`.trim();
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const value = normalizeInput(input.value);
+      const normalizedAccepted = acceptedPassphrases.map(normalizeInput);
+
+      if (!value) {
+        setMessage("合言葉を入力してください。", "error");
+        input.focus();
+        return;
+      }
+
+      if (normalizedAccepted.includes(value)) {
+        setMessage("認証しました。アーカイブへ接続しています。", "success");
+
+        submitButton.disabled = true;
+        input.disabled = true;
+
+        setTimeout(() => {
+          window.location.href = destinationUrl;
+        }, 700);
+
+        return;
+      }
+
+      setMessage("合言葉が一致しません。", "error");
+      input.select();
+    });
+  </script>
+</body>
+</html>
