@@ -1,1 +1,974 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAIL ARCHIVE | 04.17</title>
 
+  <style>
+    :root {
+      --bg: #eef0f2;
+      --paper: #fbfbfa;
+      --paper-2: #f5f5f3;
+      --line: #d8dadd;
+      --line-dark: #b6bcc3;
+      --text: #1c1f23;
+      --muted: #6b7280;
+      --cold: #3b4552;
+      --button: #16191d;
+      --button-hover: #0d0f12;
+      --notice-bg: rgba(229, 231, 235, 0.96);
+      --notice-line: rgba(180, 186, 194, 0.85);
+      --notice-text: #4b5563;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(234, 236, 239, 0.96)),
+        radial-gradient(circle at top left, rgba(190, 199, 211, 0.28), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(136, 145, 157, 0.16), transparent 42%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      letter-spacing: 0.02em;
+      overflow-x: hidden;
+    }
+
+    .fiction-mail-badge {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      background: var(--notice-bg);
+      border-bottom: 1px solid var(--notice-line);
+      color: var(--notice-text);
+      font-family: var(--sans);
+      font-size: 11px;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .page {
+      position: relative;
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 78px 0 28px;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 38px auto auto 50%;
+      width: 100vw;
+      height: calc(100% - 38px);
+      transform: translateX(-50%);
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.016) 0px,
+          rgba(0, 0, 0, 0.016) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      z-index: 0;
+    }
+
+    .system-strip,
+    .mail-window,
+    .time-fragment,
+    .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .system-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .unstable {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4b5563;
+      white-space: nowrap;
+    }
+
+    .unstable::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6b7280;
+      box-shadow: 0 0 0 0 rgba(107, 114, 128, 0.45);
+      animation: pulse 2.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(107, 114, 128, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(107, 114, 128, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(107, 114, 128, 0);
+      }
+    }
+
+    .mail-window {
+      border: 1px solid var(--line);
+      background: rgba(250, 250, 249, 0.86);
+      box-shadow:
+        0 24px 70px rgba(31, 41, 55, 0.14),
+        0 1px 0 rgba(255, 255, 255, 0.9) inset;
+      border-radius: 14px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .mail-toolbar {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(249, 249, 248, 0.94), rgba(236, 237, 236, 0.94)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(17, 24, 39, 0.035) 0,
+          rgba(17, 24, 39, 0.035) 1px,
+          transparent 1px,
+          transparent 18px
+        );
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .dots {
+      display: flex;
+      gap: 7px;
+      flex: 0 0 auto;
+    }
+
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #d7d9dc;
+    }
+
+    .archive-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #374151;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .toolbar-right {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .mail-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 650px;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--line);
+      background: rgba(239, 240, 241, 0.66);
+      padding: 22px 14px;
+    }
+
+    .folder {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      color: #4b5563;
+      margin-bottom: 5px;
+      border: 1px solid transparent;
+    }
+
+    .folder.active {
+      background: rgba(255, 255, 255, 0.78);
+      color: #111827;
+      border-color: var(--line);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .folder .label {
+      overflow-wrap: anywhere;
+    }
+
+    .count {
+      font-family: var(--mono);
+      color: #7b828c;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .sidebar-note {
+      margin-top: 28px;
+      padding: 12px;
+      border: 1px dashed var(--line-dark);
+      border-radius: 10px;
+      color: #6b7280;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.7;
+      background: rgba(255, 255, 255, 0.46);
+    }
+
+    .content {
+      padding: 42px min(6vw, 64px);
+    }
+
+    .mail-card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 16px 42px rgba(31, 41, 55, 0.1);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: mailAppear 1.15s ease 0.35s forwards;
+      overflow: hidden;
+    }
+
+    @keyframes mailAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mail-header {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, #ffffff, #f7f7f6),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(17, 24, 39, 0.02) 0,
+          rgba(17, 24, 39, 0.02) 1px,
+          transparent 1px,
+          transparent 12px
+        );
+    }
+
+    .subject {
+      margin: 0 0 16px;
+      font-size: clamp(20px, 3vw, 28px);
+      line-height: 1.35;
+      font-weight: 650;
+      color: #111827;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 8px 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+
+    .meta-value {
+      color: #27313d;
+      word-break: break-word;
+    }
+
+    .mono {
+      font-family: var(--mono);
+    }
+
+    .mail-body {
+      padding: 30px 24px 26px;
+      background:
+        linear-gradient(90deg, rgba(17, 24, 39, 0.025) 0 1px, transparent 1px),
+        var(--paper);
+      background-size: 20px 20px;
+    }
+
+    .message {
+      font-size: 16px;
+      line-height: 2.05;
+      color: #1f2937;
+    }
+
+    .message p {
+      margin: 0 0 18px;
+    }
+
+    .message .short {
+      margin-bottom: 24px;
+    }
+
+    .signature {
+      margin-top: 22px;
+      color: #374151;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+    }
+
+    .attachment {
+      margin: 30px 0 28px;
+      border: 1px solid #cfd4da;
+      background: #f4f5f6;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .attachment-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #d6d9de;
+      background: #eceef0;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .attachment-head strong {
+      font-family: var(--mono);
+      color: #20262d;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .file-count {
+      font-family: var(--mono);
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .image-frame {
+      position: relative;
+      min-height: clamp(300px, 54vw, 560px);
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 233, 237, 0.72));
+      overflow: hidden;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      max-height: 560px;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      filter: grayscale(0.18) contrast(0.96);
+      position: relative;
+      z-index: 2;
+    }
+
+    .fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.8;
+      z-index: 1;
+    }
+
+    .fallback .broken {
+      display: block;
+      font-family: var(--mono);
+      color: #3f4752;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .attachment-caption {
+      padding: 12px 14px 14px;
+      border-top: 1px solid #d6d9de;
+      background: #fafafa;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .attachment-caption span {
+      font-family: var(--mono);
+      color: #111827;
+    }
+
+    .connect-area {
+      margin-top: 34px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .connect-btn {
+      appearance: none;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 30px;
+      border-radius: 6px;
+      background: var(--button);
+      color: #f9fafb;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      box-shadow:
+        0 12px 26px rgba(17, 24, 39, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .connect-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 5px,
+          rgba(255, 255, 255, 0.12) 5px,
+          rgba(255, 255, 255, 0.12) 6px
+        );
+      opacity: 0;
+      transform: translateX(-12px);
+      pointer-events: none;
+    }
+
+    .connect-btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-1px);
+      box-shadow:
+        0 16px 32px rgba(17, 24, 39, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      animation: hoverJitter 0.18s steps(2, end) infinite;
+    }
+
+    .connect-btn:hover::before {
+      opacity: 0.45;
+      animation: noiseSlide 0.5s steps(3, end) infinite;
+    }
+
+    .connect-btn:active {
+      transform: translateY(1px);
+    }
+
+    @keyframes hoverJitter {
+      0% {
+        translate: 0 0;
+      }
+
+      25% {
+        translate: 1px 0;
+      }
+
+      50% {
+        translate: -1px 1px;
+      }
+
+      75% {
+        translate: 0 -1px;
+      }
+
+      100% {
+        translate: 0 0;
+      }
+    }
+
+    @keyframes noiseSlide {
+      from {
+        transform: translateX(-16px);
+      }
+
+      to {
+        transform: translateX(16px);
+      }
+    }
+
+    .destination {
+      margin-top: 12px;
+      font-family: var(--mono);
+      color: #6b7280;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .time-fragment {
+      width: fit-content;
+      margin: 16px auto 0;
+      padding: 8px 10px;
+      border: 1px solid rgba(177, 183, 191, 0.7);
+      background: rgba(244, 245, 246, 0.76);
+      color: #68717d;
+      font-family: var(--mono);
+      font-size: 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      color: #7b828c;
+      font-size: 11px;
+      line-height: 1.8;
+      font-family: var(--sans);
+    }
+
+    .footer p {
+      margin: 3px 0;
+    }
+
+    .footer .footer-mono {
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+    }
+
+    .glitch {
+      display: inline-block;
+    }
+
+    .glitch.is-glitching {
+      animation: textGlitch 0.34s steps(2, end);
+    }
+
+    @keyframes textGlitch {
+      0% {
+        transform: translate(0, 0);
+        filter: none;
+        opacity: 1;
+      }
+
+      20% {
+        transform: translate(-1px, 1px);
+        filter: blur(0.4px);
+        opacity: 0.86;
+      }
+
+      45% {
+        transform: translate(1px, -1px);
+        letter-spacing: 0.08em;
+        opacity: 1;
+      }
+
+      70% {
+        transform: translate(-1px, 0);
+        filter: contrast(1.6);
+      }
+
+      100% {
+        transform: translate(0, 0);
+        filter: none;
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .fiction-mail-badge {
+        min-height: 36px;
+        padding: 7px 12px;
+        font-size: 10px;
+      }
+
+      .page {
+        width: min(100% - 20px, 1040px);
+        padding-top: 62px;
+      }
+
+      .system-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        margin-left: 2px;
+        font-size: 11px;
+      }
+
+      .mail-toolbar {
+        min-height: 54px;
+        padding: 0 12px;
+      }
+
+      .toolbar-right {
+        display: none;
+      }
+
+      .archive-label {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+      }
+
+      .mail-layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .content {
+        padding: 20px 10px 24px;
+      }
+
+      .mail-card {
+        border-radius: 10px;
+      }
+
+      .mail-header {
+        padding: 18px 16px 14px;
+      }
+
+      .meta-grid {
+        grid-template-columns: 68px 1fr;
+        font-size: 12px;
+      }
+
+      .mail-body {
+        padding: 24px 16px 22px;
+      }
+
+      .message {
+        font-size: 15px;
+        line-height: 1.95;
+      }
+
+      .attachment-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .image-frame {
+        min-height: clamp(260px, 78vw, 420px);
+      }
+
+      .image-frame img {
+        max-height: 420px;
+      }
+
+      .connect-btn {
+        width: 100%;
+        padding: 0 18px;
+        font-size: 12px;
+      }
+
+      .footer {
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .image-frame {
+        min-height: 260px;
+      }
+
+      .image-frame img {
+        max-height: 340px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .mail-card {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fiction-mail-badge" role="note" aria-label="フィクション表記">
+    FICTIONAL MAIL CLIENT — このページは創作作品上の架空メールUIです。実在の人物・団体・事件・機関とは関係ありません。
+  </div>
+
+  <main class="page">
+    <div class="system-strip">
+      <div class="glitch" data-original="MAIL FRAGMENT / RECEIVED SIGNAL">
+        MAIL FRAGMENT / RECEIVED SIGNAL
+      </div>
+      <div class="unstable glitch" data-original="Connection unstable">
+        Connection unstable
+      </div>
+    </div>
+
+    <section class="mail-window" aria-label="SUZUKIから届いた架空メール">
+      <header class="mail-toolbar">
+        <div class="toolbar-left">
+          <div class="dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="archive-label glitch" data-original="RECOVERED BOX / 01 FRAGMENT">
+            RECOVERED BOX / 01 FRAGMENT
+          </div>
+        </div>
+
+        <div class="toolbar-right glitch" data-original="FICTIONAL TEMPORAL MAIL VIEWER / cache restored">
+          FICTIONAL TEMPORAL MAIL VIEWER / cache restored
+        </div>
+      </header>
+
+      <div class="mail-layout">
+        <aside class="sidebar" aria-hidden="true">
+          <div class="folder active">
+            <span class="label">Recovered</span>
+            <span class="count">01</span>
+          </div>
+          <div class="folder">
+            <span class="label">Drift Log</span>
+            <span class="count">--</span>
+          </div>
+          <div class="folder">
+            <span class="label">Unsent Ghost</span>
+            <span class="count">00</span>
+          </div>
+          <div class="folder">
+            <span class="label">Broken Cache</span>
+            <span class="count">?</span>
+          </div>
+
+          <div class="sidebar-note">
+            SYSTEM LOG<br />
+            restored: 2026.04.17<br />
+            offset: -00:00:03<br />
+            layer: archived_web<br />
+            client: fictional_view
+          </div>
+        </aside>
+
+        <div class="content">
+          <article class="mail-card">
+            <header class="mail-header">
+              <h1 class="subject glitch" data-original="04.17に接続してほしい">
+                04.17に接続してほしい
+              </h1>
+
+              <div class="meta-grid">
+                <div class="meta-label">From</div>
+                <div class="meta-value mono glitch" data-original="SUZUKI">SUZUKI</div>
+
+                <div class="meta-label">Date</div>
+                <div class="meta-value mono glitch" data-original="2026.04.17 23:58">
+                  2026.04.17 23:58
+                </div>
+
+                <div class="meta-label">To</div>
+                <div class="meta-value mono">undisclosed-recipient</div>
+
+                <div class="meta-label">Status</div>
+                <div class="meta-value mono">Recovered / Partial temporal mismatch detected</div>
+              </div>
+            </header>
+
+            <div class="mail-body">
+              <div class="message">
+                <p class="short">このメールを読んでいる時には、僕はもういないだろう。</p>
+
+                <p>君に頼みたいことがある。</p>
+
+                <p>彼女を助けて欲しい。</p>
+
+                <div class="attachment" aria-label="添付画像">
+                  <div class="attachment-head">
+                    <strong>asakura_mio_0417.png</strong>
+                    <span class="file-count">attached image / 1 fragment</span>
+                  </div>
+
+                  <div class="image-frame">
+                    <div class="fallback">
+                      <div>
+                        <span class="broken">IMAGE CACHE / asakura_mio_0417.png</span>
+                        画像キャッシュを復元できませんでした。<br />
+                        同じフォルダに asakura_mio_0417.png を配置してください。
+                      </div>
+                    </div>
+
+                    <img
+                      src="asakura_mio_0417.png"
+                      alt="朝倉澪の添付画像"
+                      onerror="this.style.display='none';"
+                    />
+                  </div>
+
+                  <div class="attachment-caption">
+                    <span>この子を助けてほしい</span>
+                  </div>
+                </div>
+
+                <p>下のリンクをクリックすると、過去のWeb領域に転送される。</p>
+
+                <p>ただし、一度接続したら、最後まで見届けてほしい。</p>
+
+                <p class="signature">— SUZUKI</p>
+              </div>
+
+              <div class="connect-area">
+                <a
+                  class="connect-btn"
+                  href="https://ryosukeucchi0112-boop.github.io/search./"
+                  aria-label="2026年4月17日の過去Web領域へ接続する"
+                >
+                  CONNECT TO 04.17
+                </a>
+
+                <div class="destination">
+                  接続先：2026.04.17 / Archived Web Layer
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="time-fragment glitch" data-original="04.17 / signal drift: 00:00:03">
+      04.17 / signal drift: 00:00:03
+    </div>
+
+    <footer class="footer">
+      <p class="footer-mono">FICTIONAL ARG EXPERIENCE</p>
+      <p>このページは創作作品の一部です。実在の人物・団体・事件・機関とは関係ありません。</p>
+      <p>人物・施設・風景等の画像はAI生成画像または加工画像を含みます。</p>
+    </footer>
+  </main>
+
+  <script>
+    const glitchTargets = Array.from(document.querySelectorAll(".glitch"));
+
+    const fragments = [
+      "04.17",
+      "04.1_",
+      "TEMPORAL",
+      "ARCHIVED",
+      "SIGNAL LOST",
+      "RETRYING",
+      "23:58",
+      "23:5_",
+      "CACHE",
+      "FICTIONAL"
+    ];
+
+    function scrambleText(el) {
+      const original = el.dataset.original || el.textContent;
+      const shouldReplace = Math.random() > 0.45;
+
+      el.classList.add("is-glitching");
+
+      if (shouldReplace) {
+        const fragment = fragments[Math.floor(Math.random() * fragments.length)];
+        el.textContent = fragment;
+      }
+
+      window.setTimeout(() => {
+        el.textContent = original;
+        el.classList.remove("is-glitching");
+      }, 260 + Math.random() * 180);
+    }
+
+    function runSubtleGlitch() {
+      if (!glitchTargets.length) return;
+
+      const count = Math.random() > 0.7 ? 2 : 1;
+
+      for (let i = 0; i < count; i++) {
+        const target = glitchTargets[Math.floor(Math.random() * glitchTargets.length)];
+        scrambleText(target);
+      }
+    }
+
+    window.setInterval(runSubtleGlitch, 4200);
+
+    window.addEventListener("load", () => {
+      window.setTimeout(runSubtleGlitch, 1400);
+    });
+  </script>
+</body>
+</html>
