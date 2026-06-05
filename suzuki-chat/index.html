@@ -1,1 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cache restored</title>
+  <meta name="description" content="restored local cache" />
+  <link rel="stylesheet" href="./styles.css" />
 
+  <style>
+    /* ─────────────────────────────
+      共通フィクション表記
+      ※全ページで統一する固定ヘッダー
+    ───────────────────────────── */
+    #fiction-notice {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(42, 42, 42, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(235, 235, 235, 0.72);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 6px 14px;
+      line-height: 1.5;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    body {
+      padding-top: 30px;
+    }
+
+    /* ─────────────────────────────
+      最終フォーム直前のみ強めの補足
+      ※通報・送信に直結する箇所だけ明確化
+    ───────────────────────────── */
+    .final-form-note {
+      margin: 10px 16px 6px;
+      padding: 7px 10px;
+      border: 1px solid rgba(180, 180, 180, 0.18);
+      background: rgba(255, 255, 255, 0.035);
+      color: rgba(220, 220, 220, 0.58);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-size: 10.5px;
+      line-height: 1.6;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─────────────────────────────
+      共通フッター
+      ※画像AI生成・架空性を一括表記
+    ───────────────────────────── */
+    #fiction-footer {
+      margin: 44px 16px 24px;
+      padding: 12px 16px;
+      border-top: 1px solid rgba(180, 180, 180, 0.14);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-size: 10.5px;
+      color: rgba(190, 190, 190, 0.46);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="fiction-notice">
+    このページは創作作品の一部です。登場する人物・団体・記録・事件はすべて架空です。
+  </div>
+
+  <div id="boot" class="boot-screen">
+    <div class="boot-text">connection restored</div>
+  </div>
+
+  <div class="scanline"></div>
+  <div class="noise"></div>
+
+  <header class="status-bar">
+    <div>connection restored</div>
+    <div>source: local cache</div>
+    <div>last sync: failed</div>
+    <div>viewer: unauthorized</div>
+  </header>
+
+  <main class="chat-shell">
+    <section class="chat-feed">
+
+      <div class="date-tag">2026.02.18</div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">なぜ、城南記念総合病院を調べてる？</div>
+        <div class="time">02:11</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">誰ですか。幼馴染が、あそこで死んだからです。</div>
+        <div class="time">02:13</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">成瀬栞か？</div>
+        <div class="time">02:14</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">なんで知ってるの。</div>
+        <div class="time">02:14</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">これを見ろ。</div>
+        <div class="time">02:15</div>
+      </div>
+
+      <div class="system-fragment">-- attachment recovered ---</div>
+
+      <div class="file-card important">
+        <div class="file-label">FILE RESTORED</div>
+        <div class="file-name">story_file_A.jpg</div>
+        <div class="file-meta">evidence 01 / file size: 1.8 MB</div>
+        <div class="file-actions">
+          <a href="./naruse-record.html.png" target="_blank" rel="noopener noreferrer">open</a>
+          <a href="./naruse-record.html.png" download>download</a>
+        </div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">え、何これ……栞の記録？</div>
+        <div class="time">02:18</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">まだ他の人には流すな。黒崎を絶対に潰す。</div>
+        <div class="time">02:20</div>
+      </div>
+
+      <div class="date-tag">2026.03.04</div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">黒崎蓮司って同級生が、最近私のことを気にしてるらしいの。</div>
+        <div class="time">21:06</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">あいつには近づくな。黒崎恒一郎の甥だ。</div>
+        <div class="time">21:07</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">黒崎って、病院の人ですよね。なんで学校の人間まで繋がってるの。</div>
+        <div class="time">21:08</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">甥の方も、病院の悪行に関わってる。</div>
+        <div class="time">21:09</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">じゃあ、私が調べてることも知られてる？</div>
+        <div class="time">21:10</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">その可能性は高い。</div>
+        <div class="time">21:11</div>
+      </div>
+
+      <div class="date-tag">2026.03.21</div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">内部のlogを見つけた。これがあれば、強行手段に出られる。</div>
+        <div class="time">00:44</div>
+      </div>
+
+      <div class="system-fragment">-- attachment recovered ---</div>
+
+      <div class="file-card important">
+        <div class="file-label">FILE RESTORED</div>
+        <div class="file-name">archive_log_01.txt</div>
+        <div class="file-meta">evidence 02 / file size: 2.4 MB</div>
+        <div class="file-actions">
+          <a href="./hospital-admin-log.html" target="_blank" rel="noopener noreferrer">open</a>
+          <a href="./hospital-admin-log.html" download>download</a>
+        </div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">強行手段って、何するつもりですか。</div>
+        <div class="time">00:47</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">黒崎を表に引きずり出す。</div>
+        <div class="time">00:48</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">ネットに出せばいいんじゃないんですか。</div>
+        <div class="time">00:49</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">誰もそんなの相手にしない。下手に流出させたら何をされるかわからん。</div>
+        <div class="time">00:50</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">じゃあ、誰に言えばいいの。</div>
+        <div class="time">00:51</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">信頼できる者を探しておく。</div>
+        <div class="time">00:52</div>
+      </div>
+
+      <div class="date-tag">2026.04.17</div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">黒崎恒一郎から蓮司へのlogを取った。</div>
+        <div class="time">17:41</div>
+      </div>
+
+      <div class="system-fragment">-- attachment recovered ---</div>
+
+      <div class="file-card important">
+        <div class="file-label">FILE RESTORED</div>
+        <div class="file-name">archive_log_02.txt</div>
+        <div class="file-meta">evidence 03 / file size: 846 KB</div>
+        <div class="file-actions">
+          <a href="./renji-chat.html" target="_blank" rel="noopener noreferrer">open</a>
+          <a href="./renji-chat.html" download>download</a>
+        </div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">蓮司って、あの蓮司ですよね。</div>
+        <div class="time">17:46</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">読め。</div>
+        <div class="time">17:47</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">「今日中に止めろ」って、これ私のこと？</div>
+        <div class="time">17:49</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">待って。今、階段の近くにいる。</div>
+        <div class="time">17:50</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">そこから離れろ。</div>
+        <div class="time">17:51</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">蓮司がいる。</div>
+        <div class="time">17:51</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">早く逃げろ。</div>
+        <div class="time">17:51</div>
+      </div>
+
+      <div class="msg right">
+        <div class="name">澪</div>
+        <div class="bubble">ごめん。</div>
+        <div class="time">17:52</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">おい。</div>
+        <div class="time">17:52</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">返事しろ。</div>
+        <div class="time">17:53</div>
+      </div>
+
+      <div class="msg left">
+        <div class="name">SUZUKI</div>
+        <div class="bubble">返事しろ。</div>
+        <div class="time">17:53</div>
+      </div>
+
+      <div class="date-tag">2026.04.18</div>
+
+      <div class="system-fragment">-- restored from local cache ---</div>
+
+      <div class="file-card important">
+        <div class="file-label">FILE RESTORED</div>
+        <div class="file-name">archive_log_03.png</div>
+        <div class="file-meta">evidence 04 / file size: 12 KB</div>
+        <div class="file-actions">
+          <a href="./aizawa-note.png" target="_blank" rel="noopener noreferrer">open</a>
+          <a href="./aizawa-note.png" download>download</a>
+        </div>
+      </div>
+
+      <div class="final-form-note">
+        ※このリンク先は物語上の架空フォームです。送信しても実在の警察・行政機関には届きません。
+      </div>
+
+      <div class="file-card final">
+        <div class="file-label">FILE RESTORED</div>
+        <div class="file-name">report-form.html</div>
+        <div class="file-meta">file size: 31 KB</div>
+        <div class="file-actions">
+          <a href="https://bordover.netlify.app" target="_blank" rel="noopener noreferrer">open</a>
+          <a href="https://bordover.netlify.app" download>download</a>
+        </div>
+      </div>
+
+      <div class="msg left last">
+        <div class="name">SUZUKI</div>
+        <div class="bubble mono">もう俺は動けない。誰か。</div>
+        <div class="time">--:--</div>
+      </div>
+
+      <div class="signature">by SUZUKI</div>
+
+    </section>
+  </main>
+
+  <footer id="fiction-footer">
+    このページは創作作品の演出用に作成された架空のWebページです。<br>
+    登場する人物・団体・病院・学校・事件・記録・報道内容はすべて架空であり、実在のものとは関係ありません。<br>
+    人物・施設・風景等の画像はAI生成画像または加工画像を含みます。
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
