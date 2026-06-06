@@ -44,3 +44,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
+const corruptedDates = [
+  "20█6.0?.1▒",
+  "2◇26/--/18",
+  "DATE_CORRUPTED",
+  "20??.??.??",
+  "04.█8 / corrupted"
+];
+
+const corruptDateTargets = document.querySelectorAll(".corrupt-date");
+
+corruptDateTargets.forEach((target) => {
+  const updateCorruptDate = () => {
+    target.textContent = corruptedDates[Math.floor(Math.random() * corruptedDates.length)];
+  };
+
+  updateCorruptDate();
+  window.setInterval(updateCorruptDate, 1600);
+});

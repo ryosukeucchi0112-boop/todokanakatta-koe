@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>緊急エビデンス送信フォーム | BORDOVER ARG</title>
+  <title>緊急案件送信フォーム | FICTIONAL ARG</title>
   <meta name="description" content="このページは創作作品上の架空UIです。実在の警察・行政機関・医療機関とは関係ありません。" />
 
-  <meta property="og:title" content="緊急エビデンス送信フォーム | BORDOVER ARG" />
+  <meta property="og:title" content="緊急案件送信フォーム | FICTIONAL ARG" />
   <meta property="og:description" content="このページは創作作品上の架空UIです。送信しても実在の警察・行政機関には届きません。" />
   <meta property="og:type" content="website" />
 
@@ -388,12 +388,12 @@
   <main class="page">
     <section class="terminal" id="formScreen">
       <div class="topbar">
-        <span>BORDOVER EMERGENCY ARCHIVE / FICTIONAL EVIDENCE INTAKE</span>
+        <span>FICTIONAL EMERGENCY CASE INTAKE</span>
         <span class="badge">FICTIONAL INTERFACE</span>
       </div>
 
-      <div class="content">
-        <h1>BORDOVER 緊急エビデンス送信フォーム</h1>
+      <div class="content" netlify>
+        <h1>緊急案件送信フォーム</h1>
         <p class="subtitle">
           取得した劇中資料を整理し、物語内で進行中の危険について記録してください。<br>
           内容に重大な不足がある場合、アーカイブへの統合は行われません。
@@ -407,14 +407,14 @@
 
         <form
           id="reportForm"
-          name="bordover-evidence-archive"
+          name="fictional-emergency-case"
           method="POST"
           data-netlify="true"
           netlify
           netlify-honeypot="bot-field"
           enctype="multipart/form-data"
         >
-          <input type="hidden" name="form-name" value="bordover-evidence-archive" />
+          <input type="hidden" name="form-name" value="fictional-emergency-case" />
 
           <p class="honeypot">
             <label>Don’t fill this out: <input name="bot-field" /></label>
@@ -602,18 +602,6 @@
               ></textarea>
             </div>
 
-            <div class="field">
-              <label for="finalReport">最終記録文</label>
-              <textarea
-                id="finalReport"
-                name="最終記録文"
-                placeholder="ここに、劇中で確認した内容を文章としてまとめてください。救出が必要な人物、場所、関係者、危険内容、証拠、要請する行動を含めてください。"
-                required
-              ></textarea>
-              <p class="hint">
-                ※自由記述欄は、劇中アーカイブへの統合判定の補助情報として扱われます。
-              </p>
-            </div>
           </div>
 
           <div class="actions">
@@ -625,7 +613,7 @@
               この送信は実在の警察・行政機関には届きません。表示される受理結果・担当者名・処理結果はすべて作品内の演出です。
             </div>
 
-            <button type="submit">この内容でエビデンスを送信する</button>
+            <button type="submit">この内容で緊急案件を送信する</button>
           </div>
         </form>
       </div>
@@ -634,14 +622,14 @@
     <section class="terminal success" id="successScreen">
       <h2>記録が統合されました</h2>
       <p>
-        提出された内容は、BORDOVER EMERGENCY ARCHIVE 内の劇中エビデンスとして記録されました。
+        提出された内容は、作品内の緊急案件記録として保存されました。
       </p>
       <p>
         救出対象の所在、関係者の動き、関連施設内の記録保全に関する演出シーケンスへ接続します。
       </p>
 
       <div class="success-code">
-        ARCHIVE STATUS: EVIDENCE LOGGED<br />
+        ARCHIVE STATUS: CASE LOGGED<br />
         SIGNAL: VERIFIED<br />
         ARCHIVE LINK: MIO-0417<br />
         CASE HANDLER: #0417<br />
@@ -722,7 +710,7 @@
         console.error(error);
 
         errorBox.textContent =
-          "送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに bordover-evidence-archive が表示されているか確認してください。";
+          "送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに fictional-emergency-case が表示されているか確認してください。";
         errorBox.style.display = "block";
         errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
       }
