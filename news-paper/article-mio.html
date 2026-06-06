@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」 | 三浦新聞</title>
+
+  <title>私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず | 三浦新聞</title>
+
   <meta
     name="description"
-    content="創作作品内に登場する架空ニュースサイトの記事ページです。私立星浜学園高等部と黒崎蓮司に関する劇中記事で、実在の人物・団体・学校・出来事とは関係ありません。"
+    content="創作作品内に登場する架空ニュースサイトの記事ページです。実在の人物・団体・事件・医療機関・学校とは関係ありません。"
   />
 
   <style>
@@ -19,8 +21,9 @@
       --accent: #6a1f1f;
       --accent-dark: #2d3e57;
       --hover: #f2efea;
-      --fiction-bg: #3f3f3f;
-      --fiction-ink: #e6e6e6;
+      --fiction-bg: #eeeeee;
+      --fiction-border: #cfcfcf;
+      --fiction-text: #555555;
       --max: 1180px;
       --fiction-height: 34px;
     }
@@ -55,15 +58,18 @@
 
     .fiction-fixed-bar {
       position: fixed;
-      inset: 0 0 auto 0;
+      top: 0;
+      left: 0;
       z-index: 9999;
-      height: var(--fiction-height);
+      width: 100%;
+      min-height: var(--fiction-height);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 14px;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--fiction-border);
       background: var(--fiction-bg);
-      color: var(--fiction-ink);
+      color: var(--fiction-text);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -73,11 +79,10 @@
         "Noto Sans JP",
         sans-serif;
       font-size: 12px;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.4;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .topbar {
@@ -125,6 +130,10 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       line-height: 1.2;
+    }
+
+    .site-title a:hover {
+      color: var(--accent);
     }
 
     .site-sub {
@@ -180,32 +189,42 @@
       min-width: 0;
     }
 
-    .label-row {
+    .article-flags {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 8px;
       margin-bottom: 14px;
     }
 
-    .category {
-      display: inline-block;
+    .category,
+    .fiction-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
       padding: 4px 10px;
       font-size: 0.75rem;
       letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .category {
       color: #fff;
       background: var(--accent-dark);
     }
 
     .fiction-badge {
-      display: inline-block;
-      padding: 3px 9px;
-      border: 1px solid #b8b1a7;
-      background: #f8f6f1;
-      color: #625a50;
-      font-size: 0.72rem;
-      line-height: 1.5;
-      letter-spacing: 0.08em;
+      color: #5f1f1f;
+      border: 1px solid #c9a7a7;
+      background: #f7eeee;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        "Noto Sans JP",
+        sans-serif;
+      font-weight: 600;
     }
 
     .article-title {
@@ -213,6 +232,16 @@
       font-size: clamp(1.7rem, 2.8vw, 2.35rem);
       line-height: 1.55;
       letter-spacing: 0.01em;
+    }
+
+    .article-note {
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      border-left: 4px solid #b9aaa0;
+      background: #faf8f3;
+      color: #5f5a55;
+      font-size: 0.88rem;
+      line-height: 1.75;
     }
 
     .meta {
@@ -225,16 +254,6 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--line);
       align-items: center;
-    }
-
-    .article-notice {
-      margin: 0 0 20px;
-      padding: 12px 14px;
-      border: 1px solid #ded8ce;
-      background: #fbfaf6;
-      color: #625a50;
-      font-size: 0.84rem;
-      line-height: 1.8;
     }
 
     .lead {
@@ -261,6 +280,16 @@
 
     .back-link a:hover {
       color: var(--accent);
+    }
+
+    .fiction-note {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid #d8d0c6;
+      background: #fbfaf7;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.8;
     }
 
     .sidebar {
@@ -321,22 +350,29 @@
 
     .related-tag {
       display: inline-block;
-      margin-right: 5px;
+      margin-right: 6px;
       padding: 1px 6px;
-      border: 1px solid #b8b1a7;
-      color: #625a50;
-      background: #fbfaf6;
-      font-size: 0.7rem;
+      border: 1px solid #c9a7a7;
+      background: #f7eeee;
+      color: #6a1f1f;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Sans",
+        "Yu Gothic",
+        "YuGothic",
+        "Noto Sans JP",
+        sans-serif;
       vertical-align: 1px;
     }
 
-    .fiction-note {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+    .side-note {
+      padding: 14px 16px;
       color: var(--muted);
       font-size: 0.82rem;
-      line-height: 1.8;
+      line-height: 1.75;
     }
 
     .site-footer {
@@ -357,11 +393,11 @@
       flex-wrap: wrap;
     }
 
-    .footer-note {
-      flex-basis: 100%;
-      padding-top: 10px;
-      border-top: 1px solid #ded8ce;
-      font-size: 0.78rem;
+    .footer-disclaimer {
+      width: 100%;
+      padding-top: 12px;
+      border-top: 1px solid #d6d0c7;
+      font-size: 0.8rem;
       line-height: 1.8;
     }
 
@@ -377,20 +413,19 @@
       }
 
       .fiction-fixed-bar {
+        min-height: var(--fiction-height);
+        padding: 6px 12px;
         font-size: 11px;
-        padding: 0 10px;
-      }
-
-      .topbar-inner {
-        padding: 8px 16px;
       }
 
       .site-header-inner {
         padding: 20px 16px 16px;
       }
 
+      .topbar-inner,
       .global-nav-inner {
-        padding: 0 16px;
+        padding-left: 16px;
+        padding-right: 16px;
       }
 
       .page {
@@ -406,11 +441,12 @@
       }
     }
   </style>
+
 </head>
 
 <body>
   <div class="fiction-fixed-bar">
-    このページは創作作品内の架空ニュースUIです。実在の新聞社・人物・学校・事件とは関係ありません。
+    このページは創作作品内の架空ニュースUIです。実在の人物・団体・学校・医療機関・事件とは関係ありません。
   </div>
 
   <div class="topbar">
@@ -447,86 +483,104 @@
   <main class="page">
     <div class="content-grid">
       <article class="article">
-        <div class="label-row">
-          <span class="category">学校</span>
+        <div class="article-flags">
           <span class="fiction-badge">劇中記事</span>
+          <span class="category">事件</span>
         </div>
 
         <h1 class="article-title">
-          私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
+          私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず
         </h1>
+
+        <p class="article-note">
+          この記事は物語内で提示される架空の報道記事です。現実の事故・事件・学校・医療機関への情報提供を目的としたものではありません。
+        </p>
 
         <div class="meta">
           <span>記者：三浦さやか</span>
-          <span>投稿日：2026年2月28日 18:10</span>
+          <span>投稿日：2026年4月10日 17:12</span>
+          <span>※ 2026年4月11日 18:40 一部更新</span>
         </div>
 
-        <p class="article-notice">
-          本記事はARG作品内で閲覧される架空の地方ニュース記事です。記載されている学校名・人物名・出来事はすべて物語上の設定です。
-        </p>
-
         <p class="lead">
-          私立星浜学園高等部が春季県大会を制し、16年ぶりとなる甲子園出場を決めた。校内では試合終了後から喜びの声が広がり、地域からも健闘を期待する声が上がっている。
+          市内の私立星浜学園高等部で女子生徒が校内で転落し、城南記念総合病院へ搬送された。学校側は当時の状況の確認を進めている。
         </p>
 
         <p>
-          県大会決勝を制した私立星浜学園高等部は、16年ぶりに甲子園出場を決めた。試合後、主将の黒崎蓮司選手は取材に対し、「支えてくれた人たちに感謝しています。ここまで一緒にやってきた部員や先生方、応援してくれた皆さんの思いを背負って戦いたい」と落ち着いた表情で語った。
+          市内の私立星浜学園高等部で10日午前、女子生徒が校舎内の階段付近で倒れているのが見つかり、市内の城南記念総合病院へ搬送された。関係者によると、生徒は校内の階段から転落したとみられ、発見時には意識がない状態だったという。
         </p>
 
         <p>
-          学校関係者によると、今大会は守備の安定感と終盤の粘り強さが際立ち、チーム全体で勝ち上がったことが大きかったという。試合後には校内でも速報が伝えられ、野球部員の家族や在校生、教職員から喜びの声が相次いだ。学校側は「節目となる出場を励みに、生徒たちの努力を今後にもつなげていきたい」としている。
+          搬送後も意識は戻っておらず、医療機関で治療が続けられている。学校は教職員や生徒から事情を聴くなどし、当時の行動や現場周辺の状況について確認を進めている。校内では生徒の動揺も広がっており、保護者向けの説明も検討しているという。
         </p>
 
         <p>
-          地域でも期待は高まっており、学校周辺では「久しぶりの甲子園出場で明るい話題になった」「本大会でも星浜らしい試合を見せてほしい」といった声が聞かれた。星浜学園は今後、開幕に向けて調整を進める予定で、黒崎主将を中心にチームの士気も高まっている。
+          一方で、この生徒をめぐっては、以前から交友関係や学校生活に関する不安の声も一部で聞かれていたとされる。学校側は、転落の経緯とあわせて、いじめとの関連についても慎重に調査している。現時点で詳しい原因は明らかになっておらず、関係機関と連携しながら事実確認を進めるとしている。
         </p>
 
         <div class="back-link">
-          <a href="index.html">← ニュース一覧へ戻る</a>
+          <a href="index.html">
+            ← ニュース一覧へ戻る
+          </a>
         </div>
 
         <div class="fiction-note">
-          ※本ページはフィクションとして制作された架空ニュース記事です。実在の新聞社・学校・人物・団体・事件とは関係ありません。
+          ※本ページはオンラインARG作品の演出として制作された架空のニュース記事です。実在の名称・人物・団体・学校・病院・事件とは関係ありません。
         </div>
       </article>
 
       <aside class="sidebar">
         <section class="side-box">
           <h3>関連記事</h3>
+
           <ul class="related-list">
             <li>
-              <a href="article-mio">
-                <span class="related-date">2026年4月10日 / 事件</span>
+              <a href="article-naruse.html">
+                <span class="related-date">2026年1月18日 / 医療</span>
                 <span class="related-title">
-                  <span class="related-tag">劇中記事</span>私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず
+                  <span class="related-tag">劇中記事</span>
+                  女子高校生死亡、点滴後に容体急変　病院対応に疑問
                 </span>
               </a>
             </li>
+
             <li>
               <a href="index.html#category-medical">
                 <span class="related-date">2026年4月7日 / 医療</span>
                 <span class="related-title">
-                  <span class="related-tag">劇中記事</span>城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について
+                  <span class="related-tag">劇中記事</span>
+                  城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について
                 </span>
               </a>
             </li>
+
             <li>
               <a href="index.html#category-social">
                 <span class="related-date">2026年4月5日 / 社会</span>
                 <span class="related-title">
-                  <span class="related-tag">劇中記事</span>星浜市教育課、相談体制の周知強化へ　新学期前に案内配布
+                  <span class="related-tag">劇中記事</span>
+                  星浜市教育課、相談体制の周知強化へ　新学期前に案内配布
                 </span>
               </a>
             </li>
+
             <li>
-              <a href="article-naruse">
-                <span class="related-date">2026年1月18日 / 医療</span>
+              <a href="article-renji.html">
+                <span class="related-date">2026年2月28日 / 学校</span>
                 <span class="related-title">
-                  <span class="related-tag">劇中記事</span>女子高校生死亡、点滴後に容体急変　病院対応に疑問
+                  <span class="related-tag">劇中記事</span>
+                  私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
                 </span>
               </a>
             </li>
           </ul>
+        </section>
+
+        <section class="side-box">
+          <h3>このページについて</h3>
+          <div class="side-note">
+            本記事は創作作品内の調査導線として用意された架空記事です。現実の報道機関、学校、病院、行政機関とは関係ありません。
+          </div>
         </section>
       </aside>
     </div>
@@ -536,8 +590,9 @@
     <div class="site-footer-inner">
       <div>三浦新聞</div>
       <div>© 2026 Miura Shimbun</div>
-      <div class="footer-note">
-        このサイトは創作作品の演出用に制作された架空ニュースUIです。実在の新聞社・自治体・学校・医療機関・人物・事件とは関係ありません。人物・施設・風景等の画像が使用される場合、AI生成画像または加工画像を含むことがあります。
+
+      <div class="footer-disclaimer">
+        本サイトは創作作品内に登場する架空ニュースUIです。掲載されている人物・団体・学校・医療機関・事件はすべてフィクションであり、実在のものとは関係ありません。人物・施設・風景等の画像を使用する場合、AI生成画像または加工画像を含む場合があります。
       </div>
     </div>
   </footer>
