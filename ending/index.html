@@ -156,14 +156,29 @@
     .blackout-text { opacity: 0; animation: dimIn 1.8s ease forwards; }
     @keyframes dimIn { to { opacity: 1; } }
 
-    /* Phase 3: search - TEMPORAL SEARCH design aligned with /search */
+    /* Phase 3: search - uses /search visual structure */
     .search-phase {
+      --search-bg: #f4f6f8;
+      --search-panel: #ffffff;
+      --search-panel-soft: #eef3f7;
+      --search-text: #111827;
+      --search-muted: #6b7280;
+      --search-muted-2: #94a3b8;
+      --search-line: #d7e0ea;
+      --search-accent: #416783;
+      --search-accent-dark: #24465f;
+      --search-accent-soft: #e7eff5;
+      --search-warning: #7a1f1f;
+      --search-warning-line: #e8caca;
+      --search-shadow: 0 18px 55px rgba(31, 41, 55, 0.10);
+      --search-radius: 18px;
       background:
         radial-gradient(circle at 10% 0%, rgba(95, 130, 160, 0.18), transparent 34rem),
         radial-gradient(circle at 92% 12%, rgba(36, 70, 95, 0.10), transparent 28rem),
-        linear-gradient(180deg, #ffffff 0%, #f4f6f8 58%, #e9eef4 100%);
-      color: #111827;
+        linear-gradient(180deg, #ffffff 0%, var(--search-bg) 58%, #e9eef4 100%);
+      color: var(--search-text);
       font-family: var(--sans);
+      letter-spacing: 0.01em;
       overflow: hidden;
     }
 
@@ -177,35 +192,37 @@
         linear-gradient(90deg, rgba(36, 70, 95, 0.035) 1px, transparent 1px);
       background-size: 38px 38px;
       mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.72), transparent 68%);
+      z-index: 0;
     }
 
-    .search-wrap {
+    .search-phase a { color: inherit; }
+
+    .search-phase .page {
       position: relative;
       z-index: 1;
-      height: 100%;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 22px 18px 34px;
-      overflow: hidden;
     }
 
-    .search-topbar {
-      width: min(1180px, calc(100% - 8px));
+    .search-phase .topbar {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 12px;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 18px;
-      margin: 0 auto 18px;
     }
 
-    .ending-brand {
+    .search-phase .brand {
       display: flex;
-      gap: 12px;
       align-items: flex-start;
+      gap: 12px;
+      text-decoration: none;
     }
 
-    .ending-brand-mark {
+    .search-phase .brand-mark {
       width: 34px;
       height: 34px;
       border: 1px solid rgba(65, 103, 131, 0.35);
@@ -218,7 +235,7 @@
       flex: 0 0 auto;
     }
 
-    .ending-brand-mark::after {
+    .search-phase .brand-mark::after {
       content: "";
       position: absolute;
       inset: 8px;
@@ -226,145 +243,317 @@
       border-radius: 50%;
     }
 
-    .ending-brand-title {
+    .search-phase .brand-title {
       display: block;
       font-family: var(--mono);
       font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.11em;
       line-height: 1.2;
-      color: #111827;
     }
 
-    .ending-brand-sub,
-    .search-status-line {
+    .search-phase .brand-sub {
       display: block;
       margin-top: 4px;
       font-family: var(--mono);
       font-size: 11px;
-      color: #6b7280;
+      color: var(--search-muted);
       letter-spacing: 0.04em;
     }
 
-    .search-status-line {
-      margin-top: 0;
+    .search-phase .status {
       text-align: right;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--search-muted);
       line-height: 1.65;
       white-space: nowrap;
     }
 
-    .search-status-line strong {
+    .search-phase .status strong {
       display: block;
-      color: #24465f;
+      color: var(--search-accent-dark);
       font-size: 12px;
       letter-spacing: 0.08em;
+      font-weight: 700;
     }
 
-    .search-card {
-      width: min(780px, 100%);
-      margin-top: min(9vh, 64px);
-      padding: 26px;
+    .search-phase main {
+      flex: 1;
+      width: 100%;
+    }
+
+    .search-phase .hero {
+      width: min(1040px, calc(100% - 32px));
+      margin: 42px auto 24px;
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      align-items: center;
+      gap: 34px;
+      transition: all 0.25s ease;
+    }
+
+    .search-phase .hero.compact {
+      width: min(920px, calc(100% - 32px));
+      margin: 12px auto 18px;
+      grid-template-columns: 1fr;
+    }
+
+    .search-phase .hero-panel {
+      position: relative;
+      min-height: 340px;
+      padding: 30px 28px;
       border: 1px solid rgba(160, 174, 192, 0.36);
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(232, 240, 246, 0.58)),
+        repeating-linear-gradient(135deg, transparent 0 16px, rgba(65, 103, 131, 0.035) 16px 17px);
+      box-shadow: 0 22px 58px rgba(31, 41, 55, 0.09);
+      overflow: hidden;
+    }
+
+    .search-phase .hero-panel::before {
+      content: "CASE FILE / PUBLIC WEB LAYER";
+      position: absolute;
+      top: 18px;
+      right: -42px;
+      width: 220px;
+      padding: 7px 0;
+      transform: rotate(36deg);
+      background: rgba(65, 103, 131, 0.12);
+      color: rgba(36, 70, 95, 0.68);
+      font-family: var(--mono);
+      font-size: 9px;
+      text-align: center;
+      letter-spacing: 0.12em;
+    }
+
+    .search-phase .hero.compact .hero-panel { display: none; }
+
+    .search-phase .hero-kicker {
+      margin: 0 0 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--search-accent-dark);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .search-phase .hero-title {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      color: #162435;
+      text-shadow: 0 1px 0 #fff;
+    }
+
+    .search-phase .hero-copy {
+      margin: 22px 0 0;
+      max-width: 390px;
+      color: var(--search-muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .search-phase .search-zone { min-width: 0; }
+    .search-phase .hero.compact .search-zone { width: 100%; }
+
+    .search-phase .fiction-context-banner {
+      width: min(780px, 100%);
+      margin: 0 0 14px;
+      padding: 9px 13px;
+      border: 1px solid var(--search-warning-line);
+      border-left: 4px solid var(--search-warning);
+      border-radius: 12px;
+      background: rgba(248, 238, 238, 0.94);
+      color: var(--search-warning);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(80, 22, 22, 0.06);
+    }
+
+    .search-phase .fiction-context-banner strong { font-weight: 700; }
+
+    .search-phase .search-card {
+      position: relative;
+      width: min(780px, 100%);
+      padding: 16px;
+      border: 1px solid rgba(160, 174, 192, 0.38);
       border-radius: 24px;
       background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(232, 240, 246, 0.70)),
-        repeating-linear-gradient(135deg, transparent 0 16px, rgba(65, 103, 131, 0.035) 16px 17px);
-      box-shadow: 0 18px 55px rgba(31, 41, 55, 0.10);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(249, 251, 253, 0.88)),
+        repeating-linear-gradient(90deg, transparent 0 22px, rgba(65, 103, 131, 0.025) 22px 23px);
+      box-shadow: var(--search-shadow);
+      backdrop-filter: blur(16px);
     }
 
-    .search-kicker {
-      margin: 0 0 10px;
+    .search-phase .search-card::before {
+      content: "archive query terminal";
+      display: inline-flex;
+      margin: 0 0 10px 3px;
+      color: #6b7f90;
       font-family: var(--mono);
-      color: #24465f;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: lowercase;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
-    .search-heading {
-      margin: 0 0 22px;
-      color: #111827;
-      font-size: clamp(2rem, 6vw, 4rem);
-      line-height: 1.05;
-      letter-spacing: -0.055em;
-    }
-
-    .search-box {
-      width: 100%;
+    .search-phase .search-form {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: 1fr auto;
       gap: 10px;
-      padding: 9px;
-      border: 1px solid rgba(160, 174, 192, 0.45);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+      align-items: center;
     }
 
-    .search-input {
-      min-width: 0;
+    .search-phase .search-box-wrap { position: relative; }
+
+    .search-phase .search-box-wrap::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      width: 15px;
+      height: 15px;
+      border: 2px solid #71869a;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .search-phase .search-box-wrap::after {
+      content: "";
+      position: absolute;
+      left: 31px;
+      top: 55%;
+      width: 8px;
+      height: 2px;
+      background: #71869a;
+      transform: rotate(45deg);
+      transform-origin: left center;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .search-phase input[type="search"] {
+      width: 100%;
       height: 58px;
-      border: 1px solid rgba(160, 174, 192, 0.35);
-      border-radius: 16px;
+      padding: 0 18px 0 48px;
+      border: 1px solid var(--search-line);
+      border-radius: 17px;
+      background: #fff;
+      color: var(--search-text);
+      font-size: 16px;
       outline: none;
-      padding: 0 16px;
-      font-family: var(--sans);
-      font-size: clamp(17px, 5vw, 22px);
-      font-weight: 600;
-      letter-spacing: .02em;
-      color: #111827;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
-    .search-button {
+    .search-phase input[type="search"]:focus {
+      border-color: rgba(65, 103, 131, 0.62);
+      box-shadow: 0 0 0 4px rgba(65, 103, 131, 0.12);
+    }
+
+    .search-phase .search-button {
       height: 58px;
       padding: 0 22px;
       border: 0;
       border-radius: 17px;
-      background: linear-gradient(180deg, #416783, #24465f);
+      background: linear-gradient(180deg, var(--search-accent), var(--search-accent-dark));
       color: #fff;
       font-family: var(--mono);
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.04em;
+      cursor: default;
       box-shadow: 0 12px 24px rgba(36, 70, 95, 0.20);
+      white-space: nowrap;
     }
 
-    .search-status {
-      margin-top: 16px;
-      width: 100%;
+    .search-phase .result-area {
+      display: none;
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto 42px;
+    }
+
+    .search-phase .result-area.visible { display: block; }
+
+    .search-phase .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 8px 4px 18px;
+      color: var(--search-muted);
       font-family: var(--mono);
       font-size: 12px;
-      color: #6b7280;
-      min-height: 20px;
     }
 
-    .result-list {
-      display: none;
-      gap: 14px;
-      margin-top: 20px;
-      width: min(920px, 100%);
+    .search-phase .query-readout {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .result-list.visible {
+    .search-phase .pulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #526579;
+    }
+
+    .search-phase .pulse::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6b8aa3;
+      box-shadow: 0 0 0 0 rgba(65, 103, 131, 0.32);
+      animation: pulse 1.35s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(65, 103, 131, 0.32); }
+      70% { box-shadow: 0 0 0 8px rgba(65, 103, 131, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(65, 103, 131, 0); }
+    }
+
+    .search-phase .result-list {
       display: grid;
-      animation: slideUp .7s ease both;
+      gap: 14px;
     }
 
-    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-    .result-card {
+    .search-phase .result-item {
       display: block;
       padding: 20px 22px;
       border: 1px solid rgba(160, 174, 192, 0.34);
-      border-radius: 18px;
+      border-radius: var(--search-radius);
       background: rgba(255, 255, 255, 0.86);
+      text-decoration: none;
       box-shadow: 0 12px 32px rgba(31, 41, 55, 0.06);
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      animation: slideUp .7s ease both;
     }
 
-    .result-source {
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-phase .result-title {
       margin: 0 0 6px;
+      color: #162435;
+      font-size: 19px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .search-phase .result-url {
+      margin: 0 0 10px;
       color: #4b6f88;
       font-family: var(--mono);
       font-size: 12px;
@@ -372,22 +561,14 @@
       word-break: break-all;
     }
 
-    .result-title {
-      margin: 0 0 10px;
-      color: #162435;
-      font-size: 19px;
-      line-height: 1.45;
-      font-weight: 700;
-    }
-
-    .result-snippet {
+    .search-phase .result-snippet {
       margin: 0;
       color: #4b5563;
       font-size: 14px;
       line-height: 1.85;
     }
 
-    .result-footer {
+    .search-phase .result-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -396,8 +577,8 @@
       margin-top: 14px;
     }
 
-    .result-label,
-    .result-open-hint {
+    .search-phase .result-label,
+    .search-phase .result-open-hint {
       display: inline-flex;
       align-items: center;
       min-height: 24px;
@@ -408,500 +589,445 @@
       letter-spacing: 0.07em;
     }
 
-    .result-label {
+    .search-phase .result-label {
       border: 1px solid rgba(65, 103, 131, 0.20);
-      background: #e7eff5;
+      background: var(--search-accent-soft);
       color: #47667b;
       text-transform: lowercase;
     }
 
-    .result-open-hint {
+    .search-phase .result-open-hint {
       border: 1px solid rgba(148, 163, 184, 0.26);
       background: rgba(255, 255, 255, 0.58);
       color: #6b7f90;
     }
 
-    /* Phase 4: article */
-    .article-phase {
-      background: var(--paper);
-      color: var(--ink);
-      overflow: hidden;
-      font-family: var(--serif);
+    .search-phase .result-open-hint::after {
+      content: "↗";
+      margin-left: 6px;
+      font-size: 11px;
+      line-height: 1;
     }
+
+    /* Phase 4: article - uses /news-paper article layout */
+    .article-phase {
+      background: #f7f6f2;
+      color: #1e1e1e;
+      overflow: hidden;
+      font-family:
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        "YuMincho",
+        "Noto Serif JP",
+        serif;
+    }
+
     .article-scroll {
       height: 100%;
       overflow: hidden;
     }
+
     .article-inner {
-      width: min(820px, 100%);
+      min-height: 100%;
+      background: #f7f6f2;
+      color: #1e1e1e;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+      --paper-ui: #ffffff;
+      --paper-muted: #666666;
+      --paper-line: #d9d4cb;
+      --paper-accent: #6a1f1f;
+      --paper-accent-dark: #2d3e57;
+      --paper-hover: #f2efea;
+      --paper-max: 1180px;
+    }
+
+    .article-inner a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .article-phase .fiction-fixed-bar {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      border-bottom: 1px solid #cfcfcf;
+      background: #eeeeee;
+      color: #555555;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .article-phase .topbar {
+      border-bottom: 1px solid var(--paper-line);
+      background: #efede7;
+      font-size: 0.86rem;
+      color: var(--paper-muted);
+    }
+
+    .article-phase .topbar-inner {
+      max-width: var(--paper-max);
       margin: 0 auto;
-      padding: 28px 20px 90px;
-      transform: translateY(0);
-    }
-    .newspaper-head {
-      border-bottom: 3px double #111;
-      padding-bottom: 12px;
-      margin-bottom: 24px;
-    }
-    .paper-logo {
-      font-family: var(--serif);
-      font-size: clamp(28px, 8vw, 46px);
-      font-weight: 700;
-      letter-spacing: .14em;
-    }
-    .paper-meta-line {
-      margin-top: 8px;
+      padding: 8px 20px;
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: #555;
+      flex-wrap: wrap;
     }
-    .article-kicker {
+
+    .article-phase .site-header {
+      background: var(--paper-ui);
+      border-bottom: 2px solid #222;
+    }
+
+    .article-phase .site-header-inner {
+      max-width: var(--paper-max);
+      margin: 0 auto;
+      padding: 24px 20px 18px;
+    }
+
+    .article-phase .site-name-wrap { text-align: center; }
+
+    .article-phase .site-kicker {
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      color: var(--paper-muted);
+      letter-spacing: 0.18em;
+    }
+
+    .article-phase .site-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+    }
+
+    .article-phase .site-sub {
+      margin: 10px 0 0;
+      font-size: 0.92rem;
+      color: var(--paper-muted);
+    }
+
+    .article-phase .global-nav {
+      border-top: 1px solid var(--paper-line);
+      background: #fcfbf8;
+    }
+
+    .article-phase .global-nav-inner {
+      max-width: var(--paper-max);
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .article-phase .global-nav a {
       display: inline-block;
-      border: 1px solid #111;
-      padding: 4px 8px;
-      font-size: 12px;
+      padding: 13px 0;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .article-phase .page {
+      max-width: var(--paper-max);
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .article-phase .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .article-phase .article {
+      background: var(--paper-ui);
+      border: 1px solid var(--paper-line);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+      padding: 30px 30px 34px;
+      min-width: 0;
+    }
+
+    .article-phase .article-flags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-bottom: 14px;
+    }
+
+    .article-phase .category,
+    .article-phase .fiction-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .article-phase .category {
+      color: #fff;
+      background: var(--paper-accent-dark);
+    }
+
+    .article-phase .fiction-badge {
+      color: #5f1f1f;
+      border: 1px solid #c9a7a7;
+      background: #f7eeee;
       font-family: var(--sans);
+      font-weight: 600;
     }
-    .article-title {
-      font-size: clamp(26px, 7vw, 44px);
-      line-height: 1.25;
-      margin: 0 0 10px;
-      letter-spacing: .03em;
+
+    .article-phase .article-title {
+      margin: 0 0 16px;
+      font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+      line-height: 1.55;
+      letter-spacing: 0.01em;
     }
-    .article-subtitle {
-      font-size: clamp(16px, 4.2vw, 22px);
-      line-height: 1.5;
+
+    .article-phase .article-note {
       margin: 0 0 18px;
-      color: #444;
-      border-left: 4px solid #111;
-      padding-left: 12px;
+      padding: 12px 14px;
+      border-left: 4px solid #b9aaa0;
+      background: #faf8f3;
+      color: #5f5a55;
+      font-size: 0.88rem;
+      line-height: 1.75;
     }
-    .article-byline {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: #555;
-      border-bottom: 1px solid #bbb;
-      padding-bottom: 18px;
-      margin-bottom: 24px;
+
+    .article-phase .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      font-size: 0.84rem;
+      color: var(--paper-muted);
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--paper-line);
+      align-items: center;
     }
-    .article-body p {
-      font-size: clamp(16px, 4.2vw, 19px);
-      line-height: 2.05;
-      margin: 0 0 1.35em;
-      letter-spacing: .02em;
+
+    .article-phase .lead {
+      margin: 0 0 22px;
+      font-size: 1.02rem;
+      color: #2a2a2a;
     }
-    .article-note {
-      margin-top: 34px;
-      padding: 18px;
-      border: 1px solid #b9b1a3;
-      background: rgba(255,255,255,.42);
-      font-family: var(--sans);
-      font-size: 13px;
+
+    .article-phase .article p {
+      margin: 0 0 18px;
+      font-size: 1rem;
+    }
+
+    .article-phase .back-link {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--paper-line);
+      font-size: 0.94rem;
+    }
+
+    .article-phase .back-link a { color: var(--paper-accent-dark); }
+
+    .article-phase .fiction-note {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid #d8d0c6;
+      background: #fbfaf7;
+      color: var(--paper-muted);
+      font-size: 0.82rem;
       line-height: 1.8;
-      color: #555;
     }
 
+    .article-phase .sidebar { min-width: 0; }
 
+    .article-phase .side-box {
+      background: var(--paper-ui);
+      border: 1px solid var(--paper-line);
+      margin-bottom: 18px;
+    }
 
-/* ==============================
-   Phase Article / Miura Shimbun
-   2026.04.29 修正版
-============================== */
+    .article-phase .side-box h3 {
+      margin: 0;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--paper-line);
+      font-size: 1rem;
+      background: #f4f1ea;
+      letter-spacing: 0.04em;
+    }
 
-.article-phase {
-  background: #f7f6f2;
-  color: #1e1e1e;
-  overflow: hidden;
-  font-family:
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "YuMincho",
-    "Noto Serif JP",
-    serif;
-}
+    .article-phase .related-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-.article-scroll {
-  height: 100%;
-  overflow: hidden;
-}
+    .article-phase .related-list li { border-bottom: 1px solid #ece7dc; }
+    .article-phase .related-list li:last-child { border-bottom: none; }
 
-#articleInner.miura-page-wrap {
-  --miura-bg: #f7f6f2;
-  --miura-paper: #ffffff;
-  --miura-ink: #1e1e1e;
-  --miura-muted: #666666;
-  --miura-line: #d9d4cb;
-  --miura-accent: #6a1f1f;
-  --miura-accent-dark: #2d3e57;
-  --miura-hover: #f2efea;
-  --miura-max: 1180px;
+    .article-phase .related-list a {
+      display: block;
+      padding: 14px 16px;
+      transition: 0.2s ease;
+    }
 
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: var(--miura-bg);
-  color: var(--miura-ink);
-  line-height: 1.9;
-  letter-spacing: 0.02em;
-  transform: translateY(0);
-}
+    .article-phase .related-list a:hover { background: var(--paper-hover); }
 
-.miura-page-wrap a {
-  color: inherit;
-  text-decoration: none;
-}
+    .article-phase .related-date {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      color: var(--paper-muted);
+    }
 
-.miura-fiction-notice {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-  padding: 6px 14px;
-  background: #3a3a3a;
-  color: #e6e6e6;
-  font-family: var(--sans, sans-serif);
-  font-size: 0.72rem;
-  line-height: 1.4;
-  letter-spacing: 0.04em;
-  text-align: center;
-}
+    .article-phase .related-title {
+      display: block;
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
 
-/* 上部バー */
-.miura-topbar {
-  border-bottom: 1px solid var(--miura-line);
-  background: #efede7;
-  font-size: 0.86rem;
-  color: var(--miura-muted);
-}
+    .article-phase .related-tag {
+      display: inline-block;
+      margin-right: 6px;
+      padding: 1px 6px;
+      border: 1px solid #c9a7a7;
+      background: #f7eeee;
+      color: #6a1f1f;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      font-family: var(--sans);
+      vertical-align: 1px;
+    }
 
-.miura-topbar-inner,
-.miura-header-inner,
-.miura-nav-inner,
-.miura-page,
-.miura-footer-inner {
-  max-width: var(--miura-max);
-  margin: 0 auto;
-}
+    .article-phase .side-note {
+      padding: 14px 16px;
+      color: var(--paper-muted);
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
 
-.miura-topbar-inner {
-  padding: 8px 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
+    .article-phase .site-footer {
+      margin-top: 44px;
+      border-top: 2px solid #222;
+      background: #f1eee8;
+    }
 
-/* ヘッダー */
-.miura-header {
-  background: var(--miura-paper);
-  border-bottom: 2px solid #222;
-}
+    .article-phase .site-footer-inner {
+      max-width: var(--paper-max);
+      margin: 0 auto;
+      padding: 20px;
+      color: var(--paper-muted);
+      font-size: 0.88rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-.miura-header-inner {
-  padding: 24px 20px 18px;
-}
+    .article-phase .footer-disclaimer {
+      width: 100%;
+      padding-top: 12px;
+      border-top: 1px solid #d6d0c7;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
 
-.miura-name-wrap {
-  text-align: center;
-}
+    @media (max-width: 900px) {
+      .search-phase .hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 26px;
+      }
 
-.miura-kicker {
-  margin: 0 0 8px;
-  font-size: 0.8rem;
-  color: var(--miura-muted);
-  letter-spacing: 0.18em;
-}
+      .search-phase .hero-panel { min-height: auto; }
+      .search-phase .hero-copy { max-width: none; }
+      .search-phase .fiction-context-banner,
+      .search-phase .search-card { width: 100%; }
+      .article-phase .content-grid { grid-template-columns: 1fr; }
+    }
 
-.miura-title-logo {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3.3rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-}
+    @media (max-width: 720px) {
+      .search-phase .topbar {
+        width: min(calc(100% - 24px), 1180px);
+        padding-top: 16px;
+      }
 
-.miura-sub {
-  margin: 10px 0 0;
-  font-size: 0.92rem;
-  color: var(--miura-muted);
-}
+      .search-phase .brand-mark {
+        width: 31px;
+        height: 31px;
+      }
 
-/* ナビ */
-.miura-nav {
-  border-top: 1px solid var(--miura-line);
-  background: #fcfbf8;
-}
+      .search-phase .brand-title { font-size: 13px; }
+      .search-phase .brand-sub,
+      .search-phase .status { font-size: 10px; }
+      .search-phase .hero { width: min(calc(100% - 22px), 1040px); }
+      .search-phase .hero-title { font-size: clamp(36px, 12vw, 58px); }
+      .search-phase .hero-copy { font-size: 13px; }
+      .search-phase .search-card {
+        padding: 10px;
+        border-radius: 20px;
+      }
+      .search-phase .search-form { grid-template-columns: 1fr; }
+      .search-phase input[type="search"] {
+        height: 52px;
+        font-size: 16px;
+      }
+      .search-phase .search-button {
+        height: 50px;
+        width: 100%;
+      }
+      .search-phase .result-area { width: min(100% - 22px, 920px); }
+      .search-phase .meta-row {
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: 11px;
+      }
+      .search-phase .result-item {
+        padding: 17px 16px;
+        border-radius: 16px;
+      }
+      .search-phase .result-title { font-size: 17px; }
+      .search-phase .result-snippet { font-size: 13px; }
+    }
 
-.miura-nav-inner {
-  padding: 0 20px;
-  display: flex;
-  gap: 22px;
-  overflow-x: auto;
-  white-space: nowrap;
-}
+    @media (max-width: 600px) {
+      .article-phase .fiction-fixed-bar {
+        min-height: 42px;
+        padding: 6px 12px;
+        font-size: 11px;
+      }
 
-.miura-nav a {
-  display: inline-block;
-  padding: 13px 0;
-  font-size: 0.95rem;
-  color: #333;
-}
+      .article-phase .site-header-inner {
+        padding: 20px 16px 16px;
+      }
 
-.miura-nav a:hover {
-  color: var(--miura-accent);
-}
+      .article-phase .topbar-inner,
+      .article-phase .global-nav-inner {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
 
-/* レイアウト */
-.miura-page {
-  padding: 32px 20px 48px;
-}
+      .article-phase .page {
+        padding: 22px 16px 40px;
+      }
 
-.miura-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 32px;
-  align-items: start;
-}
+      .article-phase .article {
+        padding: 22px 16px 26px;
+      }
 
-/* 記事本体 */
-.miura-article {
-  background: var(--miura-paper);
-  border: 1px solid var(--miura-line);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
-  padding: 30px 30px 34px;
-  min-width: 0;
-}
-
-.miura-category-wrap {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.miura-category,
-.miura-category-sub {
-  display: inline-block;
-  padding: 4px 10px;
-  font-family: var(--sans, sans-serif);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: #fff;
-}
-
-.miura-category {
-  background: var(--miura-accent);
-}
-
-.miura-category-sub {
-  background: var(--miura-accent-dark);
-}
-
-.miura-article-title {
-  margin: 0 0 10px;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-}
-
-.miura-article-subtitle {
-  margin: 0 0 18px;
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  color: #444;
-  font-weight: 400;
-  line-height: 1.6;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--miura-line);
-}
-
-.miura-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  font-family: var(--sans, sans-serif);
-  font-size: 0.84rem;
-  color: var(--miura-muted);
-  margin-bottom: 24px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--miura-line);
-  align-items: center;
-}
-
-.miura-lead {
-  margin: 0 0 22px;
-  font-size: 1.02rem;
-  color: #2a2a2a;
-  font-weight: 500;
-}
-
-.miura-article p {
-  margin: 0 0 18px;
-  font-size: 1rem;
-  line-height: 2;
-}
-
-/* 戻るリンク */
-.miura-back-link {
-  margin-top: 30px;
-  padding-top: 18px;
-  border-top: 1px solid var(--miura-line);
-  font-family: var(--sans, sans-serif);
-  font-size: 0.9rem;
-  color: var(--miura-muted);
-}
-
-.miura-back-link a:hover {
-  color: var(--miura-accent);
-}
-
-/* フィクション注記 */
-.miura-note {
-  margin-top: 32px;
-  padding-top: 14px;
-  border-top: 1px solid var(--miura-line);
-  color: #999;
-  font-family: var(--sans, sans-serif);
-  font-size: 0.78rem;
-  line-height: 1.8;
-  text-align: right;
-}
-
-/* サイドバー */
-.miura-sidebar {
-  min-width: 0;
-}
-
-.miura-side-box {
-  background: var(--miura-paper);
-  border: 1px solid var(--miura-line);
-  margin-bottom: 18px;
-}
-
-.miura-side-box h3 {
-  margin: 0;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--miura-line);
-  font-size: 1rem;
-  background: #f4f1ea;
-  letter-spacing: 0.04em;
-}
-
-.miura-related-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.miura-related-list li {
-  border-bottom: 1px solid #ece7dc;
-}
-
-.miura-related-list li:last-child {
-  border-bottom: none;
-}
-
-.miura-related-list a {
-  display: block;
-  padding: 14px 16px;
-  color: inherit;
-  transition: background 0.2s ease;
-}
-
-.miura-related-list a:hover {
-  background: var(--miura-hover);
-}
-
-.miura-related-date {
-  display: block;
-  margin-bottom: 6px;
-  font-family: var(--sans, sans-serif);
-  font-size: 0.78rem;
-  color: var(--miura-muted);
-}
-
-.miura-related-title {
-  display: block;
-  font-size: 0.93rem;
-  line-height: 1.6;
-}
-
-/* フッター */
-.miura-footer {
-  margin-top: 44px;
-  border-top: 2px solid #222;
-  background: #f1eee8;
-}
-
-.miura-footer-inner {
-  padding: 20px;
-  color: var(--miura-muted);
-  font-family: var(--sans, sans-serif);
-  font-size: 0.88rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.miura-footer-note {
-  flex-basis: 100%;
-  font-size: 0.78rem;
-  line-height: 1.8;
-  color: #777;
-}
-
-/* スマホ対応 */
-@media (max-width: 900px) {
-  .miura-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .miura-sidebar {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .miura-topbar-inner {
-    font-size: 0.76rem;
-  }
-
-  .miura-header-inner {
-    padding: 20px 16px 16px;
-  }
-
-  .miura-nav-inner {
-    padding: 0 16px;
-    gap: 18px;
-  }
-
-  .miura-page {
-    padding: 22px 16px 40px;
-  }
-
-  .miura-article {
-    padding: 22px 16px 26px;
-  }
-
-  .miura-article-title {
-    font-size: 1.4rem;
-    line-height: 1.55;
-  }
-
-  .miura-article p {
-    font-size: 0.96rem;
-    line-height: 2;
-  }
-
-  .miura-note {
-    text-align: left;
-  }
-}
+      .article-phase .article-title {
+        font-size: 1.45rem;
+      }
+    }
 
 
 /* ==============================
@@ -1098,12 +1224,6 @@
       .terminal { padding: 14px; }
       .terminal-card { padding: 14px; }
       .terminal-header { font-size: 10px; }
-      .search-wrap { padding: 22px 14px; }
-      .search-box { padding: 8px; border-radius: 24px; }
-      .search-button { padding: 0 12px; font-size: 12px; }
-      .search-input { padding: 0 10px; }
-      .article-inner { padding: 22px 17px 80px; }
-      .paper-meta-line { display: block; line-height: 1.7; }
       .epilogue-text-wrap { padding: 24px 18px; }
     }
     .narration-overlay {
@@ -1156,12 +1276,6 @@
   display: flex;
 }
 
-/* Keep the ending article natural after the prior disclaimer phase */
-.miura-category {
-  background: #111827;
-  color: #fff;
-}
-
   </style>
 </head>
 <body>
@@ -1211,97 +1325,139 @@
     </section>
 
     <section class="phase search-phase" id="phase-search">
-      <div class="search-wrap">
-        <div class="search-topbar" aria-hidden="true">
-          <div class="ending-brand">
-            <span class="ending-brand-mark"></span>
+      <div class="page">
+        <header class="topbar">
+          <a href="../search/" class="brand" aria-label="TEMPORAL SEARCH">
+            <span class="brand-mark" aria-hidden="true"></span>
             <span>
-              <span class="ending-brand-title">TEMPORAL SEARCH</span>
-              <span class="ending-brand-sub">fictional archive interface</span>
+              <span class="brand-title">TEMPORAL SEARCH</span>
+              <span class="brand-sub">Indexed web layer: 2026.04.17</span>
             </span>
-          </div>
-          <div class="search-status-line">
-            <strong>PUBLIC WEB LAYER</strong>
-            archived domain / 2026.04.17
-          </div>
-        </div>
+          </a>
 
-        <div class="search-card">
-          <p class="search-kicker">archive query terminal</p>
-          <h1 class="search-heading">記録検索</h1>
-          <div class="search-box">
-            <input class="search-input" id="searchInput" aria-label="検索語" readonly />
-            <button class="search-button" type="button">SEARCH</button>
+          <div class="status" aria-label="connection status">
+            <strong>04.17 / read-only</strong>
+            connected by SUZUKI
           </div>
-          <div class="search-status" id="searchStatus"></div>
-        </div>
+        </header>
 
-        <div class="result-list" id="resultList">
-          <div class="result-card">
-            <h2 class="result-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h2>
-            <p class="result-source">http://fictreal-arg/work1/news-paper/</p>
-            <p class="result-snippet">三浦新聞｜2026年4月18日 02:16。朝倉澪さんの無事が確認される一方、成瀬栞さんの件との関連が浮上。病院・学校関係者ら三名の関与を示す記録が新たに確認された。</p>
-            <span class="result-footer">
-              <span class="result-label">fictional archived record</span>
-              <span class="result-open-hint">劇中記事を表示</span>
-            </span>
-          </div>
-        </div>
+        <main>
+          <section class="hero" id="searchHero" aria-label="record trace interface">
+            <div class="hero-panel">
+              <p class="hero-kicker">fictional archive interface</p>
+              <h1 class="hero-title">TEMPORAL<br />SEARCH</h1>
+              <p class="hero-copy">
+                2026年4月17日時点の公開Web領域だけを参照する、劇中用の記録探索インターフェースです。
+                病院名、人物名、学校名、記事タイトルを手がかりに、残された記録を辿ってください。
+              </p>
+            </div>
+
+            <div class="search-zone">
+              <div class="fiction-context-banner" role="note">
+                <strong>劇中検索UI：</strong>
+                これはARG作品内の架空検索画面です。一般検索サービスではなく、物語上の記録探索演出として作成されています。
+              </div>
+
+              <div class="search-card">
+                <form class="search-form" id="searchForm" autocomplete="off">
+                  <div class="search-box-wrap">
+                    <input
+                      id="searchInput"
+                      type="search"
+                      placeholder="病院名、人物名、学校名、記事タイトルを入力"
+                      aria-label="調査語"
+                      enterkeyhint="search"
+                      readonly
+                    />
+                  </div>
+                  <button class="search-button" type="button">記録を辿る</button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <section class="result-area" id="resultArea" aria-live="polite">
+            <div class="meta-row">
+              <div class="query-readout" id="queryReadout">query: —</div>
+              <div class="pulse" id="indexStatus">public index standby</div>
+            </div>
+            <div id="output">
+              <div class="result-list" id="resultList">
+                <a class="result-item" href="#phase-article" aria-label="劇中記事を表示">
+                  <h2 class="result-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h2>
+                  <p class="result-url">http://fictreal-arg/work1/news-paper/</p>
+                  <p class="result-snippet">三浦新聞｜2026年4月18日 02:16。朝倉澪さんの無事が確認される一方、成瀬栞さんの件との関連が浮上。病院・学校関係者ら三名の関与を示す記録が新たに確認された。</p>
+                  <span class="result-footer">
+                    <span class="result-label">fictional archived record</span>
+                    <span class="result-open-hint">劇中記事を表示</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
     </section>
 
     <section class="phase article-phase" id="phase-article">
       <div class="article-scroll" id="articleScroll">
-        <div class="article-inner miura-page-wrap" id="articleInner">
-          <div class="miura-fiction-notice">FICTION ｜ このページは創作作品内の架空ニュース記事です。実在の報道機関・団体・事件とは関係ありません。</div>
+        <div class="article-inner" id="articleInner">
+          <div class="fiction-fixed-bar">
+            このページは創作作品内の架空ニュースUIです。実在の人物・団体・学校・医療機関・事件とは関係ありません。
+          </div>
 
-          <div class="miura-topbar">
-            <div class="miura-topbar-inner">
+          <div class="topbar">
+            <div class="topbar-inner">
               <div>地域に根ざした報道を、丁寧に。</div>
               <div>更新日：2026年4月18日</div>
             </div>
           </div>
 
-          <header class="miura-header">
-            <div class="miura-header-inner">
-              <div class="miura-name-wrap">
-                <p class="miura-kicker">LOCAL NEWS OF MIURA AREA</p>
-                <h1 class="miura-title-logo">三浦新聞</h1>
-                <p class="miura-sub">地域の出来事を落ち着いた視点で伝える地方ニュースサイト</p>
+          <header class="site-header">
+            <div class="site-header-inner">
+              <div class="site-name-wrap">
+                <p class="site-kicker">LOCAL NEWS OF MIURA AREA</p>
+                <h1 class="site-title">
+                  <a href="../news-paper/">三浦新聞</a>
+                </h1>
+                <p class="site-sub">地域の出来事を落ち着いた視点で伝える地方ニュースサイト</p>
               </div>
             </div>
 
-            <nav class="miura-nav" aria-label="グローバルナビゲーション">
-              <div class="miura-nav-inner">
-                <a href="#">トップ</a>
-                <a href="#">地域</a>
-                <a href="#">社会</a>
-                <a href="#">事件</a>
-                <a href="#">学校</a>
-                <a href="#">医療</a>
-                <a href="#">暮らし</a>
+            <nav class="global-nav" aria-label="グローバルナビゲーション">
+              <div class="global-nav-inner">
+                <a href="../news-paper/">トップ</a>
+                <a href="../news-paper/#category-region">地域</a>
+                <a href="../news-paper/#category-social">社会</a>
+                <a href="../news-paper/#category-incident">事件</a>
+                <a href="../news-paper/#category-school">学校</a>
+                <a href="../news-paper/#category-medical">医療</a>
+                <a href="../news-paper/#paper-info">暮らし</a>
               </div>
             </nav>
           </header>
 
-          <main class="miura-page">
-            <div class="miura-grid">
-              <article class="miura-article">
-                <div class="miura-category-wrap">
-  <span class="miura-category">社会</span>
-  <span class="miura-category-sub">劇中記事</span>
-</div>
+          <main class="page">
+            <div class="content-grid">
+              <article class="article">
+                <div class="article-flags">
+                  <span class="fiction-badge">劇中記事</span>
+                  <span class="category">社会</span>
+                </div>
 
-<h1 class="miura-article-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h1>
-<p class="miura-article-subtitle">成瀬栞さんの件との関連が浮上</p>
+                <h1 class="article-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h1>
 
-<div class="miura-meta">
+                <p class="article-note">
+                  成瀬栞さんの件との関連が浮上
+                </p>
+
+                <div class="meta">
                   <span>記者：三浦さやか</span>
                   <span>投稿日：2026年4月18日 02:16</span>
                   <span>※ 2026年4月18日 02:41 一部更新</span>
                 </div>
 
-                <p class="miura-lead">
+                <p class="lead">
                   18日未明、私立星浜学園高等部の女子生徒・朝倉澪さんが校内で転落した件について、病院・学校関係者ら三名の関与を示す記録が新たに確認された。関係者の間では、成瀬栞さんの死亡事案との関連も注目されている。
                 </p>
 
@@ -1321,51 +1477,77 @@
                   今後、三名の関係性や指示系統、病院内で行われた記録管理の実態が、順次明らかになっていく見通し。成瀬さんの件についても、医療上の過失とその後の説明対応に問題がなかったかが、重要な争点として残されている。
                 </p>
 
-                <div class="miura-back-link">
-                  <a href="#">← ニュース一覧へ戻る</a>
+                <div class="back-link">
+                  <a href="../news-paper/">← ニュース一覧へ戻る</a>
                 </div>
 
+                <div class="fiction-note">
+                  ※本ページはオンラインARG作品の演出として制作された架空のニュース記事です。実在の名称・人物・団体・学校・病院・事件とは関係ありません。
+                </div>
               </article>
 
-              <aside class="miura-sidebar">
-                <section class="miura-side-box">
+              <aside class="sidebar">
+                <section class="side-box">
                   <h3>関連記事</h3>
-                  <ul class="miura-related-list">
+
+                  <ul class="related-list">
                     <li>
-                      <a href="#">
-                        <span class="miura-related-date">2026年4月10日 / 事件</span>
-                        <span class="miura-related-title">私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず</span>
+                      <a href="../news-paper/article-mio.html">
+                        <span class="related-date">2026年4月10日 / 事件</span>
+                        <span class="related-title">
+                          <span class="related-tag">劇中記事</span>
+                          私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず
+                        </span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <span class="miura-related-date">2026年1月18日 / 医療</span>
-                        <span class="miura-related-title">女子高校生死亡、点滴後に容体急変　病院対応に疑問</span>
+                      <a href="../news-paper/article-naruse.html">
+                        <span class="related-date">2026年1月18日 / 医療</span>
+                        <span class="related-title">
+                          <span class="related-tag">劇中記事</span>
+                          女子高校生死亡、点滴後に容体急変　病院対応に疑問
+                        </span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <span class="miura-related-date">2026年4月7日 / 医療</span>
-                        <span class="miura-related-title">城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について</span>
+                      <a href="../news-paper/#category-medical">
+                        <span class="related-date">2026年4月7日 / 医療</span>
+                        <span class="related-title">
+                          <span class="related-tag">劇中記事</span>
+                          城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について
+                        </span>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <span class="miura-related-date">2026年2月28日 / 学校</span>
-                        <span class="miura-related-title">私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」</span>
+                      <a href="../news-paper/article-renji.html">
+                        <span class="related-date">2026年2月28日 / 学校</span>
+                        <span class="related-title">
+                          <span class="related-tag">劇中記事</span>
+                          私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
+                        </span>
                       </a>
                     </li>
                   </ul>
+                </section>
+
+                <section class="side-box">
+                  <h3>このページについて</h3>
+                  <div class="side-note">
+                    本記事は創作作品内の調査導線として用意された架空記事です。現実の報道機関、学校、病院、行政機関とは関係ありません。
+                  </div>
                 </section>
               </aside>
             </div>
           </main>
 
-          <footer class="miura-footer">
-            <div class="miura-footer-inner">
+          <footer class="site-footer">
+            <div class="site-footer-inner">
               <div>三浦新聞</div>
               <div>© 2026 Miura Shimbun</div>
-              <div class="miura-footer-note">この記事は創作作品内の演出として制作された架空ニュースです。人物・団体・施設・事件とは関係ありません。</div>
+
+              <div class="footer-disclaimer">
+                本サイトは創作作品内に登場する架空ニュースUIです。掲載されている人物・団体・学校・医療機関・事件はすべてフィクションであり、実在のものとは関係ありません。人物・施設・風景等の画像を使用する場合、AI生成画像または加工画像を含む場合があります。
+              </div>
             </div>
           </footer>
         </div>
@@ -1504,20 +1686,24 @@ CASE ROUTE: HCN-0417-MIO
     async function runSearch() {
       await switchPhase(phases.search);
       const input = document.getElementById('searchInput');
-      const status = document.getElementById('searchStatus');
-      const results = document.getElementById('resultList');
+      const hero = document.getElementById('searchHero');
+      const resultArea = document.getElementById('resultArea');
+      const queryReadout = document.getElementById('queryReadout');
+      const indexStatus = document.getElementById('indexStatus');
 
-      status.textContent = '記録領域に接続しています...';
+      indexStatus.textContent = 'archive connection standby';
       await sleep(1100);
-      status.textContent = '検索語を復元しています...';
+      indexStatus.textContent = 'restoring query token';
       await sleep(800);
       await typeText(input, '朝倉澪　無事', 140);
+      queryReadout.textContent = 'query: 朝倉澪　無事';
       await sleep(900);
       safePlay(audio.click);
-      status.textContent = '検索中...';
+      indexStatus.textContent = 'searching public index';
       await sleep(1200);
-      status.textContent = '1件の更新済み記録が見つかりました';
-      results.classList.add('visible');
+      hero.classList.add('compact');
+      resultArea.classList.add('visible');
+      indexStatus.textContent = '1 indexed record';
       await sleep(3400);
       safePlay(audio.click);
     }
