@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>403 Forbidden</title>
+  <title>403 Forbidden｜架空アーカイブ入口</title>
+  <meta
+    name="description"
+    content="創作作品内に登場する架空のアクセス制限画面です。合言葉を入力すると劇中アーカイブへ進みます。"
+  />
 
   <style>
     :root {
@@ -289,7 +293,7 @@
 
 <body>
   <div class="fiction-header">
-    FICTIONAL INTERFACE — このページは創作作品内の架空UIです
+    FICTIONAL INTERFACE — このページは創作作品内の架空UIです。実在の認証画面ではありません。
   </div>
 
   <main class="page">
@@ -300,8 +304,8 @@
       <div class="divider" aria-hidden="true"></div>
 
       <p class="description">
-        Access to this archive is restricted.<br />
-        Enter passphrase to continue.
+        Access to this in-story archive is restricted.<br />
+        Enter the passphrase left in the records.
       </p>
 
       <form class="pass-form" id="passForm" autocomplete="off">
@@ -336,7 +340,7 @@
     const message = document.getElementById("message");
     const submitButton = document.getElementById("submitButton");
 
-    const destinationUrl = "https://ryosukeucchi0112-boop.github.io/suzuki-chat-archive/";
+    const destinationUrl = "../suzuki-chat/";
 
     const acceptedPassphrases = [
       "三ノ瀬山",
@@ -372,7 +376,7 @@
       }
 
       if (normalizedAccepted.includes(value)) {
-        setMessage("認証しました。アーカイブへ接続しています。", "success");
+        setMessage("認証しました。劇中アーカイブへ接続しています。", "success");
 
         submitButton.disabled = true;
         input.disabled = true;
