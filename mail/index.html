@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAIL ARCHIVE | 04.17</title>
+  <title>MAIL ARCHIVE | TIMESTAMP_CORRUPTED</title>
 
   <style>
     :root {
@@ -337,6 +337,12 @@
     .meta-value {
       color: #27313d;
       word-break: break-word;
+    }
+
+    .mail-date-corrupt {
+      display: inline-block;
+      min-width: 11em;
+      white-space: nowrap;
     }
 
     .mono {
@@ -804,7 +810,7 @@
 
           <div class="sidebar-note">
             SYSTEM LOG<br />
-            restored: 2026.04.17<br />
+            restored: <span class="mail-date-corrupt" aria-label="破損した日時表示">DATE_UNKNOWN</span><br />
             offset: -00:00:03<br />
             layer: archived_web<br />
             client: fictional_view
@@ -823,8 +829,8 @@
                 <div class="meta-value mono glitch" data-original="SUZUKI">SUZUKI</div>
 
                 <div class="meta-label">Date</div>
-                <div class="meta-value mono glitch" data-original="2026.04.17 23:58">
-                  2026.04.17 23:58
+                <div class="meta-value mono mail-date-corrupt" aria-label="破損した日時表示">
+                  TIMESTAMP_CORRUPTED
                 </div>
 
                 <div class="meta-label">To</div>
@@ -877,13 +883,13 @@
                 <a
                   class="connect-btn"
                   href="../search/"
-                  aria-label="2026年4月17日の過去Web領域へ接続する"
+                  aria-label="破損した過去Web領域へ接続する"
                 >
-                  CONNECT TO 04.17
+                  CONNECT TO ARCHIVE
                 </a>
 
-                <div class="destination">
-                  接続先：2026.04.17 / Archived Web Layer
+                <div class="destination mail-date-corrupt" aria-label="破損した日時表示">
+                  接続先：TIMESTAMP_CORRUPTED / Archived Web Layer
                 </div>
               </div>
             </div>
@@ -892,8 +898,8 @@
       </div>
     </section>
 
-    <div class="time-fragment glitch" data-original="04.17 / signal drift: 00:00:03">
-      04.17 / signal drift: 00:00:03
+    <div class="time-fragment mail-date-corrupt" aria-label="破損した日時表示">
+      TIMESTAMP_CORRUPTED
     </div>
 
     <footer class="footer">
@@ -907,8 +913,8 @@
     const glitchTargets = Array.from(document.querySelectorAll(".glitch"));
 
     const fragments = [
-      "04.17",
-      "04.1_",
+      "DATE_UNKNOWN",
+      "04.█_",
       "TEMPORAL",
       "ARCHIVED",
       "SIGNAL LOST",
@@ -952,6 +958,26 @@
     window.addEventListener("load", () => {
       window.setTimeout(runSubtleGlitch, 1400);
     });
+
+
+    const corruptedMailDates = [
+      "DATE_UNKNOWN",
+      "20██/--/--",
+      "送信日時：破損",
+      "--/-- 0█:??",
+      "TIMESTAMP_CORRUPTED"
+    ];
+
+    const mailDateTargets = Array.from(document.querySelectorAll(".mail-date-corrupt"));
+
+    function updateCorruptedMailDates() {
+      mailDateTargets.forEach((el) => {
+        el.textContent = corruptedMailDates[Math.floor(Math.random() * corruptedMailDates.length)];
+      });
+    }
+
+    updateCorruptedMailDates();
+    window.setInterval(updateCorruptedMailDates, 1800);
   </script>
 </body>
 </html>
