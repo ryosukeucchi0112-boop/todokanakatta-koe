@@ -6,7 +6,7 @@
   <title>403 Forbidden｜架空アーカイブ入口</title>
   <meta
     name="description"
-    content="創作作品内に登場する架空のアクセス制限画面です。合言葉を入力すると劇中アーカイブへ進みます。"
+    content="創作作品内に登場する架空のアクセス制限画面です。通常アクセスでは拒否される記録へ、記録層経由で再接続します。"
   />
 
   <style>
@@ -175,7 +175,8 @@
       box-shadow: 0 0 0 3px rgba(33, 31, 27, 0.06);
     }
 
-    button {
+    button,
+    .reconnect-button {
       flex: 0 0 auto;
       padding: 0 18px;
       border: 1px solid var(--button);
@@ -200,12 +201,23 @@
         transform 0.18s ease;
     }
 
-    button:hover {
+    button:hover,
+    .reconnect-button:hover {
       background: var(--button-hover);
     }
 
-    button:active {
+    button:active,
+    .reconnect-button:active {
       transform: translateY(1px);
+    }
+
+    .reconnect-button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 28px;
+      text-decoration: none;
     }
 
     button:disabled {
@@ -278,7 +290,8 @@
         flex-direction: column;
       }
 
-      button {
+      button,
+      .reconnect-button {
         width: 100%;
         height: 44px;
       }
@@ -304,28 +317,17 @@
       <div class="divider" aria-hidden="true"></div>
 
       <p class="description">
-        Access to this in-story archive is restricted.<br />
-        Enter the passphrase left in the records.
+        通常の経路からは、この記録にアクセスできません。<br />
+        TEMPORAL WEB領域からの再接続を検出しました。
       </p>
 
-      <form class="pass-form" id="passForm" autocomplete="off">
-        <div class="input-wrap">
-          <input
-            id="passwordInput"
-            type="text"
-            name="passphrase"
-            placeholder="passphrase"
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-            aria-label="passphrase"
-          />
-          <button id="submitButton" type="submit">ENTER</button>
-        </div>
+      <a class="reconnect-button" href="../suzuki-chat/">
+        記録層から再接続する
+      </a>
 
-        <p class="hint">※ ヒント：2人で行きたかった場所</p>
-        <p id="message" class="message" aria-live="polite"></p>
-      </form>
+      <p class="hint">
+        接続元：TEMPORAL WEB / restricted cache
+      </p>
     </section>
 
     <footer class="fiction-footer">
@@ -334,63 +336,6 @@
     </footer>
   </main>
 
-  <script>
-    const form = document.getElementById("passForm");
-    const input = document.getElementById("passwordInput");
-    const message = document.getElementById("message");
-    const submitButton = document.getElementById("submitButton");
 
-    const destinationUrl = "../suzuki-chat/";
-
-    const acceptedPassphrases = [
-      "三ノ瀬山",
-      "三の瀬山",
-      "さんのせやま",
-      "sannoseyama",
-      "sannnoseyama"
-    ];
-
-    function normalizeInput(text) {
-      return text
-        .trim()
-        .replace(/\s+/g, "")
-        .replace(/　+/g, "")
-        .toLowerCase();
-    }
-
-    function setMessage(text, type) {
-      message.textContent = text;
-      message.className = `message ${type || ""}`.trim();
-    }
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const value = normalizeInput(input.value);
-      const normalizedAccepted = acceptedPassphrases.map(normalizeInput);
-
-      if (!value) {
-        setMessage("合言葉を入力してください。", "error");
-        input.focus();
-        return;
-      }
-
-      if (normalizedAccepted.includes(value)) {
-        setMessage("認証しました。劇中アーカイブへ接続しています。", "success");
-
-        submitButton.disabled = true;
-        input.disabled = true;
-
-        setTimeout(() => {
-          window.location.href = destinationUrl;
-        }, 700);
-
-        return;
-      }
-
-      setMessage("合言葉が一致しません。", "error");
-      input.select();
-    });
-  </script>
 </body>
 </html>

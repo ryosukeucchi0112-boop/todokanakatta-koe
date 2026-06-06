@@ -800,12 +800,12 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span>
           <span class="brand-title">TEMPORAL SEARCH</span>
-          <span class="brand-sub">Indexed web layer: 2026.04.17</span>
+          <span class="brand-sub">Indexed temporal web layer</span>
         </span>
       </a>
 
       <div class="status" aria-label="connection status">
-        <strong>04.17 / read-only</strong>
+        <strong>TEMPORAL WEB / read-only</strong>
         connected by SUZUKI
       </div>
     </header>
@@ -816,7 +816,7 @@
           <p class="hero-kicker">fictional archive interface</p>
           <h1 class="hero-title">TEMPORAL<br />SEARCH</h1>
           <p class="hero-copy">
-            2026年4月17日時点の公開Web領域だけを参照する、劇中用の記録探索インターフェースです。
+            通常検索では到達できない記録層を参照する、劇中用の記録探索インターフェースです。
             病院名、人物名、学校名、記事タイトルを手がかりに、残された記録を辿ってください。
           </p>
         </div>
@@ -847,7 +847,7 @@
       <section class="result-area" id="resultArea" aria-live="polite">
         <div class="meta-row">
           <div class="query-readout" id="queryReadout">query: —</div>
-          <div class="pulse" id="indexStatus">public index standby</div>
+          <div class="pulse" id="indexStatus">temporal layer standby</div>
         </div>
         <div id="output"></div>
       </section>
@@ -865,24 +865,24 @@
         title: "城南記念総合病院",
         url: "http://fictreal-arg/work1/hospital/",
         href: "../hospital/",
-        snippet: "城南市に所在するとされる劇中の総合病院。院長は黒崎恒一郎。外科部長・藍沢晋作とともに開院したとされる。お知らせ欄には過去診療記録の整理や一部カルテの閲覧制限に関する案内が掲載されている。",
-        label: "fictional public index",
+        snippet: "星浜市城南地区に所在するとされる劇中の総合病院。院長は黒崎恒一郎。外科部長・藍沢晋作とともに開院したとされる。お知らせ欄には過去診療記録の整理や一部カルテの閲覧制限に関する案内が掲載されている。",
+        label: "fictional record layer",
         keywords: "城南記念総合病院, 城南病院, 病院, 総合病院, 黒崎恒一郎, 黒崎, 院長, 藍沢晋作, 藍沢, 外科, 外科部長, カルテ, 診療記録, 過去診療記録, 閲覧制限, 城南"
       },
       {
-        title: "城南市の有名人特集 第1弾｜黒崎恒一郎",
+        title: "星浜市城南地区の有名人特集 第1弾｜黒崎恒一郎",
         url: "http://fictreal-arg/work1/famous-people/",
         href: "../famous-people/",
-        snippet: "地域医療と教育の二つの分野で城南市を支える人物として、黒崎恒一郎を紹介する劇中広報記事。城南記念総合病院の院長であり、私立星浜学園の理事長でもあることが記されている。",
+        snippet: "地域医療と教育の二つの分野で星浜市城南地区を支える人物として、黒崎恒一郎を紹介する劇中広報記事。城南記念総合病院の院長であり、私立星浜学園の理事長でもあることが記されている。",
         label: "fictional cached record",
-        keywords: "黒崎恒一郎, くろさきこういちろう, 黒崎, 城南市, 有名人, 人物紹介, 城南市の有名人, 城南まちだより, 城南記念総合病院, 院長, 私立星浜学園, 星浜学園, 理事長, 医療, 教育"
+        keywords: "黒崎恒一郎, くろさきこういちろう, 黒崎, 星浜市城南地区, 有名人, 人物紹介, 星浜市城南地区の有名人, 城南まちだより, 城南記念総合病院, 院長, 私立星浜学園, 星浜学園, 理事長, 医療, 教育"
       },
       {
         title: "星浜学園高等部",
         url: "http://fictreal-arg/work1/school/",
         href: "../school/",
         snippet: "劇中に登場する私立高校。学校からのお知らせには「朝倉さんの転落事故について」「三浦新聞への対応について」などが掲載されている。理事長・黒崎恒一郎との関係を調べる導線になる。",
-        label: "fictional public index",
+        label: "fictional record layer",
         keywords: "星浜学園, 星浜学園高等部, 私立星浜学園, 私立星浜学園高等部, 学校, 高校, 朝倉, 朝倉さん, 転落事故, 三浦新聞, 黒崎恒一郎, 理事長, Eclipse first"
       },
       {
@@ -907,15 +907,15 @@
         url: "http://fictreal-arg/work1/blog/",
         href: "../blog/",
         snippet: "星浜学園に通う朝倉澪が書いていた劇中の個人ブログ。何気ない日常と、そのとき考えていたことの記録として残されている。事件の感情面と手がかりを辿る重要なページ。",
-        label: "fictional public index",
+        label: "fictional record layer",
         keywords: "朝倉澪",
         exactQueryOnly: ["朝倉澪"]
       },
       {
         title: "SUZUKI CHAT",
         url: "http://fictreal-arg/work1/suzuki-chat/",
-        href: "../suzuki-chat/",
-        snippet: "朝倉澪とSUZUKIのやり取りが断片的に残された劇中チャットログ。04.17以前の記録として、澪が何を調べ、誰に助けを求めていたのかを辿る手がかりになる。",
+        href: "../403/?target=suzuki-chat&from=temporal-web",
+        snippet: "朝倉澪とSUZUKIのやり取りが断片的に残された劇中チャットログ。記録層内の痕跡として、澪が何を調べ、誰に助けを求めていたのかを辿る手がかりになる。",
         label: "fictional restricted cache",
         keywords: [
           "http://fictreal-arg/work1/suzuki-chat/",
@@ -1083,16 +1083,16 @@
     function setResultMode(query) {
       document.body.classList.add("has-results");
       queryReadout.textContent = `query: ${query || "—"}`;
-      indexStatus.textContent = "fictional public index active";
+      indexStatus.textContent = "temporal web layer active";
     }
 
     function showLoading() {
       output.innerHTML = `
         <div class="loading-panel">
           <ul class="loading-lines" aria-label="record trace progress">
-            <li id="loadLine1">connecting to 04.17 layer...</li>
+            <li id="loadLine1">TEMPORAL WEB領域を展開しています...</li>
             <li id="loadLine2">restoring cached records...</li>
-            <li id="loadLine3">filtering fictional public index...</li>
+            <li id="loadLine3">filtering fictional record layer...</li>
           </ul>
         </div>
       `;
@@ -1117,7 +1117,7 @@
         <div class="empty-panel blocked">
           <h2 class="empty-title">No indexed record found.</h2>
           <p class="empty-text">
-            04.17時点の公開Web領域に一致する記録はありません。<br />
+            過去記録領域に一致する記録はありません。<br />
             一部の記録は、この劇中インデックスから除外されています。
           </p>
         </div>
@@ -1130,12 +1130,12 @@
         <div class="empty-panel">
           <h2 class="empty-title">No indexed record found.</h2>
           <p class="empty-text">
-            04.17時点の公開Web領域に一致する記録はありません。<br />
+            過去記録領域に一致する記録はありません。<br />
             調査語を変えてください：病院名 / 人物名 / 学校名 / 記事タイトル
           </p>
         </div>
       `;
-      indexStatus.textContent = "no fictional public result";
+      indexStatus.textContent = "no temporal record result";
     }
 
     function getResultHref(item) {
@@ -1144,13 +1144,13 @@
 
     function renderResults(results) {
       const html = results.map((item) => `
-        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_blank" rel="noopener noreferrer">
+        <a class="result-item" href="${escapeHtml(getResultHref(item))}">
           <h2 class="result-title">${escapeHtml(item.title)}</h2>
           <p class="result-url">${escapeHtml(item.url)}</p>
           <p class="result-snippet">${escapeHtml(item.snippet)}</p>
           <span class="result-footer">
             <span class="result-label">${escapeHtml(item.label)}</span>
-            <span class="result-open-hint">調査結果を別タブで表示</span>
+            <span class="result-open-hint">記録層へ進む</span>
           </span>
         </a>
       `).join("");
