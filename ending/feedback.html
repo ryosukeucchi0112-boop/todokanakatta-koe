@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>感想を書く</title>
+  <meta
+    name="description"
+    content="ARG作品『届かなかった声』の感想フォーム用プレースホルダーページです。"
+  />
+  <style>
+    :root {
+      --fiction-height: 34px;
+      --bg: #08090b;
+      --panel: #12151a;
+      --text: #e8eaed;
+      --muted: #a8adb5;
+      --line: rgba(255, 255, 255, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding-top: var(--fiction-height);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #1b2028 0%, var(--bg) 48%, #030405 100%);
+      line-height: 1.8;
+    }
+
+    a { color: inherit; }
+
+    .fiction-fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      min-height: var(--fiction-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      background: rgba(64, 64, 64, 0.96);
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 11px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .page {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+
+    .panel {
+      min-height: 320px;
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(18, 21, 26, 0.82);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .placeholder {
+      margin-top: 28px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 24px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 12px;
+    }
+
+    @media (max-width: 640px) {
+      :root { --fiction-height: 44px; }
+      .page { width: calc(100% - 24px); padding: 36px 0; }
+      .panel { padding: 24px 18px; border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="fiction-fixed-header">
+    このページは創作作品内の架空導線です。実在の人物・団体・機関とは関係ありません。
+  </div>
+
+  <main class="page">
+    <section class="panel" aria-labelledby="feedback-title">
+      <p class="eyebrow">feedback placeholder</p>
+      <h1 id="feedback-title">感想を書く</h1>
+      <div class="placeholder">
+        <!-- 今後、感想フォームをここに追加する -->
+      </div>
+    </section>
+
+    <footer>
+      ARG作品『届かなかった声』の感想フォーム準備ページです。人物・団体・事件はすべて架空です。
+    </footer>
+  </main>
+</body>
+</html>
