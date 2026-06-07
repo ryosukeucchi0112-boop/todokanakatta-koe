@@ -65,3 +65,32 @@
 ### 残っている懸念点
 - ブラウザ実機によるConsole確認とスクリーンショット取得は、実行環境にChromium/Firefox/Playwrightがなく、npmからPlaywrightを取得できないため未実施。
 - Supabase接続はCDNと外部サービスに依存するため、静的構文とページ配信確認まで実施。
+
+## 2026-06-07 search検索結果別タブ表示修正
+
+### 修正目的
+検索結果クリック時にsearchページ自体を残したまま、遷移先の劇中ページを別タブで開けるようにする。
+
+### 変更したファイル
+- search/index.html
+- FIX.md
+
+### 主な修正内容
+- JavaScriptで生成される検索結果カードの `<a>` タグに `target="_blank"` を追加。
+- セキュリティ対策として `rel="noopener noreferrer"` を追加。
+- 検索ワード判定、検索結果の表示内容、並び順、FICTIONAL SEARCH INTERFACE表記、共通フッターは変更なし。
+
+### 原則対応
+- 混同リスク回避：FICTIONAL SEARCH INTERFACE表記と共通フィクションフッターを維持。
+- 著作権・UI模倣リスク回避：検索UIの文言・見た目は変更せず、実在検索サービスへ寄せる変更はなし。
+- 没入感維持：検索結果カードの内容・順序・導線先を維持。
+- 導線維持：検索ページを開いたまま、結果ページだけ別タブで開く挙動へ修正。
+
+### 確認した項目
+- PC表示：search/index.html がローカルHTTPで200応答することを確認。
+- スマホ表示：HTML/CSS構造に影響する変更はなく、検索結果カードの既存CSSを維持。
+- リンク：検索結果生成HTMLに `target="_blank"` と `rel="noopener noreferrer"` が含まれることを確認。
+- JSエラー：search/index.html のインラインscriptを `node --check` で確認。
+
+### 残っている懸念点
+- ブラウザ実機での別タブ起動・Console確認は、この環境にブラウザ実行ファイルがないため未実施。

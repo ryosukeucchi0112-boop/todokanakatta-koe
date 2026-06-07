@@ -1145,7 +1145,7 @@
 
     function renderResults(results) {
       const html = results.map((item) => `
-        <a class="result-item" href="${escapeHtml(getResultHref(item))}">
+        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_blank" rel="noopener noreferrer">
           <h2 class="result-title">${escapeHtml(item.title)}</h2>
           <p class="result-url">${escapeHtml(item.url)}</p>
           <p class="result-snippet">${escapeHtml(item.snippet)}</p>
