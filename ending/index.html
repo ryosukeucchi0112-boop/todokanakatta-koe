@@ -46,6 +46,19 @@
     .phase.active { display: block; opacity: 1; }
     .phase.fade-out { opacity: 0; }
 
+    .frame-phase {
+      background: #05070a;
+      overflow: hidden;
+    }
+
+    .phase-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
+
     .scanlines::after {
       content: "";
       position: absolute;
@@ -1324,231 +1337,27 @@
       <div class="blackout-text" id="blackoutText">接続を終了しています</div>
     </section>
 
-    <section class="phase search-phase" id="phase-search">
-      <div class="page">
-        <header class="topbar">
-          <a href="../search/" class="brand" aria-label="TEMPORAL SEARCH">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <span>
-              <span class="brand-title">TEMPORAL SEARCH</span>
-              <span class="brand-sub">Indexed web layer: 2026.04.17</span>
-            </span>
-          </a>
-
-          <div class="status" aria-label="connection status">
-            <strong>04.17 / read-only</strong>
-            connected by SUZUKI
-          </div>
-        </header>
-
-        <main>
-          <section class="hero" id="searchHero" aria-label="record trace interface">
-            <div class="hero-panel">
-              <p class="hero-kicker">fictional archive interface</p>
-              <h1 class="hero-title">TEMPORAL<br />SEARCH</h1>
-              <p class="hero-copy">
-                2026年4月17日時点の公開Web領域だけを参照する、劇中用の記録探索インターフェースです。
-                病院名、人物名、学校名、記事タイトルを手がかりに、残された記録を辿ってください。
-              </p>
-            </div>
-
-            <div class="search-zone">
-              <div class="fiction-context-banner" role="note">
-                <strong>劇中検索UI：</strong>
-                これはARG作品内の架空検索画面です。一般検索サービスではなく、物語上の記録探索演出として作成されています。
-              </div>
-
-              <div class="search-card">
-                <form class="search-form" id="searchForm" autocomplete="off">
-                  <div class="search-box-wrap">
-                    <input
-                      id="searchInput"
-                      type="search"
-                      placeholder="病院名、人物名、学校名、記事タイトルを入力"
-                      aria-label="調査語"
-                      enterkeyhint="search"
-                      readonly
-                    />
-                  </div>
-                  <button class="search-button" type="button">記録を辿る</button>
-                </form>
-              </div>
-            </div>
-          </section>
-
-          <section class="result-area" id="resultArea" aria-live="polite">
-            <div class="meta-row">
-              <div class="query-readout" id="queryReadout">query: —</div>
-              <div class="pulse" id="indexStatus">public index standby</div>
-            </div>
-            <div id="output">
-              <div class="result-list" id="resultList">
-                <a class="result-item" href="#phase-article" aria-label="記事を表示">
-                  <h2 class="result-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h2>
-                  <p class="result-url">http://fictreal-arg/work1/news-paper/</p>
-                  <p class="result-snippet">三浦新聞｜2026年4月18日 02:16。朝倉澪さんの無事が確認される一方、成瀬栞さんの件との関連が浮上。病院・学校関係者ら三名の関与を示す記録が新たに確認された。</p>
-                  <span class="result-footer">
-                    <span class="result-label">fictional archived record</span>
-                    <span class="result-open-hint">記事を表示</span>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
+    <section class="phase search-phase frame-phase" id="phase-search">
+      <iframe
+        class="phase-frame"
+        id="searchFrame"
+        src="../search/"
+        title="TEMPORAL SEARCH"
+        loading="eager"
+      ></iframe>
     </section>
 
-    <section class="phase article-phase" id="phase-article">
-      <div class="article-scroll" id="articleScroll">
-        <div class="article-inner" id="articleInner">
-          <div class="fiction-fixed-bar">
-            このページは創作作品内の架空ニュースUIです。実在の人物・団体・学校・医療機関・事件とは関係ありません。
-          </div>
-
-          <div class="topbar">
-            <div class="topbar-inner">
-              <div>地域に根ざした報道を、丁寧に。</div>
-              <div>更新日：2026年4月18日</div>
-            </div>
-          </div>
-
-          <header class="site-header">
-            <div class="site-header-inner">
-              <div class="site-name-wrap">
-                <p class="site-kicker">LOCAL NEWS OF MIURA AREA</p>
-                <h1 class="site-title">
-                  <a href="../news-paper/">三浦新聞</a>
-                </h1>
-                <p class="site-sub">地域の出来事を落ち着いた視点で伝える地方ニュースサイト</p>
-              </div>
-            </div>
-
-            <nav class="global-nav" aria-label="グローバルナビゲーション">
-              <div class="global-nav-inner">
-                <a href="../news-paper/">トップ</a>
-                <a href="../news-paper/#category-region">地域</a>
-                <a href="../news-paper/#category-social">社会</a>
-                <a href="../news-paper/#category-incident">事件</a>
-                <a href="../news-paper/#category-school">学校</a>
-                <a href="../news-paper/#category-medical">医療</a>
-                <a href="../news-paper/#paper-info">暮らし</a>
-              </div>
-            </nav>
-          </header>
-
-          <main class="page">
-            <div class="content-grid">
-              <article class="article">
-                <div class="article-flags">
-                  <span class="category">社会</span>
-                </div>
-
-                <h1 class="article-title">朝倉澪さんの転落事件、関係者三名の関与が明らかに</h1>
-
-                <p class="article-note">
-                  成瀬栞さんの件との関連が浮上
-                </p>
-
-                <div class="meta">
-                  <span>記者：三浦さやか</span>
-                  <span>投稿日：2026年4月18日 02:16</span>
-                  <span>※ 2026年4月18日 02:41 一部更新</span>
-                </div>
-
-                <p class="lead">
-                  18日未明、私立星浜学園高等部の女子生徒・朝倉澪さんが校内で転落した件について、病院・学校関係者ら三名の関与を示す記録が新たに確認された。関係者の間では、成瀬栞さんの死亡事案との関連も注目されている。
-                </p>
-
-                <p>
-                  朝倉さんは校内で転落した後、城南記念総合病院へ搬送された。保全された記録では、同病院の医師・藍沢晋作、学校法人関係者で同病院の運営にも関与していた黒崎恒一郎、同学園関係者の黒崎蓮司の三名が、事案の中心人物として浮上している。
-                </p>
-
-                <p>
-                  三名は、約三か月前に発生した成瀬栞さんの死亡事案に関する医療記録の改ざん、および朝倉さんに対する圧力行為に関与していた可能性がある。成瀬さんの容体急変後の説明内容や院内記録には不自然な点があり、保全された資料の照合が進められている。
-                </p>
-
-                <p>
-                  また、朝倉さんが一連の記録を調べていたことを把握したうえで、関係資料を消そうとしていた可能性も示されている。朝倉さんは現在、命に別状はないものの、治療と安全確保のため、別の医療機関への転院に向けて調整が進められている。
-                </p>
-
-                <p>
-                  今後、三名の関係性や指示系統、病院内で行われた記録管理の実態が、順次明らかになっていく見通し。成瀬さんの件についても、医療上の過失とその後の説明対応に問題がなかったかが、重要な争点として残されている。
-                </p>
-
-                <div class="back-link">
-                  <a href="../news-paper/">← ニュース一覧へ戻る</a>
-                </div>
-
-                <div class="fiction-note">
-                  ※本ページはオンラインARG作品の演出として制作された架空のニュース記事です。実在の名称・人物・団体・学校・病院・事件とは関係ありません。
-                </div>
-              </article>
-
-              <aside class="sidebar">
-                <section class="side-box">
-                  <h3>関連記事</h3>
-
-                  <ul class="related-list">
-                    <li>
-                      <a href="../news-paper/article-mio.html">
-                        <span class="related-date">2026年4月10日 / 事件</span>
-                        <span class="related-title">
-                          私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="../news-paper/article-naruse.html">
-                        <span class="related-date">2026年1月18日 / 医療</span>
-                        <span class="related-title">
-                          女子高校生死亡、点滴後に容体急変　病院対応に疑問
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="../news-paper/#category-medical">
-                        <span class="related-date">2026年4月7日 / 医療</span>
-                        <span class="related-title">
-                          城南記念総合病院、ゴールデンウィーク中の一部区画の封鎖について
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="../news-paper/article-renji.html">
-                        <span class="related-date">2026年2月28日 / 学校</span>
-                        <span class="related-title">
-                          私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                </section>
-
-                <section class="side-box">
-                  <h3>このページについて</h3>
-                  <div class="side-note">
-                    本記事は創作作品内の調査導線として用意された架空記事です。現実の報道機関、学校、病院、行政機関とは関係ありません。
-                  </div>
-                </section>
-              </aside>
-            </div>
-          </main>
-
-          <footer class="site-footer">
-            <div class="site-footer-inner">
-              <div>三浦新聞</div>
-              <div>© 2026 Miura Shimbun</div>
-
-              <div class="footer-disclaimer">
-                本サイトは創作作品内に登場する架空ニュースUIです。掲載されている人物・団体・学校・医療機関・事件はすべてフィクションであり、実在のものとは関係ありません。人物・施設・風景等の画像を使用する場合、AI生成画像または加工画像を含む場合があります。
-              </div>
-            </div>
-          </footer>
-        </div>
-      </div>
+    <section class="phase article-phase frame-phase" id="phase-article">
+      <iframe
+        class="phase-frame"
+        id="articleFrame"
+        src="../news-paper/asakura-mio-safe.html"
+        title="朝倉澪さん、搬送先で意識回復 関係者の摘発後、安全確保へ"
+        loading="eager"
+      ></iframe>
     </section>
-<section class="phase epilogue-phase" id="phase-epilogue">
+
+    <section class="phase epilogue-phase" id="phase-epilogue">
       <div class="epilogue-bg" id="epilogueBg"></div>
      <video
   class="epilogue-video"
@@ -1570,7 +1379,7 @@
     <div class="closed">connection closed</div>
     <div class="suzuki">新アクティブノベルゲーム</div>
     <div class="work-title">届かなかった声</div>
-    <a class="final-button" href="/feedback/">感想を書く</a>
+    <a class="final-button" href="./feedback.html">感想を書く</a>
   </div>
 </section>
   </div>
@@ -1678,48 +1487,69 @@ CASE ROUTE: HCN-0417-MIO
       await sleep(2900);
     }
 
+    function waitForFrame(frame) {
+      if (!frame) return Promise.reject(new Error('frame not found'));
+
+      const isReady = () => {
+        try {
+          return frame.contentDocument?.readyState === 'complete';
+        } catch (_) {
+          return false;
+        }
+      };
+
+      if (isReady()) return Promise.resolve();
+
+      return new Promise((resolve) => {
+        frame.addEventListener('load', () => resolve(), { once: true });
+      });
+    }
+
     async function runSearch() {
       await switchPhase(phases.search);
-      const input = document.getElementById('searchInput');
-      const hero = document.getElementById('searchHero');
-      const resultArea = document.getElementById('resultArea');
-      const queryReadout = document.getElementById('queryReadout');
-      const indexStatus = document.getElementById('indexStatus');
+      const frame = document.getElementById('searchFrame');
+      await waitForFrame(frame);
 
-      indexStatus.textContent = 'archive connection standby';
+      const frameWindow = frame.contentWindow;
+      const frameDocument = frame.contentDocument;
+      const input = frameDocument.getElementById('searchInput');
+      const indexStatus = frameDocument.getElementById('indexStatus');
+      const query = '朝倉澪 無事';
+
+      frameWindow.scrollTo(0, 0);
+      if (indexStatus) indexStatus.textContent = 'archive connection standby';
       await sleep(1100);
-      indexStatus.textContent = 'restoring query token';
+      if (indexStatus) indexStatus.textContent = 'restoring query token';
       await sleep(800);
-      await typeText(input, '朝倉澪　無事', 140);
-      queryReadout.textContent = 'query: 朝倉澪　無事';
+
+      if (input) await typeText(input, query, 140);
       await sleep(900);
       safePlay(audio.click);
-      indexStatus.textContent = 'searching public index';
-      await sleep(1200);
-      hero.classList.add('compact');
-      resultArea.classList.add('visible');
-      indexStatus.textContent = '1 indexed record';
-      await sleep(3400);
+
+      if (typeof frameWindow.performSearch === 'function') {
+        frameWindow.performSearch(query, { updateUrl: false });
+      }
+
+      await sleep(3600);
       safePlay(audio.click);
     }
 
     async function runArticle() {
       await switchPhase(phases.article);
-      const scroller = document.getElementById('articleScroll');
-      const inner = document.getElementById('articleInner');
-      scroller.scrollTop = 0;
+      const frame = document.getElementById('articleFrame');
+      await waitForFrame(frame);
 
-      // 参照scriptに合わせて、記事表示後すぐではなく少し読ませてからスクロール開始。
+      const frameWindow = frame.contentWindow;
+      const frameDocument = frame.contentDocument;
+      frameWindow.scrollTo(0, 0);
+
+      // 記事表示後すぐではなく少し読ませてからスクロール開始。
       await sleep(1300);
 
-      // 記事は最後まで行かず、本文を読める位置で停止。
-      // 「けれど。」で後半動画に入るため、スクロール量だけ途中停止に調整。
-      const maxScroll = Math.max(0, inner.scrollHeight - window.innerHeight + 40);
-      const stopRatio = 0.62;
-      const targetScroll = maxScroll * stopRatio;
-
-      // 記事スクロール開始までのタイミングは参照script寄せ。
-      // 長さは「けれど。」前に止めたいので、前回の途中停止版に合わせる。
+      // 現在の news-paper/asakura-mio-safe.html をそのまま表示し、本文を読める位置で停止する。
+      const scrollRoot = frameDocument.scrollingElement || frameDocument.documentElement;
+      const maxScroll = Math.max(0, scrollRoot.scrollHeight - frameWindow.innerHeight + 40);
+      const targetScroll = maxScroll * 0.68;
       const duration = 11800;
       const start = performance.now();
 
@@ -1727,7 +1557,7 @@ CASE ROUTE: HCN-0417-MIO
         function step(now) {
           const t = Math.min(1, (now - start) / duration);
           const eased = t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-          scroller.scrollTop = eased * targetScroll;
+          frameWindow.scrollTo(0, eased * targetScroll);
           if (t < 1) requestAnimationFrame(step);
           else resolve();
         }

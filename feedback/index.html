@@ -249,6 +249,16 @@
       line-height: 1.8;
     }
 
+    .form-status {
+      min-height: 1.7em;
+      margin: -8px 0 0;
+      color: rgba(167, 162, 154, 0.88);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .form-status.is-error { color: #f0aaa6; }
+
     .submit-button,
     .reviews-button {
       display: inline-flex;
@@ -426,13 +436,15 @@
             ※送信された感想は、ニックネームとともに公開される場合があります。個人情報や実在人物を特定できる内容は書かないでください。
           </p>
 
-          <button class="submit-button" type="submit">感想を送信する</button>
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
+
+          <button class="submit-button" id="submitButton" type="submit">感想を送信する</button>
         </form>
 
         <div class="success-panel" id="successPanel" aria-live="polite" tabindex="-1">
           <p class="success-title">感想を送信しました。</p>
           <p class="success-text">ご協力ありがとうございました。</p>
-          <a class="reviews-button" href="/reviews/">みんなの感想を見る</a>
+          <a class="reviews-button" href="../reviews/index.html">みんなの感想を見る</a>
         </div>
       </div>
     </section>
@@ -442,15 +454,58 @@
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const SUPABASE_URL = 'https://wbokbcyvmyxqpkknbzmj.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_tl0E7cpYmJRu6IYHw6pM4A_2lzHedCH';
+    const REVIEWS_PATH = '../reviews/index.html';
+    const REDIRECT_DELAY_MS = 650;
+
     const feedbackForm = document.getElementById('feedbackForm');
     const feedbackCard = document.getElementById('feedbackCard');
     const successPanel = document.getElementById('successPanel');
+    const formStatus = document.getElementById('formStatus');
+    const submitButton = document.getElementById('submitButton');
+    const supabaseClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    feedbackForm.addEventListener('submit', (event) => {
+    const setStatus = (message, isError = false) => {
+      formStatus.textContent = message;
+      formStatus.classList.toggle('is-error', isError);
+    };
+
+    const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+    const buildReviewsUrl = (review) => {
+      const url = new URL(REVIEWS_PATH, window.location.href);
+      url.searchParams.set('submitted', '1');
+
+      if (review?.id) {
+        url.searchParams.set('review', review.id);
+      }
+
+      return url.toString();
+    };
+
+    const restoreSubmitButton = () => {
+      submitButton.disabled = false;
+      submitButton.textContent = '感想を送信する';
+    };
+
+    const handleSubmitError = (error) => {
+      console.error('Failed to submit review:', error);
+      restoreSubmitButton();
+      setStatus('感想の送信に失敗しました。時間をおいてもう一度お試しください。', true);
+    };
+
+    feedbackForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       if (!feedbackForm.reportValidity()) {
+        return;
+      }
+
+      if (!supabaseClient) {
+        setStatus('送信の準備に失敗しました。時間をおいてもう一度お試しください。', true);
         return;
       }
 
@@ -459,14 +514,40 @@
         nickname: String(formData.get('nickname') || '').trim(),
         satisfaction: Number(formData.get('satisfaction')),
         comment: String(formData.get('comment') || '').trim(),
-        submittedAt: new Date().toISOString(),
       };
 
-      feedbackForm.dataset.feedbackPayload = JSON.stringify(feedbackPayload);
+      submitButton.disabled = true;
+      submitButton.textContent = '送信しています...';
+      setStatus('記録を送信しています...');
+
+      let submittedReview;
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('reviews')
+          .insert([feedbackPayload])
+          .select('id')
+          .single();
+
+        if (error) {
+          handleSubmitError(error);
+          return;
+        }
+
+        submittedReview = data;
+      } catch (error) {
+        handleSubmitError(error);
+        return;
+      }
+
+      feedbackForm.reset();
       feedbackCard.classList.add('is-submitted');
       successPanel.classList.add('is-visible');
+      setStatus('送信が完了しました。みんなの感想へ移動します...');
       successPanel.focus({ preventScroll: true });
-      successPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      await sleep(REDIRECT_DELAY_MS);
+      window.location.assign(buildReviewsUrl(submittedReview));
     });
   </script>
 </body>
