@@ -730,3 +730,92 @@ body {
     line-height: 1.95;
   }
 }
+
+/* お知らせ一覧ページ：横幅と記事カードを整え、読みやすさを優先 */
+.news-page-section {
+  width: min(960px, calc(100% - 40px));
+  margin: 48px auto 0;
+}
+
+.news-page-section .section-head {
+  padding: 0 4px;
+}
+
+.news-page-section .news-list {
+  border-radius: 24px;
+}
+
+.news-page-section .news-item {
+  grid-template-columns: 118px 108px minmax(0, 1fr) 20px;
+  padding: 20px 24px;
+}
+
+.news-page-section .news-title {
+  min-width: 0;
+}
+
+.news-arrow {
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 24px;
+  line-height: 1;
+  text-align: right;
+}
+
+.news-page-section .news-detail {
+  border-radius: 24px;
+  scroll-margin-top: 76px;
+}
+
+.news-page-section .news-detail-body {
+  max-width: 760px;
+}
+
+.news-page-section .news-back-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.news-page-section .news-item:focus-visible,
+.news-page-section .news-back-link:focus-visible {
+  outline: 3px solid rgba(88, 69, 38, 0.28);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .news-page-section {
+    width: calc(100% - 28px);
+    margin-top: 34px;
+  }
+
+  .news-page-section .section-title {
+    font-size: 34px;
+  }
+
+  .news-page-section .news-list,
+  .news-page-section .news-detail {
+    border-radius: 20px;
+  }
+
+  .news-page-section .news-item {
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    padding: 18px 16px;
+  }
+
+  .news-page-section .news-item .news-date,
+  .news-page-section .news-item .news-meta,
+  .news-page-section .news-item .news-title {
+    grid-column: 1;
+  }
+
+  .news-page-section .news-item .news-title {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .news-page-section .news-arrow {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    align-self: center;
+  }
+}
