@@ -94,3 +94,39 @@
 
 ### 残っている懸念点
 - ブラウザ実機での別タブ起動・Console確認は、この環境にブラウザ実行ファイルがないため未実施。
+
+## 2026-06-07 重複フォーム・感想ページ整理
+
+### 修正目的
+`form` / `report-form` と `feedback` / `ending/feedback.html` の重複を整理し、実際のプレイヤー導線に使われているページだけを残す。
+
+### 調査結果
+- suzuki-chat からのフォーム導線は `../report-form/` だったため、遷移先は `report-form/index.html`。
+- エンディングからの感想導線は `./feedback.html` だったため、遷移先は `ending/feedback.html`。
+- `form/index.html` と `report-form/index.html`、`feedback/index.html` と `ending/feedback.html` は同一内容だったため、導線外の重複ページを削除対象とした。
+
+### 変更したファイル
+- report-form/index.html
+- ending/feedback.html
+- reviews/index.html
+- FIX.md
+- form/index.html（削除）
+- feedback/index.html（削除）
+
+### 主な修正内容
+- suzuki-chat から遷移する `report-form/index.html` を残し、遷移先ではない `form/index.html` を削除。
+- エンディングから遷移する `ending/feedback.html` を残し、遷移先ではない `feedback/index.html` を削除。
+- みんなの感想ページの「感想を書く」リンクを、削除した `/feedback/` ではなく `../ending/feedback.html` に更新。
+
+### 原則対応
+- 混同リスク回避：同一用途のフォーム・感想ページが複数存在してプレイヤーが迷う状態を解消。
+- 没入感維持：実際の導線、フォーム内容、感想投稿機能、Supabase接続情報は変更せず、重複だけを削除。
+- 導線維持：suzuki-chat → report-form、ending → ending/feedback.html、reviews → ending/feedback.html の導線を確認。
+
+### 確認した項目
+- リンク：静的な内部href/srcに空リンク、#のみリンク、存在しない相対リンクがないことを確認。
+- JSエラー：report-form、ending/feedback、reviews のscriptを構文チェック。
+- ページ表示：report-form、ending/feedback、reviews、suzuki-chat がローカルHTTPで200応答することを確認。
+
+### 残っている懸念点
+- ブラウザ実機での遷移・Supabase投稿確認は、この環境にブラウザ実行ファイルがないため未実施。
