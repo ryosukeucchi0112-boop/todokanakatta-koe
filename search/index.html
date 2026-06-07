@@ -813,7 +813,7 @@
     <main>
       <section class="hero" aria-label="record trace interface">
         <div class="hero-panel">
-          <p class="hero-kicker">fictional archive interface</p>
+          <p class="hero-kicker">fictional search interface</p>
           <h1 class="hero-title">TEMPORAL<br />SEARCH</h1>
           <p class="hero-copy">
             通常検索では到達できない記録層を参照する、劇中用の記録探索インターフェースです。
@@ -1144,7 +1144,7 @@
 
     function renderResults(results) {
       const html = results.map((item) => `
-        <a class="result-item" href="${escapeHtml(getResultHref(item))}">
+        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_blank" rel="noopener noreferrer">
           <h2 class="result-title">${escapeHtml(item.title)}</h2>
           <p class="result-url">${escapeHtml(item.url)}</p>
           <p class="result-snippet">${escapeHtml(item.snippet)}</p>
