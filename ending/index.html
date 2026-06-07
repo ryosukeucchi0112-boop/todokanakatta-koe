@@ -1290,8 +1290,13 @@
 }
 
   </style>
+  <link rel="stylesheet" href="../assets/common-fiction.css" />
 </head>
 <body>
+  <div class="arg-fiction-header-unified">
+    <strong>FICTIONAL STORY INTERFACE</strong>
+    <span>このページは創作作品内の架空Webページです</span>
+  </div>
   <div class="app" id="app">
     <div class="narration-overlay hidden" id="narrationOverlay">
   <div class="narration-line" id="narrationLine"></div>
@@ -1331,7 +1336,7 @@
       </div>
     </section>
 
-    
+
     <section class="phase blackout" id="phase-blackout">
       <div class="noise"></div>
       <div class="blackout-text" id="blackoutText">接続を終了しています</div>
@@ -1384,10 +1389,10 @@
 </section>
   </div>
 
-  <audio class="hidden-audio" id="bgm" src="assets/bgm.mp3" preload="auto" loop></audio>
-  <audio class="hidden-audio" id="typingSound" src="assets/typing.mp3" preload="auto" loop></audio>
-  <audio class="hidden-audio" id="clickSound" src="assets/click.mp3" preload="auto"></audio>
-  <audio class="hidden-audio" id="noiseSound" src="assets/noise.mp3" preload="auto"></audio>
+  <audio class="hidden-audio" id="bgm" preload="none" loop></audio>
+  <audio class="hidden-audio" id="typingSound" preload="none" loop></audio>
+  <audio class="hidden-audio" id="clickSound" preload="none"></audio>
+  <audio class="hidden-audio" id="noiseSound" preload="none"></audio>
 
   <script>
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -1410,7 +1415,7 @@
     };
 
     function safePlay(el) {
-      if (!el) return;
+      if (!el || !el.currentSrc) return;
       try {
         const p = el.play();
         if (p && typeof p.catch === 'function') p.catch(() => {});
@@ -1469,7 +1474,7 @@ REPORT STATUS: ACCEPTED
 PRIORITY: URGENT
 CASE ROUTE: HCN-0417-MIO
 
-送信内容は、物語内の緊急案件フォームに記録されました。
+送信内容は、物語内の証拠送信フォームに記録されました。
 保護対象・関係者・危険内容の照合が完了し、
 安全確認と関連記録の保全プロセスへ移行します。
 
@@ -1639,7 +1644,7 @@ async function unlockMediaOnGesture() {
   await unlockEpilogueVideo();
 
   for (const el of Object.values(audio)) {
-    if (!el) continue;
+    if (!el || !el.currentSrc) continue;
     try {
       const originalVolume = el.volume;
       el.volume = 0;
@@ -1751,5 +1756,13 @@ async function startSequence() {
       initTerminal();
     });
   </script>
+
+  <footer class="arg-fiction-footer" aria-label="作品に関する注記">
+    <p>
+      本作品に登場する人物・団体・施設・地名・事件はすべて架空です。
+      実在の人物・団体・施設・事件とは関係ありません。
+      本作品に登場する人物・施設・風景等の画像は、AI生成画像または加工画像を含みます。
+    </p>
+  </footer>
 </body>
 </html>

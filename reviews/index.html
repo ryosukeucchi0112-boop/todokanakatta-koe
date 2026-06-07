@@ -9,13 +9,14 @@
     content="ARG作品『届かなかった声』を終えたプレイヤーの感想を一覧表示する創作作品内ページです。"
   />
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="../assets/common-fiction.css" />
 </head>
 <body>
-  <div class="fiction-fixed-header">
-    FICTIONAL EXPERIENCE / このページは創作作品内の感想共有ページです
+  <div class="arg-fiction-header-unified">
+    <strong>FICTIONAL STORY INTERFACE</strong>
+    <span>このページは創作作品内の架空Webページです</span>
   </div>
-
-  <main class="page">
+<main class="page">
     <section class="hero-card" aria-labelledby="reviews-title">
       <p class="eyebrow">after ending voices</p>
       <h1 id="reviews-title">みんなの感想</h1>
@@ -72,5 +73,13 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./script.js"></script>
+
+  <footer class="arg-fiction-footer" aria-label="作品に関する注記">
+    <p>
+      本作品に登場する人物・団体・施設・地名・事件はすべて架空です。
+      実在の人物・団体・施設・事件とは関係ありません。
+      本作品に登場する人物・施設・風景等の画像は、AI生成画像または加工画像を含みます。
+    </p>
+  </footer>
 </body>
 </html>
