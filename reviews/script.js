@@ -9,6 +9,8 @@ const sortSelect = document.getElementById('sortSelect');
 const totalCount = document.getElementById('totalCount');
 const averageRating = document.getElementById('averageRating');
 const latestPost = document.getElementById('latestPost');
+const pageParams = new URLSearchParams(window.location.search);
+const highlightedReviewId = pageParams.get('review');
 
 let reviews = [];
 
@@ -75,6 +77,11 @@ const createReviewCard = (review) => {
   const card = document.createElement('article');
   card.className = 'review-card';
 
+  if (highlightedReviewId && String(review.id) === highlightedReviewId) {
+    card.classList.add('is-highlighted');
+    card.setAttribute('aria-label', '送信した感想');
+  }
+
   const header = document.createElement('div');
   header.className = 'review-header';
 
@@ -118,6 +125,11 @@ const renderReviews = () => {
   const fragment = document.createDocumentFragment();
   sortedReviews.forEach((review) => fragment.append(createReviewCard(review)));
   reviewsList.append(fragment);
+
+  const highlightedCard = reviewsList.querySelector('.review-card.is-highlighted');
+  if (highlightedCard) {
+    highlightedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 };
 
 const loadReviews = async () => {

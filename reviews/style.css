@@ -270,6 +270,14 @@ h2 {
   padding: clamp(18px, 4vw, 24px);
 }
 
+.review-card.is-highlighted {
+  border-color: rgba(189, 236, 231, 0.58);
+  box-shadow:
+    var(--shadow),
+    0 0 34px rgba(189, 236, 231, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
 .review-header {
   display: flex;
   align-items: flex-start;

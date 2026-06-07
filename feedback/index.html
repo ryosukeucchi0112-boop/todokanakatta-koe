@@ -444,7 +444,7 @@
         <div class="success-panel" id="successPanel" aria-live="polite" tabindex="-1">
           <p class="success-title">感想を送信しました。</p>
           <p class="success-text">ご協力ありがとうございました。</p>
-          <a class="reviews-button" href="/reviews/">みんなの感想を見る</a>
+          <a class="reviews-button" href="../reviews/index.html">みんなの感想を見る</a>
         </div>
       </div>
     </section>
@@ -458,7 +458,8 @@
   <script>
     const SUPABASE_URL = 'https://wbokbcyvmyxqpkknbzmj.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_tl0E7cpYmJRu6IYHw6pM4A_2lzHedCH';
-    const REVIEWS_URL = '/reviews/';
+    const REVIEWS_PATH = '../reviews/index.html';
+    const REDIRECT_DELAY_MS = 650;
 
     const feedbackForm = document.getElementById('feedbackForm');
     const feedbackCard = document.getElementById('feedbackCard');
@@ -470,6 +471,30 @@
     const setStatus = (message, isError = false) => {
       formStatus.textContent = message;
       formStatus.classList.toggle('is-error', isError);
+    };
+
+    const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+    const buildReviewsUrl = (review) => {
+      const url = new URL(REVIEWS_PATH, window.location.href);
+      url.searchParams.set('submitted', '1');
+
+      if (review?.id) {
+        url.searchParams.set('review', review.id);
+      }
+
+      return url.toString();
+    };
+
+    const restoreSubmitButton = () => {
+      submitButton.disabled = false;
+      submitButton.textContent = '感想を送信する';
+    };
+
+    const handleSubmitError = (error) => {
+      console.error('Failed to submit review:', error);
+      restoreSubmitButton();
+      setStatus('感想の送信に失敗しました。時間をおいてもう一度お試しください。', true);
     };
 
     feedbackForm.addEventListener('submit', async (event) => {
@@ -495,23 +520,34 @@
       submitButton.textContent = '送信しています...';
       setStatus('記録を送信しています...');
 
-      const { error } = await supabaseClient
-        .from('reviews')
-        .insert([feedbackPayload]);
+      let submittedReview;
 
-      if (error) {
-        console.error('Failed to submit review:', error);
-        submitButton.disabled = false;
-        submitButton.textContent = '感想を送信する';
-        setStatus('感想の送信に失敗しました。時間をおいてもう一度お試しください。', true);
+      try {
+        const { data, error } = await supabaseClient
+          .from('reviews')
+          .insert([feedbackPayload])
+          .select('id')
+          .single();
+
+        if (error) {
+          handleSubmitError(error);
+          return;
+        }
+
+        submittedReview = data;
+      } catch (error) {
+        handleSubmitError(error);
         return;
       }
 
       feedbackForm.reset();
       feedbackCard.classList.add('is-submitted');
       successPanel.classList.add('is-visible');
+      setStatus('送信が完了しました。みんなの感想へ移動します...');
       successPanel.focus({ preventScroll: true });
-      window.location.href = REVIEWS_URL;
+
+      await sleep(REDIRECT_DELAY_MS);
+      window.location.assign(buildReviewsUrl(submittedReview));
     });
   </script>
 </body>
