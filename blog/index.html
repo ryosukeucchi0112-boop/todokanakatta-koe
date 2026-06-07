@@ -6,7 +6,7 @@
     <title>朝倉澪の日常 | 朝倉澪の個人ブログ</title>
     <meta
       name="description"
-      content="星浜学園に通う朝倉澪が書いていた個人ブログ。何気ない日常と、少しずつ変わっていく気持ちの記録。"
+      content="創作作品内に登場する朝倉澪の架空個人ブログ。何気ない日常と、少しずつ変わっていく気持ちの記録。"
     />
     <style>
       :root {
@@ -19,6 +19,7 @@
         --accent: #d98fb0;
         --accent-soft: #fff1f7;
         --shadow: 0 18px 44px rgba(120, 88, 105, 0.08);
+        --fiction-height: 34px;
       }
 
       * {
@@ -31,6 +32,7 @@
 
       body {
         margin: 0;
+        padding-top: var(--fiction-height);
         font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
         background:
           radial-gradient(circle at top, #fff7fb 0%, #fffafc 38%, #fffdfd 100%);
@@ -57,9 +59,28 @@
         margin: 0 auto;
       }
 
-      .site-header {
-        position: sticky;
+      .fiction-fixed-header {
+        position: fixed;
         top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        min-height: var(--fiction-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 14px;
+        background: #3a3a3a;
+        color: #e6e6e6;
+        font-size: 0.72rem;
+        line-height: 1.4;
+        letter-spacing: 0.04em;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .site-header {
+        position: relative;
         z-index: 20;
         background: rgba(255, 252, 254, 0.88);
         backdrop-filter: blur(10px);
@@ -288,6 +309,20 @@
         border: 1px solid #dcc9d3;
         border-radius: 12px;
         background: #fff;
+        color: var(--text);
+      }
+
+      .search-box:focus {
+        outline: 2px solid rgba(217, 143, 176, 0.35);
+        border-color: var(--accent);
+      }
+
+      .empty-state {
+        margin: 0;
+        padding: 22px 16px;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.8;
       }
 
       .article-view {
@@ -398,8 +433,6 @@
         box-shadow:
           0 18px 40px rgba(95, 63, 82, 0.1),
           0 3px 10px rgba(95, 63, 82, 0.04);
-        position: sticky;
-        top: 90px;
       }
 
       .article-photo img {
@@ -500,16 +533,22 @@
           order: -1;
         }
 
-        .article-photo {
-          position: static;
-        }
-
         .article-photo img {
           aspect-ratio: 3 / 4;
         }
       }
 
       @media (max-width: 640px) {
+        :root {
+          --fiction-height: 42px;
+        }
+
+        .fiction-fixed-header {
+          padding: 0 10px;
+          font-size: 0.68rem;
+          line-height: 1.5;
+        }
+
         .header-inner {
           flex-direction: column;
           align-items: flex-start;
@@ -540,6 +579,10 @@
     </style>
   </head>
   <body>
+    <div class="fiction-fixed-header">
+      このページは創作作品内の架空ブログです。実在の人物・学校・団体・事件とは関係ありません。
+    </div>
+
     <header class="site-header">
       <div class="container header-inner">
         <a href="#top" class="site-logo">
@@ -602,13 +645,14 @@
           <section class="panel sidebar-section">
             <h2 class="side-heading">検索</h2>
             <input
-              type="text"
+              type="search"
               class="search-box"
+              id="blogSearch"
               placeholder="ブログ内を検索"
-              disabled
+              aria-label="ブログ内を検索"
             />
             <p class="search-note" style="margin-top: 8px;">
-              ※ このページでは検索機能は未実装です。
+              記事タイトル・本文・タグから絞り込めます。
             </p>
           </section>
 
@@ -650,7 +694,7 @@
           <strong>このサイトはフィクションです</strong>
           <p>
             このブログに登場する人物名・学校名・団体名・出来事・記述はすべて創作です。<br />
-            実在の人物・団体・事件・学校・医療機関とは一切関係ありません。
+            実在の人物・団体・事件・学校・医療機関とは一切関係ありません。人物・風景等の画像にはAI生成画像または加工画像を含みます。
           </p>
         </div>
       </div>
@@ -694,7 +738,7 @@
           excerpt:
             "今日は放課後、栞ちゃんと駅のショッピングモールに行ってきた。時間があっという間だった。",
           image: {
-            src: "images/date-with-shiori-3x4.png",
+            src: "date-with-shiori-3x4.png",
             alt: "成瀬栞と出かけた日の写真",
             caption: "駅のショッピングモールで。いっぱい歩いて、いっぱい話した日。"
           },
@@ -712,12 +756,11 @@
           tag: "日記",
           title: "最近の学校",
           excerpt:
-            "クラスで前よりもっと浮いてきた気がする。でも朝と放課後だけは少し救われてる。",
+            "最近は栞ちゃんのおかげで学校が楽しい。朝も放課後も、私の学校生活は栞ちゃんって感じ。",
           body: [
-            "なんか最近、クラスで前よりもっと浮いてきた気がする。\n最初は気のせいかなって思ってたけど、さすがに毎日になると、そうでもないんだろうなってわかってくる。",
-            "昼休みもひとりでご飯食べることが多いし、話しかけても反応が微妙だったりして、なんとなく『あ、やっぱりな』ってなる。\n最近はもう、ずっと本読んでることが多い。読んでるふりのときもあるけど。",
-            "でも、朝のちょっとした時間とか、放課後は栞ちゃんと一緒にいられるから、その時間だけはすごく楽しい。\n本当にそれが救いって感じ。",
-            "今の私の学校生活、ほとんど栞ちゃんでできてるかもしれない。笑\nそれくらい、いてくれるだけで全然違う。"
+            "最近は栞ちゃんのおかげで学校が楽しい！\n朝とか放課後に栞ちゃんといろんなとこ行って、いろんな話して、私の学校生活は栞ちゃん！って感じ。",
+            "小さい頃は栞ちゃんの体があんまり強くないから、こんなに遊べなかったけど、最近は元気になったみたいでよかった。",
+            "大人になっても、こうやってずっと一緒にいたいな。"
           ]
         },
         {
@@ -742,7 +785,7 @@
           excerpt:
             "今日、栞ちゃんが突然倒れて救急車で運ばれた。大丈夫だと思いたいけど、やっぱり心配。",
           image: {
-            src: "blog2.png",
+            src: "shiori-collapsed-day-3x4.png",
             alt: "しおりが倒れた日の写真",
             caption: "この日は、まさかこんなことになるなんて思ってなかった。"
           },
@@ -767,7 +810,7 @@
             "病院も何を聞いてもはっきりしない。\n説明がおかしい。ちゃんと対応したって言うけど、だったらなんでこうなったの。",
             "納得できるわけない。\nどう考えても何か隠してる。",
             "ずっと頭の中がぐちゃぐちゃで、悲しいのか悔しいのかもよくわからない。\nでもひとつだけはっきりしてる。",
-            "絶対に何かある。\n私は信じない。\n許さない。"
+            "まだ分からないことが多すぎる。\nだから、とりあえず色々調べてみる。"
           ]
         },
         {
@@ -778,7 +821,7 @@
           excerpt:
             "Suzukiっていう人から連絡が来た。事件について何か知ってるらしい。",
           image: {
-            src: "suzuki-chat.png",
+            src: "message-from-suzuki-3x4.png",
             alt: "Suzukiから連絡が来たときの画面",
             caption: "夜に届いた、知らない相手からのメッセージ。"
           },
@@ -787,7 +830,7 @@
             "最初は誰かわからなくて怖かったけど、事件のことを知ってる感じだった。\nしかも、ただの噂じゃなくて、もっと具体的なことを知ってるみたいだった。",
             "理事長には前から悪い噂があったって言ってた。\nそれで、その人は部屋に録音をしかけたり、パソコンにも監視ソフトみたいなものを入れたりして、証拠を集めようとしてたらしい。",
             "正直、そこまでやるのは普通じゃないと思う。\nでも、今の私には、そのくらいしないと真実なんて出てこないんじゃないかって気もしてしまう。",
-            "もう、ただ悲しんで終わるのは嫌だ。\n絶対に証拠を手に入れる。\n全部暴いて、あいつの人生を壊してやる。"
+            "もう、ただ悲しんで終わるのは嫌だ。\n絶対に証拠を手に入れる。\n全部暴いて、私も覚悟を決めなきゃ。"
           ]
         },
         {
@@ -796,14 +839,12 @@
           tag: "記録",
           title: "もう戻れないかもしれない",
           excerpt:
-            "やばい。全部バレたかもしれない。証拠も消された。それでもこのまま終わりたくない。",
+            "最近、誰かに見られているような感じがする。後少しで、栞ちゃんのことを償わせることができる。",
           body: [
-            "やばい。\n全部バレたかもしれない。",
-            "せっかく集めた証拠も、消された。\nどうしていいかわからない。頭が真っ白になるってこういうことなんだと思う。",
-            "たぶん向こうはもう気づいてる。\n私が何を見たか、どこまで知ってるか、全部じゃなくてもかなり知られてる気がする。\n最近ずっと変な視線を感じるし、学校でも前より空気が変。",
-            "もうダメかもしれないって、正直ちょっと思ってる。\nでも、それでもこのまま終わりたくない。",
-            "何もなかったことにされるのだけは嫌だ。\n栞ちゃんが死んだことも、今までのことも、全部。",
-            "私は戦う。\n最後まで、ちゃんと残す。"
+            "最近、いろんな場所で誰かに見られてるような感じがする。\n多分、気のせいだと思うんだけど。",
+            "周りに迷惑かけたくないから、いつも通り振る舞おう。",
+            "後少しで、あいつらが栞ちゃんにやったことを償わせることができる。\nもうやるしかない。",
+            "後少し。"
           ]
         }
       ];
@@ -824,18 +865,66 @@
       const recentList = document.getElementById("recentList");
       const prevPostLink = document.getElementById("prevPostLink");
       const nextPostLink = document.getElementById("nextPostLink");
+      const blogSearch = document.getElementById("blogSearch");
 
-      function renderList() {
-        postList.innerHTML = posts
+      function escapeHtml(value) {
+        return String(value || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function normalizeText(value) {
+        return String(value || "")
+          .normalize("NFKC")
+          .toLowerCase()
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function getPostSearchText(post) {
+        return normalizeText([
+          post.date,
+          post.tag,
+          post.title,
+          post.excerpt,
+          post.body.join(" ")
+        ].join(" "));
+      }
+
+      function getFilteredPosts() {
+        const query = normalizeText(blogSearch.value);
+        if (!query) return posts;
+
+        const tokens = query.split(/[\s　]+/).filter(Boolean);
+        return posts.filter((post) => {
+          const haystack = getPostSearchText(post);
+          return tokens.every((token) => haystack.includes(token));
+        });
+      }
+
+      function renderList(filteredPosts = getFilteredPosts()) {
+        if (!filteredPosts.length) {
+          postList.innerHTML = `
+            <p class="empty-state">
+              該当する記事は見つかりませんでした。言葉を変えて検索してください。
+            </p>
+          `;
+          return;
+        }
+
+        postList.innerHTML = filteredPosts
           .map(
             (post) => `
-              <a class="post-item" href="#${post.id}">
+              <a class="post-item" href="#${escapeHtml(post.id)}">
                 <div class="post-meta">
-                  <span>${post.date}</span>
-                  <span class="post-tag">${post.tag}</span>
+                  <span>${escapeHtml(post.date)}</span>
+                  <span class="post-tag">${escapeHtml(post.tag)}</span>
                 </div>
-                <h3 class="post-title">${post.title}</h3>
-                <p class="post-excerpt">${post.excerpt}</p>
+                <h3 class="post-title">${escapeHtml(post.title)}</h3>
+                <p class="post-excerpt">${escapeHtml(post.excerpt)}</p>
               </a>
             `
           )
@@ -846,7 +935,7 @@
         recentList.innerHTML = [...posts]
           .slice()
           .reverse()
-          .map((post) => `<li><a href="#${post.id}">${post.title}</a></li>`)
+          .map((post) => `<li><a href="#${escapeHtml(post.id)}">${escapeHtml(post.title)}</a></li>`)
           .join("");
       }
 
@@ -856,6 +945,7 @@
         heroSection.style.display = "block";
         sidebarPanel.style.display = "flex";
         mainGrid.classList.remove("article-mode");
+        renderList();
 
         articleSide.innerHTML = "";
         articleSide.classList.remove("has-photo");
@@ -879,9 +969,9 @@
 
         articleTitle.textContent = post.title;
         articleMeta.innerHTML = `
-          <span>${post.date}</span>
+          <span>${escapeHtml(post.date)}</span>
           <span>・</span>
-          <span>${post.tag}</span>
+          <span>${escapeHtml(post.tag)}</span>
           <span>・</span>
           <span>朝倉澪</span>
         `;
@@ -889,15 +979,15 @@
         articleBody.innerHTML = post.body
           .map(
             (paragraph, index) =>
-              `<p class="${index === 0 ? "lead-paragraph" : ""}">${paragraph}</p>`
+              `<p class="${index === 0 ? "lead-paragraph" : ""}">${escapeHtml(paragraph)}</p>`
           )
           .join("");
 
         if (post.image) {
           articleSide.innerHTML = `
             <figure class="article-photo">
-              <img src="${post.image.src}" alt="${post.image.alt}">
-              ${post.image.caption ? `<figcaption>${post.image.caption}</figcaption>` : ""}
+              <img src="${escapeHtml(post.image.src)}" alt="${escapeHtml(post.image.alt)}">
+              ${post.image.caption ? `<figcaption>${escapeHtml(post.image.caption)}</figcaption>` : ""}
             </figure>
           `;
           articleSide.classList.add("has-photo");
@@ -954,6 +1044,15 @@
           event.preventDefault();
           history.pushState("", document.title, window.location.pathname + window.location.search);
           showList();
+        }
+      });
+
+      blogSearch.addEventListener("input", () => {
+        if (window.location.hash) {
+          history.pushState("", document.title, window.location.pathname + window.location.search);
+          showList();
+        } else {
+          renderList();
         }
       });
 

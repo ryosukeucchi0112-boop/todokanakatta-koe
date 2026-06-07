@@ -800,12 +800,12 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span>
           <span class="brand-title">TEMPORAL SEARCH</span>
-          <span class="brand-sub">Indexed web layer: 2026.04.17</span>
+          <span class="brand-sub">Indexed temporal web layer</span>
         </span>
       </a>
 
       <div class="status" aria-label="connection status">
-        <strong>04.17 / read-only</strong>
+        <strong>TEMPORAL WEB / read-only</strong>
         connected by SUZUKI
       </div>
     </header>
@@ -816,7 +816,7 @@
           <p class="hero-kicker">fictional archive interface</p>
           <h1 class="hero-title">TEMPORAL<br />SEARCH</h1>
           <p class="hero-copy">
-            2026年4月17日時点の公開Web領域だけを参照する、劇中用の記録探索インターフェースです。
+            通常検索では到達できない記録層を参照する、劇中用の記録探索インターフェースです。
             病院名、人物名、学校名、記事タイトルを手がかりに、残された記録を辿ってください。
           </p>
         </div>
@@ -847,7 +847,7 @@
       <section class="result-area" id="resultArea" aria-live="polite">
         <div class="meta-row">
           <div class="query-readout" id="queryReadout">query: —</div>
-          <div class="pulse" id="indexStatus">public index standby</div>
+          <div class="pulse" id="indexStatus">temporal layer standby</div>
         </div>
         <div id="output"></div>
       </section>
@@ -863,78 +863,63 @@
     const SEARCH_INDEX = [
       {
         title: "城南記念総合病院",
-        url: "https://ryosukeucchi0112-boop.github.io/jonan.hospital/",
+        url: "http://fictreal-arg/work1/hospital/",
         href: "../hospital/",
-        snippet: "城南市に所在するとされる劇中の総合病院。院長は黒崎恒一郎。外科部長・藍沢晋作とともに開院したとされる。お知らせ欄には過去診療記録の整理や一部カルテの閲覧制限に関する案内が掲載されている。",
-        label: "fictional public index",
+        snippet: "星浜市城南地区に所在するとされる劇中の総合病院。院長は黒崎恒一郎。外科部長・藍沢晋作とともに開院したとされる。お知らせ欄には過去診療記録の整理や一部カルテの閲覧制限に関する案内が掲載されている。",
+        label: "fictional record layer",
         keywords: "城南記念総合病院, 城南病院, 病院, 総合病院, 黒崎恒一郎, 黒崎, 院長, 藍沢晋作, 藍沢, 外科, 外科部長, カルテ, 診療記録, 過去診療記録, 閲覧制限, 城南"
       },
       {
-        title: "城南市の有名人特集 第1弾｜黒崎恒一郎",
-        url: "https://ryosukeucchi0112-boop.github.io/Jonan-famous-person/",
+        title: "星浜市城南地区の有名人特集 第1弾｜黒崎恒一郎",
+        url: "http://fictreal-arg/work1/famous-people/",
         href: "../famous-people/",
-        snippet: "地域医療と教育の二つの分野で城南市を支える人物として、黒崎恒一郎を紹介する劇中広報記事。城南記念総合病院の院長であり、私立星浜学園の理事長でもあることが記されている。",
+        snippet: "地域医療と教育の二つの分野で星浜市城南地区を支える人物として、黒崎恒一郎を紹介する劇中広報記事。城南記念総合病院の院長であり、私立星浜学園の理事長でもあることが記されている。",
         label: "fictional cached record",
-        keywords: "黒崎恒一郎, くろさきこういちろう, 黒崎, 城南市, 有名人, 人物紹介, 城南市の有名人, 城南まちだより, 城南記念総合病院, 院長, 私立星浜学園, 星浜学園, 理事長, 医療, 教育"
+        keywords: "黒崎恒一郎, くろさきこういちろう, 黒崎, 星浜市城南地区, 有名人, 人物紹介, 星浜市城南地区の有名人, 城南まちだより, 城南記念総合病院, 院長, 私立星浜学園, 星浜学園, 理事長, 医療, 教育"
       },
       {
         title: "星浜学園高等部",
-        url: "https://ryosukeucchi0112-boop.github.io/hoshihama.highschool/",
+        url: "http://fictreal-arg/work1/school/",
         href: "../school/",
         snippet: "劇中に登場する私立高校。学校からのお知らせには「朝倉さんの転落事故について」「三浦新聞への対応について」などが掲載されている。理事長・黒崎恒一郎との関係を調べる導線になる。",
-        label: "fictional public index",
+        label: "fictional record layer",
         keywords: "星浜学園, 星浜学園高等部, 私立星浜学園, 私立星浜学園高等部, 学校, 高校, 朝倉, 朝倉さん, 転落事故, 三浦新聞, 黒崎恒一郎, 理事長, Eclipse first"
       },
       {
+        title: "朝倉澪さん、搬送先で意識回復　関係者の摘発後、安全確保へ",
+        url: "http://fictreal-arg/work1/news-paper/asakura-mio-safe.html",
+        href: "../news-paper/asakura-mio-safe.html",
+        snippet: "私立星浜学園高等部の女子生徒・朝倉澪さんが、搬送先で意識を回復したことが分かった。関係者の摘発後、安全確保のため転院に向けた調整が進められている。",
+        label: "三浦新聞",
+        keywords: "朝倉澪 無事",
+        exactQueryOnly: ["朝倉澪 無事"]
+      },
+      {
         title: "三浦新聞｜地域のニュース",
-        url: "https://ryosukeucchi0112-boop.github.io/miura.news/",
+        url: "http://fictreal-arg/work1/news-paper/",
         href: "../news-paper/",
         snippet: "劇中の地域ニュースサイト。私立星浜学園の女子生徒転落、成瀬栞の死亡事故、黒崎蓮司の甲子園出場など、事件に関係する複数の記事が掲載されている。",
         label: "fictional archived record",
-        keywords: "三浦新聞, 三浦, ニュース, 地域ニュース, 三浦さやか, 星浜学園, 城南記念総合病院, 朝倉澪, 成瀬栞, 黒崎蓮司, 転落, 点滴, 容体急変, 医療, 学校, 事件"
-      },
-      {
-        title: "私立星浜学園の女子生徒が校内で転落、病院に搬送、未だ意識戻らず",
-        url: "https://ryosukeucchi0112-boop.github.io/news-article-mio/index.html",
-        href: "../news-paper/article-mio",
-        snippet: "2026年4月10日、私立星浜学園高等部の女子生徒が校内の階段付近で倒れているのが見つかり、城南記念総合病院へ搬送された。搬送後も意識は戻っていないと報じられている。",
-        label: "fictional temporal result",
-        keywords: "朝倉澪, 澪, 朝倉, 私立星浜学園, 星浜学園, 女子生徒, 転落, 階段, 校内, 病院搬送, 意識戻らず, 城南記念総合病院, いじめ, 三浦さやか, 2026年4月10日"
-      },
-      {
-        title: "女子高校生死亡、点滴後に容体急変　病院対応に疑問",
-        url: "https://ryosukeucchi0112-boop.github.io/news-article-naruse/",
-        href: "../news-paper/article-naruse",
-        snippet: "2026年1月18日、私立星浜学園高等部に通っていた女子高校生・成瀬栞が、城南記念総合病院で点滴などの処置を受けた後に容体を急変させ死亡した件を報じる劇中記事。",
-        label: "fictional temporal result",
-        keywords: "成瀬栞, 栞, 女子高校生死亡, 点滴, 容体急変, 病院対応, 城南記念総合病院, 私立星浜学園, 星浜学園, 医療, 三浦さやか, 2026年1月18日, 急変, 死亡事故"
-      },
-      {
-        title: "私立星浜学園、16年ぶり甲子園出場　主将・黒崎蓮司「支えてくれた人たちに感謝」",
-        url: "https://ryosukeucchi0112-boop.github.io/news-article-renji/",
-        href: "../news-paper/article-renji",
-        snippet: "私立星浜学園高等部が春季県大会を制し、16年ぶりの甲子園出場を決めたことを伝える劇中記事。主将として黒崎蓮司の名前が掲載されている。",
-        label: "fictional cached record",
-        keywords: "黒崎蓮司, 蓮司, 黒崎, 私立星浜学園, 星浜学園, 甲子園, 主将, 野球部, 春季県大会, 学校, 三浦新聞, 三浦さやか"
+        keywords: "三浦新聞, 三浦, ニュース, 地域ニュース, 三浦さやか, 星浜学園, 私立星浜学園, 私立星浜学園高等部, 城南記念総合病院, 朝倉澪, 澪, 朝倉, 女子生徒, 転落, 階段, 校内, 病院搬送, 意識戻らず, いじめ, 成瀬栞, 栞, 女子高校生死亡, 点滴, 容体急変, 病院対応, 急変, 死亡事故, 黒崎蓮司, 蓮司, 黒崎, 甲子園, 主将, 野球部, 春季県大会, 医療, 学校, 事件, 私立星浜学園の女子生徒が校内で転落, 女子高校生死亡 点滴後に容体急変, 私立星浜学園 16年ぶり甲子園出場"
       },
       {
         title: "朝倉澪の日常｜朝倉澪の個人ブログ",
-        url: "https://ryosukeucchi0112-boop.github.io/mio-blog/",
+        url: "http://fictreal-arg/work1/blog/",
         href: "../blog/",
         snippet: "星浜学園に通う朝倉澪が書いていた劇中の個人ブログ。何気ない日常と、そのとき考えていたことの記録として残されている。事件の感情面と手がかりを辿る重要なページ。",
-        label: "fictional public index",
+        label: "fictional record layer",
         keywords: "朝倉澪",
         exactQueryOnly: ["朝倉澪"]
       },
       {
         title: "SUZUKI CHAT",
-        url: "https://ryosukeucchi0112-boop.github.io/suzuki-chat/",
-        href: "../suzuki-chat/",
-        snippet: "朝倉澪とSUZUKIのやり取りが断片的に残された劇中チャットログ。04.17以前の記録として、澪が何を調べ、誰に助けを求めていたのかを辿る手がかりになる。",
+        url: "http://fictreal-arg/work1/suzuki-chat/",
+        href: "../403/?target=suzuki-chat&from=temporal-web",
+        snippet: "朝倉澪とSUZUKIのやり取りが断片的に残された劇中チャットログ。記録層内の痕跡として、澪が何を調べ、誰に助けを求めていたのかを辿る手がかりになる。",
         label: "fictional restricted cache",
         keywords: [
-          "https://ryosukeucchi0112-boop.github.io/suzuki-chat/",
-          "ryosukeucchi0112-boop.github.io/suzuki-chat/",
+          "http://fictreal-arg/work1/suzuki-chat/",
+          "fictreal-arg/work1/suzuki-chat/",
           "suzuki-chat/"
         ],
         directOnly: true
@@ -1098,16 +1083,16 @@
     function setResultMode(query) {
       document.body.classList.add("has-results");
       queryReadout.textContent = `query: ${query || "—"}`;
-      indexStatus.textContent = "fictional public index active";
+      indexStatus.textContent = "temporal web layer active";
     }
 
     function showLoading() {
       output.innerHTML = `
         <div class="loading-panel">
           <ul class="loading-lines" aria-label="record trace progress">
-            <li id="loadLine1">connecting to 04.17 layer...</li>
+            <li id="loadLine1">TEMPORAL WEB領域を展開しています...</li>
             <li id="loadLine2">restoring cached records...</li>
-            <li id="loadLine3">filtering fictional public index...</li>
+            <li id="loadLine3">filtering fictional record layer...</li>
           </ul>
         </div>
       `;
@@ -1132,7 +1117,7 @@
         <div class="empty-panel blocked">
           <h2 class="empty-title">No indexed record found.</h2>
           <p class="empty-text">
-            04.17時点の公開Web領域に一致する記録はありません。<br />
+            過去記録領域に一致する記録はありません。<br />
             一部の記録は、この劇中インデックスから除外されています。
           </p>
         </div>
@@ -1145,12 +1130,12 @@
         <div class="empty-panel">
           <h2 class="empty-title">No indexed record found.</h2>
           <p class="empty-text">
-            04.17時点の公開Web領域に一致する記録はありません。<br />
+            過去記録領域に一致する記録はありません。<br />
             調査語を変えてください：病院名 / 人物名 / 学校名 / 記事タイトル
           </p>
         </div>
       `;
-      indexStatus.textContent = "no fictional public result";
+      indexStatus.textContent = "no temporal record result";
     }
 
     function getResultHref(item) {
@@ -1159,13 +1144,13 @@
 
     function renderResults(results) {
       const html = results.map((item) => `
-        <a class="result-item" href="${escapeHtml(getResultHref(item))}" target="_blank" rel="noopener noreferrer">
+        <a class="result-item" href="${escapeHtml(getResultHref(item))}">
           <h2 class="result-title">${escapeHtml(item.title)}</h2>
           <p class="result-url">${escapeHtml(item.url)}</p>
           <p class="result-snippet">${escapeHtml(item.snippet)}</p>
           <span class="result-footer">
             <span class="result-label">${escapeHtml(item.label)}</span>
-            <span class="result-open-hint">調査結果を別タブで表示</span>
+            <span class="result-open-hint">記録層へ進む</span>
           </span>
         </a>
       `).join("");

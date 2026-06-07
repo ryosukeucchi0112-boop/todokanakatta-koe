@@ -1,0 +1,821 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+
+body {
+  background: #eeece3;
+  color: #201c17;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-brand {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: rgba(238, 236, 227, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: rgba(0,0,0,0.45);
+}
+
+.site-title {
+  margin: 6px 0 0;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.7);
+}
+
+.main {
+  padding: 36px 0 96px;
+}
+
+.hero {
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 32px;
+  background: #f4f1e8;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 44px;
+}
+
+.hero-label,
+.section-label,
+.card-label {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: rgba(0,0,0,0.45);
+}
+
+.hero-heading {
+  margin: 18px 0 0;
+  font-size: 58px;
+  line-height: 1.08;
+  font-weight: 500;
+}
+
+.hero-since {
+  margin: 18px 0 0;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(0,0,0,0.65);
+}
+
+.hero-text {
+  margin: 28px 0 0;
+  max-width: 540px;
+  line-height: 2;
+  color: rgba(0,0,0,0.65);
+}
+
+.hero-actions {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-image-wrap {
+  min-width: 0;
+}
+
+.hero-image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #ebe7dc;
+  padding: 16px;
+  box-shadow: inset 0 1px 10px rgba(0,0,0,0.05);
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.button {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.button.primary {
+  background: #1f1b16;
+  color: white;
+}
+
+.button.secondary {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.7);
+  color: rgba(0,0,0,0.75);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 16px;
+  border-radius: 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 45%, rgba(255,255,255,0.05));
+  pointer-events: none;
+}
+
+.hero-badge {
+  position: absolute;
+  top: 34px;
+  left: 34px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.88);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  backdrop-filter: blur(8px);
+}
+
+.hero-school-name {
+  position: absolute;
+  right: 34px;
+  bottom: 34px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.65);
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.section {
+  margin-top: 48px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+}
+
+.section-title {
+  margin: 8px 0 0;
+  font-size: 42px;
+  font-weight: 500;
+}
+
+.section-link {
+  font-size: 14px;
+  color: rgba(0,0,0,0.5);
+}
+
+.news-list {
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #f8f5ed;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.05);
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 120px 110px 1fr 24px;
+  gap: 12px;
+  align-items: center;
+  padding: 22px 28px;
+  transition: background 0.2s ease;
+}
+
+.news-item + .news-item {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.news-item:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+.news-date {
+  font-size: 14px;
+  color: rgba(0,0,0,0.45);
+}
+
+.news-category {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.7);
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
+}
+
+.news-title {
+  font-size: 18px;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.cards {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #f8f5ed;
+  padding: 24px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.04);
+}
+
+.card-title {
+  margin: 14px 0 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.card-text {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(0,0,0,0.65);
+}
+
+.notice {
+  margin-top: 56px;
+  border-radius: 28px;
+  border: 1px dashed rgba(0,0,0,0.15);
+  background: #f5f2e8;
+  padding: 24px 28px;
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(0,0,0,0.6);
+}
+
+.site-footer {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: #ece9de;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 28px 0;
+  font-size: 14px;
+  color: rgba(0,0,0,0.5);
+}
+
+#philosophy .cards {
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  .hero-grid,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-heading {
+    font-size: 42px;
+  }
+
+  .news-item {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner,
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-image {
+    height: 320px;
+  }
+}
+.hero-background {
+  position: relative;
+  min-height: 520px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  background: #d9d4c7;
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-bg-dark {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.hero-bg-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.16) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 44px;
+}
+
+.hero-copy-full {
+  max-width: 720px;
+}
+
+.hero-label-on-image {
+  display: inline-flex;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.hero-heading-on-image {
+  color: white;
+}
+
+.hero-since-on-image {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.hero-text-on-image {
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 620px;
+}
+
+.light-button {
+  background: white;
+  color: #1f1b16;
+}
+
+.secondary-on-image {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.hero-school-name-on-image {
+  align-self: flex-end;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 900px) {
+  .hero-background,
+  .hero-content {
+    min-height: 440px;
+  }
+
+  .hero-content {
+    padding: 28px;
+  }
+}
+.fiction-banner {
+  width: min(1120px, calc(100% - 40px));
+  margin: 18px auto 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(120, 93, 57, 0.22);
+  border-radius: 12px;
+  background: rgba(255, 250, 238, 0.92);
+  color: #5f4a32;
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+
+.fiction-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 93, 57, 0.28);
+  background: rgba(255, 250, 238, 0.9);
+  color: #6b4f2f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
+.footer-fiction-note {
+  max-width: 520px;
+  margin: 10px 0 0;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+@media (max-width: 700px) {
+  .fiction-banner {
+    width: calc(100% - 28px);
+    margin-top: 14px;
+    padding: 11px 14px;
+    font-size: 11px;
+  }
+
+  .fiction-badge {
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+}
+.ai-image-note {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  z-index: 2;
+  margin: 0;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.42);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 900px) {
+  .ai-image-note {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    text-align: center;
+    font-size: 10px;
+  }
+}
+
+/* =========================
+   全ページ共通 固定フィクションヘッダー
+========================= */
+
+.fiction-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  background: rgba(82, 82, 82, 0.94);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Hiragino Sans",
+    "Yu Gothic", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* 固定帯のぶんだけ全体を下げる */
+body {
+  padding-top: 28px;
+}
+
+/* 学校ヘッダーは固定しない */
+.site-header {
+  position: relative;
+  z-index: 10;
+}
+
+/* ヘッダー内のフォントを統一 */
+.site-header,
+.site-header * {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+
+/* navだけ色味を安定させる */
+.nav a {
+  color: rgba(0, 0, 0, 0.68);
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: rgba(0, 0, 0, 0.95);
+}
+
+/* mainの余白を有効化 */
+.main {
+  padding: 36px 0 96px;
+}
+
+/* お知らせのメタ情報を整列 */
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* フィクション補足バッジをやや控えめに */
+.fiction-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(80, 80, 80, 0.18);
+  background: rgba(255, 255, 255, 0.65);
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* フッターの架空・AI画像表記 */
+.footer-inner {
+  align-items: flex-start;
+}
+
+.footer-fiction-note {
+  max-width: 520px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: right;
+}
+
+/* 不要になった個別バナー類は非表示 */
+.fiction-banner,
+.notice,
+.ai-image-note {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .fiction-fixed-header {
+    height: auto;
+    min-height: 30px;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+
+  body {
+    padding-top: 30px;
+  }
+
+  .footer-fiction-note {
+    text-align: left;
+  }
+
+  .news-meta {
+    gap: 6px;
+  }
+}
+
+/* お知らせ詳細：一覧と同じ紙面トーンで同一HTML内に配置 */
+.news-detail {
+  display: none;
+  margin-top: 28px;
+  padding: 30px 32px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 28px;
+  background: #f8f5ed;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.04);
+  scroll-margin-top: 48px;
+}
+
+.news-detail:target {
+  display: block;
+}
+
+.news-detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.news-detail-title {
+  margin: 8px 0 0;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.news-detail-body {
+  margin-top: 22px;
+  color: rgba(0,0,0,0.68);
+  font-size: 16px;
+  line-height: 2.05;
+}
+
+.news-detail-body p {
+  margin: 0 0 18px;
+}
+
+.news-detail-body p:last-child {
+  margin-bottom: 0;
+}
+
+.news-back-link {
+  margin-top: 26px;
+}
+
+@media (max-width: 900px) {
+  .news-detail {
+    padding: 22px 20px;
+  }
+
+  .news-detail-head {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .news-detail-title {
+    font-size: 24px;
+  }
+
+  .news-detail-body {
+    font-size: 15px;
+    line-height: 1.95;
+  }
+}
+
+/* お知らせ一覧ページ：横幅と記事カードを整え、読みやすさを優先 */
+.news-page-section {
+  width: min(960px, calc(100% - 40px));
+  margin: 48px auto 0;
+}
+
+.news-page-section .section-head {
+  padding: 0 4px;
+}
+
+.news-page-section .news-list {
+  border-radius: 24px;
+}
+
+.news-page-section .news-item {
+  grid-template-columns: 118px 108px minmax(0, 1fr) 20px;
+  padding: 20px 24px;
+}
+
+.news-page-section .news-title {
+  min-width: 0;
+}
+
+.news-arrow {
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 24px;
+  line-height: 1;
+  text-align: right;
+}
+
+.news-page-section .news-detail {
+  border-radius: 24px;
+  scroll-margin-top: 76px;
+}
+
+.news-page-section .news-detail-body {
+  max-width: 760px;
+}
+
+.news-page-section .news-back-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.news-page-section .news-item:focus-visible,
+.news-page-section .news-back-link:focus-visible {
+  outline: 3px solid rgba(88, 69, 38, 0.28);
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .news-page-section {
+    width: calc(100% - 28px);
+    margin-top: 34px;
+  }
+
+  .news-page-section .section-title {
+    font-size: 34px;
+  }
+
+  .news-page-section .news-list,
+  .news-page-section .news-detail {
+    border-radius: 20px;
+  }
+
+  .news-page-section .news-item {
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    padding: 18px 16px;
+  }
+
+  .news-page-section .news-item .news-date,
+  .news-page-section .news-item .news-meta,
+  .news-page-section .news-item .news-title {
+    grid-column: 1;
+  }
+
+  .news-page-section .news-item .news-title {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .news-page-section .news-arrow {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    align-self: center;
+  }
+}
