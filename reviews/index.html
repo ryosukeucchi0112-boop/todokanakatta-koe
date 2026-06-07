@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>みんなの感想 | 届かなかった声</title>
+  <meta
+    name="description"
+    content="ARG作品『届かなかった声』を終えたプレイヤーの感想を一覧表示する創作作品内ページです。"
+  />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="fiction-fixed-header">
+    FICTIONAL EXPERIENCE / このページは創作作品内の感想共有ページです
+  </div>
+
+  <main class="page">
+    <section class="hero-card" aria-labelledby="reviews-title">
+      <p class="eyebrow">after ending voices</p>
+      <h1 id="reviews-title">みんなの感想</h1>
+      <p class="subtitle">この物語を終えた人たちの記録</p>
+      <p class="lead">ここには、物語を最後まで辿ったプレイヤーの感想が表示されます。</p>
+
+      <div class="actions" aria-label="ページ移動">
+        <a class="button button-primary" href="/feedback/">感想を書く</a>
+        <a class="button button-secondary" href="/">作品入口へ戻る</a>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="感想の統計">
+      <article class="stat-card">
+        <p class="stat-label">投稿数</p>
+        <p class="stat-value" id="totalCount">—</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">平均満足度</p>
+        <p class="stat-value" id="averageRating">—</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">最新投稿</p>
+        <p class="stat-value stat-date" id="latestPost">—</p>
+      </article>
+    </section>
+
+    <section class="list-panel" aria-labelledby="list-title">
+      <div class="list-header">
+        <div>
+          <p class="eyebrow compact">shared records</p>
+          <h2 id="list-title">感想一覧</h2>
+        </div>
+        <label class="sort-control" for="sortSelect">
+          <span>並び替え</span>
+          <select id="sortSelect" name="sort">
+            <option value="newest">新しい順</option>
+            <option value="rating">満足度が高い順</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="state-message" id="loadingState" aria-live="polite">記録を読み込んでいます...</p>
+      <p class="state-message is-hidden" id="emptyState">まだ感想は届いていません。<br />最初の記録が送信されるのを待っています。</p>
+      <p class="state-message state-error is-hidden" id="errorState">感想の読み込みに失敗しました。<br />時間をおいてもう一度お試しください。</p>
+
+      <div class="reviews-list" id="reviewsList" aria-live="polite"></div>
+    </section>
+
+    <footer class="page-footer">
+      本ページは創作作品内の感想共有ページです。表示される投稿は作品体験後の任意投稿であり、実在の問い合わせ・相談窓口ではありません。
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
