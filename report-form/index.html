@@ -408,14 +408,14 @@
 
         <form
           id="reportForm"
-          name="fictional-emergency-case"
+          name="report-form"
           method="POST"
           data-netlify="true"
           netlify
           netlify-honeypot="bot-field"
           enctype="multipart/form-data"
         >
-          <input type="hidden" name="form-name" value="fictional-emergency-case" />
+          <input type="hidden" name="form-name" value="report-form" />
 
           <p class="honeypot">
             <label>Don’t fill this out: <input name="bot-field" /></label>
@@ -732,7 +732,7 @@
       } catch (error) {
         console.error(error);
 
-        showError("送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに fictional-emergency-case が表示されているか確認してください。");
+        showError("送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに report-form が表示されているか確認してください。");
       }
     });
   </script>

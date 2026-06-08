@@ -146,7 +146,8 @@ const loadReviews = async () => {
 
   const { data, error } = await supabaseClient
     .from('reviews')
-    .select('id, nickname, satisfaction, comment, created_at')
+    .select('id, nickname, satisfaction, comment, created_at, is_public')
+    .eq('is_public', true)
     .order('created_at', { ascending: false });
 
   setVisible(loadingState, false);
