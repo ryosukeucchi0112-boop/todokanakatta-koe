@@ -1229,6 +1229,18 @@
       opacity: 0;
       animation: finalBtn 1.2s ease 2.6s forwards;
     }
+
+    .ending-fiction-footer {
+      width: min(100%, 680px);
+      margin: 28px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.46);
+      font-size: 11px;
+      line-height: 1.85;
+      letter-spacing: .06em;
+    }
+
     @keyframes finalBtn { to { opacity: 1; } }
 
     .hidden-audio { display: none; }
@@ -1385,6 +1397,10 @@
     <div class="suzuki">新アクティブノベルゲーム</div>
     <div class="work-title">届かなかった声</div>
     <a class="final-button" href="./feedback.html">感想を書く</a>
+    <footer class="ending-fiction-footer">
+      このエンディングは創作作品内の演出です。実在の報道・公的記録・人物・団体・事件とは関係ありません。<br />
+      人物・施設・風景等の画像にはAI生成画像または加工画像を含みます。
+    </footer>
   </div>
 </section>
   </div>
@@ -1756,13 +1772,5 @@ async function startSequence() {
       initTerminal();
     });
   </script>
-
-  <footer class="arg-fiction-footer" aria-label="作品に関する注記">
-    <p>
-      本作品に登場する人物・団体・施設・地名・事件はすべて架空です。
-      実在の人物・団体・施設・事件とは関係ありません。
-      本作品に登場する人物・施設・風景等の画像は、AI生成画像または加工画像を含みます。
-    </p>
-  </footer>
 </body>
 </html>

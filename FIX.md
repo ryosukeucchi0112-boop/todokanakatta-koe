@@ -130,3 +130,65 @@
 
 ### 残っている懸念点
 - ブラウザ実機での遷移・Supabase投稿確認は、この環境にブラウザ実行ファイルがないため未実施。
+
+## 2026-06-08 共通フッター削除・ページ別fictional footer調整
+
+### 修正目的
+全ページへ機械的に追加されていた共通フッターを削除し、各ページの既存デザインに合うfictional footerだけを残す。
+
+### 変更したファイル
+- assets/common-fiction.css
+- index.html
+- blog/index.html
+- ending/index.html
+- ending/feedback.html
+- famous-people/index.html
+- report-form/index.html
+- reviews/index.html
+- 403/index.html
+- hospital/index.html
+- hospital/news.html
+- hospital/articles/basement-lab-renovation.html
+- hospital/articles/golden-week-2026.html
+- hospital/articles/records-digitization.html
+- hospital/articles/resident-recruitment-2027.html
+- mail/index.html
+- news-paper/index.html
+- news-paper/article.html
+- news-paper/article-education.html
+- news-paper/article-hospital.html
+- news-paper/article-mio.html
+- news-paper/article-naruse.html
+- news-paper/article-renji.html
+- news-paper/article-station.html
+- news-paper/asakura-mio-safe.html
+- school/index.html
+- school/news.html
+- search/index.html
+- suzuki-chat/index.html
+- suzuki-chat/renji-chat.html
+- suzuki-chat/hospital-admin-log.html
+
+### 主な修正内容
+- 全HTMLから共通の `arg-fiction-footer` ブロックを削除。
+- `assets/common-fiction.css` から共通フッター用CSSのみ削除し、固定FICTIONALヘッダー関連CSSは維持。
+- 既存の病院・学校・ニュース・検索・メール・裏サイト系フッターは、ページ固有デザインに合っているため残置。
+- フッター文言が不足していたページのみ、そのページの既存CSS・世界観に合わせてフィクション表記とAI生成/加工画像表記を補強。
+- endingは全画面演出のため、ページ外に共通フッターを置かず、credits画面内にterminal風の小さなfictional footerを追加。
+
+### 原則対応
+- ヘッダー維持：固定FICTIONALヘッダーのHTML/CSS/JSは変更なし。
+- 混同リスク回避：全ページのfooterに架空性と実在機関との無関係性が残るよう確認。
+- 没入感維持：同一デザインの共通フッターを廃止し、ブログ・広報・感想・フォーム・endingごとの既存トーンに合わせて調整。
+- スマホ対応：既存footerのレスポンシブ指定を維持し、追加文言は既存footer内で自然に折り返す構成にした。
+
+### 確認した項目
+- 共通フッター：全HTMLから `arg-fiction-footer` が消えていることを確認。
+- ヘッダー：`arg-fiction-header-unified` と共通ヘッダーCSSが残っていることを確認。
+- フッター文言：全HTMLにページ固有footerがあり、架空性とAI生成/加工画像の表記が含まれることを確認。
+- リンク：静的な内部href/srcに空リンク、#のみリンク、存在しない相対リンクがないことを確認。
+- JSエラー：外部JSと全HTML内インラインscriptを構文チェック。
+- ページ表示：ローカルHTTPで全HTMLが200応答することを確認。
+
+### 残っている懸念点
+- ブラウザ実機での視覚確認・Console確認は、この環境にブラウザ実行ファイルがないため未実施。

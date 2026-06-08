@@ -92,24 +92,6 @@ body > .arg-fiction-header-unified span {
   display: inline-block;
 }
 
-.arg-fiction-footer {
-  width: 100%;
-  margin: 0;
-  padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
-  border-top: 1px solid rgba(120, 120, 120, 0.18);
-  background: rgba(32, 34, 38, 0.92);
-  color: rgba(255, 255, 255, 0.74);
-  font-family: var(--arg-fiction-font);
-  font-size: 11px;
-  line-height: 1.75;
-  letter-spacing: 0.02em;
-  text-align: center;
-}
-
-.arg-fiction-footer p {
-  max-width: 880px;
-  margin: 0 auto;
-}
 
 .arg-risk-note,
 .arg-medical-record-note {
@@ -151,10 +133,5 @@ body > .arg-fiction-header-unified span {
   body > .arg-fiction-header-unified strong,
   body > .arg-fiction-header-unified span {
     display: block;
-  }
-
-  .arg-fiction-footer {
-    padding-inline: 14px;
-    font-size: 10.5px;
   }
 }
