@@ -587,9 +587,10 @@
                 type="file"
                 accept="image/*,.pdf,.doc,.docx,.txt"
                 multiple
+                data-max-files="5"
               />
               <p class="hint">
-                ※劇中で確認した証拠資料、スクリーンショット、PDF、メモファイルなどを添付できます。
+                ※劇中で確認した証拠資料、スクリーンショット、PDF、メモファイルなどを最大5つまで添付できます。
               </p>
             </div>
 
@@ -652,6 +653,8 @@
   <script>
     const form = document.getElementById("reportForm");
     const errorBox = document.getElementById("errorBox");
+    const evidenceFileInput = document.getElementById("evidenceFile");
+    const maxEvidenceFiles = Number(evidenceFileInput.dataset.maxFiles || 5);
     const formScreen = document.getElementById("formScreen");
     const successScreen = document.getElementById("successScreen");
 
@@ -670,6 +673,23 @@
       return selected ? selected.value : "";
     }
 
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+      errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function hasTooManyEvidenceFiles() {
+      return evidenceFileInput.files && evidenceFileInput.files.length > maxEvidenceFiles;
+    }
+
+    evidenceFileInput.addEventListener("change", function () {
+      if (!hasTooManyEvidenceFiles()) return;
+
+      evidenceFileInput.value = "";
+      showError(`資料ログ・スクリーンショットは最大${maxEvidenceFiles}つまで添付できます。`);
+    });
+
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
@@ -678,10 +698,12 @@
       });
 
       if (!isCorrect) {
-        errorBox.textContent =
-          "情報が不足、または証拠内容と一致していません。救出が必要な人物・関与人物・物語内で進行中の危険を再確認してください。";
-        errorBox.style.display = "block";
-        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        showError("情報が不足、または証拠内容と一致していません。救出が必要な人物・関与人物・物語内で進行中の危険を再確認してください。");
+        return;
+      }
+
+      if (hasTooManyEvidenceFiles()) {
+        showError(`資料ログ・スクリーンショットは最大${maxEvidenceFiles}つまで添付できます。`);
         return;
       }
 
@@ -710,10 +732,7 @@
       } catch (error) {
         console.error(error);
 
-        errorBox.textContent =
-          "送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに fictional-emergency-case が表示されているか確認してください。";
-        errorBox.style.display = "block";
-        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        showError("送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに fictional-emergency-case が表示されているか確認してください。");
       }
     });
   </script>
