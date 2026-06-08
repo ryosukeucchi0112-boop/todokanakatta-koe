@@ -392,14 +392,15 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../assets/common-fiction.css" />
 </head>
 
 <body>
-  <div class="fiction-fixed-header">
-    このページは創作作品内の架空資料です。実在の病院・医師・患者・事件・内部文書とは関係ありません。
+  <div class="arg-fiction-header-unified">
+    <strong>FICTIONAL STORY INTERFACE</strong>
+    <span>このページは創作作品内の架空Webページです</span>
   </div>
-
-  <main class="page">
+<main class="page">
     <div class="top-link">
       <a href="./">← SUZUKI CHATへ戻る</a>
     </div>
@@ -446,6 +447,8 @@
       <div class="notice-box">
         この記録はARG作品内の演出用に作成された架空ログです。実在する医療機関の記録、患者情報、法務文書、内部通信ではありません。
       </div>
+
+      <p class="arg-medical-record-note">劇中医療記録 / FICTIONAL MEDICAL RECORD</p>
 
       <section class="log-list" aria-label="内部通信ログ">
         <article class="log-entry">
@@ -552,10 +555,10 @@
       <section class="attachment" aria-label="添付ファイル">
         <div class="attachment-title">ATTACHMENT</div>
 
-        <a class="file-card" href="#" aria-label="restricted case file">
+        <div class="file-card" role="group" aria-label="restricted case file">
           <span class="file-name">case_0117_internal_summary.redacted</span>
           <span class="file-meta">READ ONLY / ACCESS LIMITED</span>
-        </a>
+        </div>
 
         <div class="access-level">
           Access level: Director / Legal / Administrative Control

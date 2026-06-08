@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>緊急案件送信フォーム | FICTIONAL ARG</title>
+  <title>劇中記録送信フォーム | FICTIONAL ARG</title>
   <meta name="description" content="このページは創作作品上の架空UIです。実在の警察・行政機関・医療機関とは関係ありません。" />
 
-  <meta property="og:title" content="緊急案件送信フォーム | FICTIONAL ARG" />
+  <meta property="og:title" content="劇中記録送信フォーム | FICTIONAL ARG" />
   <meta property="og:description" content="このページは創作作品上の架空UIです。送信しても実在の警察・行政機関には届きません。" />
   <meta property="og:type" content="website" />
 
@@ -378,43 +378,44 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="../assets/common-fiction.css" />
 </head>
 
 <body>
-  <div class="arg-fiction-header">
-    このページは創作作品上の架空UIです。実在の警察・行政機関・医療機関・人物とは関係ありません。
+  <div class="arg-fiction-header-unified">
+    <strong>FICTIONAL STORY INTERFACE</strong>
+    <span>このページは創作作品内の架空Webページです</span>
   </div>
-
-  <main class="page">
+<main class="page">
     <section class="terminal" id="formScreen">
       <div class="topbar">
-        <span>FICTIONAL EMERGENCY CASE INTAKE</span>
+        <span>FICTIONAL STORY EVIDENCE INTAKE</span>
         <span class="badge">FICTIONAL INTERFACE</span>
       </div>
 
       <div class="content">
-        <h1>緊急案件送信フォーム</h1>
+        <h1>劇中記録送信フォーム</h1>
         <p class="subtitle">
-          取得した劇中資料を整理し、物語内で進行中の危険について記録してください。<br>
+          取得した劇中資料を整理し、物語内で進行中の危険について、作品内の証拠として記録してください。<br>
           内容に重大な不足がある場合、アーカイブへの統合は行われません。
         </p>
 
         <div class="notice">
-          このページは創作作品の演出用に作成された架空の送信UIです。
-          実在の警察・行政機関・医療機関・人物への連絡機能はありません。
+          このフォームは創作作品内の演出です。<br />
+          送信内容は実在の警察・行政機関・医療機関には届きません。
           入力内容は、作品内の進行判定と演出のために使用されます。
         </div>
 
         <form
           id="reportForm"
-          name="fictional-emergency-case"
+          name="report-form"
           method="POST"
           data-netlify="true"
           netlify
           netlify-honeypot="bot-field"
           enctype="multipart/form-data"
         >
-          <input type="hidden" name="form-name" value="fictional-emergency-case" />
+          <input type="hidden" name="form-name" value="report-form" />
 
           <p class="honeypot">
             <label>Don’t fill this out: <input name="bot-field" /></label>
@@ -586,9 +587,10 @@
                 type="file"
                 accept="image/*,.pdf,.doc,.docx,.txt"
                 multiple
+                data-max-files="5"
               />
               <p class="hint">
-                ※劇中で確認した証拠資料、スクリーンショット、PDF、メモファイルなどを添付できます。
+                ※劇中で確認した証拠資料、スクリーンショット、PDF、メモファイルなどを最大5つまで添付できます。
               </p>
             </div>
 
@@ -610,10 +612,10 @@
             </div>
 
             <div class="submit-fiction-notice">
-              この送信は実在の警察・行政機関には届きません。表示される受理結果・担当者名・処理結果はすべて作品内の演出です。
+              このフォームは創作作品内の演出です。送信内容は実在の警察・行政機関・医療機関には届きません。表示される処理結果はすべて作品内の演出です。
             </div>
 
-            <button type="submit">この内容で緊急案件を送信する</button>
+            <button type="submit">証拠を送信する</button>
           </div>
         </form>
       </div>
@@ -622,7 +624,7 @@
     <section class="terminal success" id="successScreen">
       <h2>記録が統合されました</h2>
       <p>
-        提出された内容は、作品内の緊急案件記録として保存されました。
+        提出された内容は、作品内の証拠記録として保存されました。
       </p>
       <p>
         救出対象の所在、関係者の動き、関連施設内の記録保全に関する演出シーケンスへ接続します。
@@ -642,15 +644,17 @@
       </p>
     </section>
 
-    <p class="fiction">
-      このページはフィクション作品内の演出ページです。実在の警察機関・行政機関・医療機関・人物とは関係ありません。
-      送信内容は実在機関への通報・相談・連絡として扱われません。
-    </p>
+    <footer class="fiction report-fiction-footer">
+      このページはフィクション作品内の演出ページです。実在の警察機関・行政機関・医療機関・人物とは関係ありません。<br />
+      送信内容は実在機関への通報・相談・連絡として扱われません。人物・施設・風景等の画像にはAI生成画像または加工画像を含みます。
+    </footer>
   </main>
 
   <script>
     const form = document.getElementById("reportForm");
     const errorBox = document.getElementById("errorBox");
+    const evidenceFileInput = document.getElementById("evidenceFile");
+    const maxEvidenceFiles = Number(evidenceFileInput.dataset.maxFiles || 5);
     const formScreen = document.getElementById("formScreen");
     const successScreen = document.getElementById("successScreen");
 
@@ -669,6 +673,23 @@
       return selected ? selected.value : "";
     }
 
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+      errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function hasTooManyEvidenceFiles() {
+      return evidenceFileInput.files && evidenceFileInput.files.length > maxEvidenceFiles;
+    }
+
+    evidenceFileInput.addEventListener("change", function () {
+      if (!hasTooManyEvidenceFiles()) return;
+
+      evidenceFileInput.value = "";
+      showError(`資料ログ・スクリーンショットは最大${maxEvidenceFiles}つまで添付できます。`);
+    });
+
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
@@ -677,10 +698,12 @@
       });
 
       if (!isCorrect) {
-        errorBox.textContent =
-          "情報が不足、または証拠内容と一致していません。救出が必要な人物・関与人物・物語内で進行中の危険を再確認してください。";
-        errorBox.style.display = "block";
-        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        showError("情報が不足、または証拠内容と一致していません。救出が必要な人物・関与人物・物語内で進行中の危険を再確認してください。");
+        return;
+      }
+
+      if (hasTooManyEvidenceFiles()) {
+        showError(`資料ログ・スクリーンショットは最大${maxEvidenceFiles}つまで添付できます。`);
         return;
       }
 
@@ -709,10 +732,7 @@
       } catch (error) {
         console.error(error);
 
-        errorBox.textContent =
-          "送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに fictional-emergency-case が表示されているか確認してください。";
-        errorBox.style.display = "block";
-        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        showError("送信処理中にエラーが発生しました。Netlify側でフォームが認識されていない可能性があります。Formsに report-form が表示されているか確認してください。");
       }
     });
   </script>

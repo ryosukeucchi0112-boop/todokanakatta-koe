@@ -1,0 +1,137 @@
+:root {
+  --arg-fiction-header-height: 42px;
+  --arg-fiction-header-bg: rgba(62, 66, 72, 0.96);
+  --arg-fiction-header-ink: rgba(255, 255, 255, 0.88);
+  --arg-fiction-header-line: rgba(255, 255, 255, 0.14);
+  --arg-fiction-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", YuGothic, Meiryo, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  padding-top: var(--arg-fiction-header-height) !important;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+iframe,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"] {
+  min-height: 44px;
+}
+
+body > .fiction-header,
+body > .fiction-fixed-header,
+body > .fiction-notice,
+body > .arg-fiction-header,
+body > .fiction-bar,
+body > #fiction-notice,
+body > .arg-fiction-header-unified {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 2147483000 !important;
+  min-height: var(--arg-fiction-header-height) !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.65em !important;
+  padding: 6px 14px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--arg-fiction-header-line) !important;
+  border-radius: 0 !important;
+  background: var(--arg-fiction-header-bg) !important;
+  color: var(--arg-fiction-header-ink) !important;
+  box-shadow: none !important;
+  font-family: var(--arg-fiction-font) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.02em !important;
+  text-align: center !important;
+  text-transform: none !important;
+  pointer-events: none !important;
+  backdrop-filter: blur(8px);
+}
+
+body > .arg-fiction-header-unified strong {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+body > .arg-fiction-header-unified span {
+  display: inline-block;
+}
+
+
+.arg-risk-note,
+.arg-medical-record-note {
+  border: 1px solid rgba(180, 134, 48, 0.34);
+  border-radius: 12px;
+  background: rgba(255, 249, 232, 0.86);
+  color: #60430f;
+  padding: 12px 14px;
+  font-family: var(--arg-fiction-font);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.arg-medical-record-note {
+  margin: 14px 0;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --arg-fiction-header-height: 48px;
+  }
+
+  body > .fiction-header,
+  body > .fiction-fixed-header,
+  body > .fiction-notice,
+  body > .arg-fiction-header,
+  body > .fiction-bar,
+  body > #fiction-notice,
+  body > .arg-fiction-header-unified {
+    flex-direction: column !important;
+    gap: 1px !important;
+    padding: 6px 10px !important;
+    font-size: 10.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  body > .arg-fiction-header-unified strong,
+  body > .arg-fiction-header-unified span {
+    display: block;
+  }
+}

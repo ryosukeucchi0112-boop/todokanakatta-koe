@@ -234,6 +234,54 @@
       color: var(--text);
     }
 
+    .public-choice-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .public-choice-group .field-label {
+      grid-column: 1 / -1;
+      margin-bottom: 2px;
+    }
+
+    .public-choice-option { position: relative; }
+
+    .public-choice-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .public-choice-option span {
+      display: flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(5, 6, 8, 0.58);
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .public-choice-option input:focus-visible + span {
+      outline: 2px solid rgba(216, 208, 195, 0.68);
+      outline-offset: 3px;
+    }
+
+    .public-choice-option input:checked + span {
+      border-color: rgba(216, 208, 195, 0.68);
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
     @media (hover: hover) {
       .rating-option span:hover {
         transform: translateY(-1px);
@@ -354,18 +402,21 @@
       .feedback-form { gap: 22px; margin-top: 28px; }
       .rating-group { gap: 7px; }
       .rating-option span { min-height: 46px; border-radius: 13px; }
+      .public-choice-group { grid-template-columns: 1fr; }
+      .public-choice-option span { min-height: 46px; border-radius: 13px; }
       .textarea-input { min-height: 136px; }
       .field-label { display: grid; gap: 2px; }
       .page-footer { text-align: left; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/common-fiction.css" />
 </head>
 <body>
-  <div class="fiction-fixed-header">
-    これは創作作品の一部です。実在の人物・団体・事件とは関係ありません。
+  <div class="arg-fiction-header-unified">
+    <strong>FICTIONAL STORY INTERFACE</strong>
+    <span>このページは創作作品内の架空Webページです</span>
   </div>
-
-  <main class="page">
+<main class="page">
     <section class="feedback-card" aria-labelledby="feedback-title">
       <div class="card-inner" id="feedbackCard">
         <p class="eyebrow">after ending feedback</p>
@@ -374,7 +425,8 @@
           エンディングまで見届けてくださって、ありがとうございました。短い言葉でも構いません。物語の余韻が残っているうちに、感じたことを残してください。
         </p>
 
-        <form class="feedback-form" id="feedbackForm" novalidate>
+        <form class="feedback-form" id="feedbackForm" name="review-form" method="POST" data-netlify="true" netlify novalidate>
+          <input type="hidden" name="form-name" value="review-form" />
           <div class="field">
             <label class="field-label" for="nickname">
               ニックネーム
@@ -432,8 +484,23 @@
             ></textarea>
           </div>
 
+          <fieldset class="public-choice-group">
+            <legend class="field-label">
+              感想を公開しますか？
+              <span>「はい」を選ぶと、みんなの感想ページに表示されます。</span>
+            </legend>
+            <label class="public-choice-option">
+              <input type="radio" name="is_public" value="yes" />
+              <span>はい</span>
+            </label>
+            <label class="public-choice-option">
+              <input type="radio" name="is_public" value="no" checked />
+              <span>いいえ</span>
+            </label>
+          </fieldset>
+
           <p class="notice">
-            ※送信された感想は、ニックネームとともに公開される場合があります。個人情報や実在人物を特定できる内容は書かないでください。
+            ※「はい」を選んだ感想だけが、ニックネームとともに「みんなの感想」に表示されます。個人情報や実在人物を特定できる内容は書かないでください。
           </p>
 
           <p class="form-status" id="formStatus" aria-live="polite"></p>
@@ -450,7 +517,8 @@
     </section>
 
     <footer class="page-footer">
-      本ページは創作作品の感想投稿ページです。実在の通報・相談・問い合わせ窓口ではありません。
+      本ページは創作作品の感想投稿ページです。実在の通報・相談・問い合わせ窓口ではありません。<br />
+      登場する人物・施設・風景等の画像にはAI生成画像または加工画像を含みます。
     </footer>
   </main>
 
@@ -459,7 +527,6 @@
     const SUPABASE_URL = 'https://wbokbcyvmyxqpkknbzmj.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_tl0E7cpYmJRu6IYHw6pM4A_2lzHedCH';
     const REVIEWS_PATH = '../reviews/index.html';
-    const REDIRECT_DELAY_MS = 650;
 
     const feedbackForm = document.getElementById('feedbackForm');
     const feedbackCard = document.getElementById('feedbackCard');
@@ -473,19 +540,6 @@
       formStatus.classList.toggle('is-error', isError);
     };
 
-    const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
-
-    const buildReviewsUrl = (review) => {
-      const url = new URL(REVIEWS_PATH, window.location.href);
-      url.searchParams.set('submitted', '1');
-
-      if (review?.id) {
-        url.searchParams.set('review', review.id);
-      }
-
-      return url.toString();
-    };
-
     const restoreSubmitButton = () => {
       submitButton.disabled = false;
       submitButton.textContent = '感想を送信する';
@@ -495,6 +549,25 @@
       console.error('Failed to submit review:', error);
       restoreSubmitButton();
       setStatus('感想の送信に失敗しました。時間をおいてもう一度お試しください。', true);
+    };
+
+    const submitToNetlify = async ({ nickname, satisfaction, comment, isPublic }) => {
+      const netlifyData = new URLSearchParams();
+      netlifyData.append('form-name', 'review-form');
+      netlifyData.append('nickname', nickname);
+      netlifyData.append('satisfaction', String(satisfaction));
+      netlifyData.append('comment', comment);
+      netlifyData.append('is_public', isPublic ? 'yes' : 'no');
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: netlifyData.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error('Netlify Formsへの送信に失敗しました');
+      }
     };
 
     feedbackForm.addEventListener('submit', async (event) => {
@@ -510,31 +583,33 @@
       }
 
       const formData = new FormData(feedbackForm);
+      const isPublic = formData.get('is_public') === 'yes';
       const feedbackPayload = {
         nickname: String(formData.get('nickname') || '').trim(),
         satisfaction: Number(formData.get('satisfaction')),
         comment: String(formData.get('comment') || '').trim(),
+        is_public: isPublic,
       };
 
       submitButton.disabled = true;
       submitButton.textContent = '送信しています...';
       setStatus('記録を送信しています...');
 
-      let submittedReview;
-
       try {
-        const { data, error } = await supabaseClient
+        const { error } = await supabaseClient
           .from('reviews')
-          .insert([feedbackPayload])
-          .select('id')
-          .single();
+          .insert([feedbackPayload]);
 
         if (error) {
           handleSubmitError(error);
           return;
         }
 
-        submittedReview = data;
+        try {
+          await submitToNetlify({ ...feedbackPayload, isPublic });
+        } catch (netlifyError) {
+          console.warn('Failed to submit review to Netlify Forms:', netlifyError);
+        }
       } catch (error) {
         handleSubmitError(error);
         return;
@@ -543,11 +618,8 @@
       feedbackForm.reset();
       feedbackCard.classList.add('is-submitted');
       successPanel.classList.add('is-visible');
-      setStatus('送信が完了しました。みんなの感想へ移動します...');
+      setStatus('送信が完了しました。');
       successPanel.focus({ preventScroll: true });
-
-      await sleep(REDIRECT_DELAY_MS);
-      window.location.assign(buildReviewsUrl(submittedReview));
     });
   </script>
 </body>
